@@ -18,6 +18,11 @@ h2 {
     font-family: sans-serif;
 }
 
+.centered {
+    display:grid;
+    place-content: center;
+}
+
 .cart {
     background-color: aliceblue;
     padding: 5px;
@@ -102,7 +107,7 @@ i {
     margin-bottom: 10vh;
 }
 
-button {
+button, a.buyBtn {
     padding: 10px 16px;
     font-weight: bold;
     border-radius: 8px;
@@ -181,7 +186,7 @@ button {
     
 }
 
-#successfulPurchase {
+#successfulPurchase, #noProducts {
     width: 80%;
     border: 2px solid #2b2b2b;
     display: none;

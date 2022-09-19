@@ -11,9 +11,7 @@
         btnsContainer = document.getElementById("btnsContainer"),
         shoppingCartCards = document.getElementById("cartCard-container"),
         cardsQty = document.getElementsByClassName("quantity"),
-        totalPrice = document.getElementById("totalPrice"),
-        purchaseDetailsContainer = document.getElementById("successfulPurchase"),
-        purchaseDetails = document.getElementById("purchaseDetails");
+        totalPrice = document.getElementById("totalPrice");
 
     //get the data from the local storage, but if the local storage is empty set it as an empty array
     let cart = JSON.parse(localStorage.getItem("data")) || [];
@@ -23,6 +21,7 @@
     const cleanCartContent = () => {
         cart = [];
         cartLabel.innerHTML = "Cart is empty";
+        totalPrice.innerHTML = "";
         shoppingCartCards.innerHTML = "";
         cartAmount.innerHTML = 0;
         for (let i=0;i<cardsQty.length;i++) {
@@ -120,8 +119,8 @@
         else {
             document.getElementById(`qtyID${id}`).innerHTML = searchCart.quantity;
         }
-        calculateQty();
-        calculateTotalPrice();
+        updateCartIcon(cartAmount);
+        calculateTotalPrice(cart);
         generateCartItems();
     }
 
@@ -131,11 +130,12 @@
         decrementQty(prod);
     }
 
-    const calculateQty = () => {
-        //through the map function access the cart's objects and get an array of the quantity of each object, then use reduce to sum all values
-        let counter = cart.map( (obj) => obj.quantity).reduce( (a,b) => a + b, 0);
-        //assign the number of items added to the cart to the icon
-        cartAmount.innerHTML = counter;
+    const calcAmount = (arr, keyName) => {
+        return arr.map( (obj) => obj[keyName]).reduce( (a,b) => a + b, 0);
+    }
+
+    const updateCartIcon = (targetElement) => {
+        targetElement.innerHTML = calcAmount(cart, "quantity");
     }
 
     const generateCartItems = () => {
@@ -168,14 +168,14 @@
         }
     }
 
-    const calculateTotalPrice = () => {
+    const calculateTotalPrice = (arr) => {
         let total = 0;
-        cart.map(productCart => {
+        arr.map(productCart => {
             let {id, quantity} = productCart;
             let searchData = productsData.find( (product) => ("product" + product.id) === id) || [];
             total += searchData.price * quantity;
         });
-        if (cart.length > 0) {
+        if (arr.length > 0) {
             totalPrice.innerHTML = `TOTAL: $${total}`;
         } else {
             totalPrice.innerHTML = "";
@@ -188,9 +188,9 @@
 
     window.addEventListener("load", () => {
         createProducts();
-        calculateQty();
+        updateCartIcon(cartAmount);
         generateCartItems();
-        calculateTotalPrice();
+        calculateTotalPrice(cart);
     });
 
     //SO-1687296 - dom delegation https://javascript.info/event-delegation
@@ -229,37 +229,35 @@
         }
     });
 
-    buyBtn.addEventListener("click", (e) => {
-
-        if (cart.length !==0) {
-
-            purchaseDetailsContainer.style.display = "inline-block";
-
-            setTimeout( () => {
-                cleanCartContent();
-                calculateTotalPrice();
-                localStorage.clear();
-            }, 250);
-
-            return (purchaseDetails.innerHTML = cart.map((productCart) => {
-                let { id, quantity } = productCart;
-                let searchProductData = productsData.find( (product) => ("product" + product.id) === id) || [];
-                
-                return `<li>
-                <p>Product: ${searchProductData.name} $${searchProductData.price}</p>
-                <p>Quantity: ${quantity}</p>
-                <p>Subtotal: $${quantity * searchProductData.price}</p>
-            </li>`
-            
-            }).join("") + `<h4>Total: $${calculateTotalPrice()}</h4>`);
-        }
-    });
-
     clearCartBtn.addEventListener("click", () => {
         cleanCartContent();
-        calculateTotalPrice();
         localStorage.clear();
     });
 
+    buyBtn.addEventListener("click", () => {
+
+        if (cart.length !==0) {
+
+            setTimeout( () => {
+                cleanCartContent();
+                localStorage.removeItem("data");
+            }, 250);
+
+            let purchaseInfo = cart.map( (productCart) => {
+                let { id, quantity } = productCart;
+                let searchProductData = productsData.find( (product) => ("product" + product.id) === id) || [];
+                return  {
+                    name: searchProductData.name,
+                    price: searchProductData.price,
+                    qty: quantity,
+                    subtotal: (quantity * searchProductData.price)
+                }
+            } );
+            
+            localStorage.setItem("purchaseInfo", JSON.stringify(purchaseInfo));
+        }
+    });
+
+    
     
 })();
