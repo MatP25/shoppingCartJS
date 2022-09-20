@@ -34,7 +34,6 @@
         //the map function will go over every object in productsData and for every object it will return a new piece of html
         return (shop.innerHTML = productsData.map( 
             (element) => {
-            
             // object deconstructing, makes calling the object properties easier by avoiding having to type the object name before the property (object.property)
             let {id, name, price, details, imgSrc} = element;
             //search inside the products inside the cart, if there are zero products return an empty array
@@ -112,13 +111,10 @@
         //find inside the cart the object that matches the id passed as argument by the increment or decrement functions
         const searchCart = cart.find( (obj) => obj.id === id );
         //if there is no match the object does not exist in the cart so set the quantity inside the corresponding product card to 0
-        if (searchCart === undefined) {
-            document.getElementById(`qtyID${id}`).innerHTML = 0;
-        }
         //if the object is found then set the quantity inside the corresponding product card to the quantity of the object
-        else {
-            document.getElementById(`qtyID${id}`).innerHTML = searchCart.quantity;
-        }
+
+        searchCart === undefined ? document.getElementById(`qtyID${id}`).innerHTML = 0 : document.getElementById(`qtyID${id}`).innerHTML = searchCart.quantity;
+
         updateCartIcon(cartAmount);
         calculateTotalPrice(cart);
         generateCartItems();
@@ -175,11 +171,9 @@
             let searchData = productsData.find( (product) => ("product" + product.id) === id) || [];
             total += searchData.price * quantity;
         });
-        if (arr.length > 0) {
-            totalPrice.innerHTML = `TOTAL: $${total}`;
-        } else {
-            totalPrice.innerHTML = "";
-        }
+
+        arr.length > 0 ? totalPrice.innerHTML = `TOTAL: $${total}` : totalPrice.innerHTML = "";
+
         return total
     }
 

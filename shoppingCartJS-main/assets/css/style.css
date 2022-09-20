@@ -27,7 +27,14 @@ h2 {
     background-color: aliceblue;
     padding: 5px;
     border-radius: 5px;
+    border: 2px solid #2b2b2b;
     position: relative;
+}
+
+.fixed {
+    position: fixed;
+    top: 20px;
+    right: 20px;
 }
 
 #cart-amount {
