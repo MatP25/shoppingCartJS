@@ -30,15 +30,15 @@
         btnsContainer.style.display = "none";
     }
 
-    const createProducts = () => {
+    const createProducts = (targetElement, dataArray, cartArray) => {
         //the map function will go over every object in productsData and for every object it will return a new piece of html
-        return (shop.innerHTML = productsData.map( 
+        return (targetElement.innerHTML = dataArray.map( 
             (element) => {
             // object deconstructing, makes calling the object properties easier by avoiding having to type the object name before the property (object.property)
             let {id, name, price, details, imgSrc} = element;
             //search inside the products inside the cart, if there are zero products return an empty array
             //then assign the product's quantity retrieved from the array to the quantity value inside the card, or in case the product doesn't exist inside the cart (if the array is empty searchCart.quantity will be undefined) then let the value be 0
-            let searchCart = cart.find ( product => product.id === ("product" + id)) || [];
+            let searchCart = cartArray.find ( product => product.id === ("product" + id)) || [];
     
             return `<div id="product${id}" class="card">
             <img src=${imgSrc} alt="">
@@ -76,7 +76,7 @@
         //if a new product is added then there is at least 1 product in the cart therefore set the display of the buttons to flex
         btnsContainer.style.display = "flex";
         //update the product quantity inside the card and the cart icon everytime the quantity increments or decrements
-        updateQty(selectedProduct);
+        updateQty(selectedProduct, cart);
         localStorage.setItem("data", JSON.stringify(cart));
     }
 
@@ -94,7 +94,7 @@
             //if the objects exists in the cart but the quantity is not 1, then decrease by 1
             searchCart.quantity -= 1;
         }
-        updateQty(selectedProduct);
+        updateQty(selectedProduct, cart);
         cart = cart.filter(product => product.quantity !== 0);
         localStorage.setItem("data", JSON.stringify(cart));
     }
@@ -107,23 +107,23 @@
         }, 700);
     }
 
-    const updateQty = (id) => {
+    const updateQty = (productId, cartArray) => {
         //find inside the cart the object that matches the id passed as argument by the increment or decrement functions
-        const searchCart = cart.find( (obj) => obj.id === id );
+        const searchCart = cartArray.find( (obj) => obj.id === productId );
         //if there is no match the object does not exist in the cart so set the quantity inside the corresponding product card to 0
         //if the object is found then set the quantity inside the corresponding product card to the quantity of the object
 
-        searchCart === undefined ? document.getElementById(`qtyID${id}`).innerHTML = 0 : document.getElementById(`qtyID${id}`).innerHTML = searchCart.quantity;
+        searchCart === undefined ? document.getElementById(`qtyID${productId}`).innerHTML = 0 : document.getElementById(`qtyID${productId}`).innerHTML = searchCart.quantity;
 
         updateCartIcon(cartAmount);
         calculateTotalPrice(cart);
-        generateCartItems();
+        generateCartItems(shoppingCartCards, productsData, cart);
     }
 
-    const removeProduct = (prod) => {
-        let foundProduct = cart.find ((obj) => obj.id === prod.id);
+    const removeProduct = (productObj, cartArray) => {
+        let foundProduct = cartArray.find ((obj) => obj.id === productObj.id);
         foundProduct.quantity = 0;
-        decrementQty(prod);
+        decrementQty(productObj);
     }
 
     const calcAmount = (arr, keyName) => {
@@ -134,16 +134,20 @@
         targetElement.innerHTML = calcAmount(cart, "quantity");
     }
 
-    const generateCartItems = () => {
+    const displayCartHeader = () => {
+        btnsContainer.style.display = "flex";
+        cartLabel.innerHTML = "My shopping cart";
+    }
+
+    const generateCartItems = (targetElement, dataArray, cartArray) => {
         //if the cart is not empty
-        if (cart.length !== 0) {
-            btnsContainer.style.display = "flex";
-            cartLabel.innerHTML = "My shopping cart";
+        if (cartArray.length !== 0) {
+            displayCartHeader();
             // go through every object in the cart with a .map
-            return (shoppingCartCards.innerHTML = cart.map( (productCart) => {
+            return (targetElement.innerHTML = cartArray.map( (productCart) => {
                     //find the objects inside productsData with a matching id to the id of the objects in the cart so the object's properties can be accessed to construct the cards
                     let { id, quantity } = productCart;
-                    let search = productsData.find( (product) => ("product" + product.id) === id) || [];
+                    let search = dataArray.find( (product) => ("product" + product.id) === id) || [];
 
                 return `<div class="cartCard" id="product${search.id}">
                 <img src=${search.imgSrc} class="cartCard__img" alt="">
@@ -181,9 +185,9 @@
     //////////////------------EVENT LISTENERS------------//////////////
 
     window.addEventListener("load", () => {
-        createProducts();
+        createProducts(shop, productsData, cart);
         updateCartIcon(cartAmount);
-        generateCartItems();
+        generateCartItems(shoppingCartCards, productsData, cart);
         calculateTotalPrice(cart);
     });
 
@@ -216,7 +220,7 @@
                         decrementQty(thisProduct);
                     } else if (classes[i] == "removeItem") {
                         thisProduct.className += " scale-out-hor-right";
-                        setTimeout(() => {removeProduct(thisProduct)}, 1000);
+                        setTimeout(() => {removeProduct(thisProduct, cart)}, 500);
                     }
                 }
             }

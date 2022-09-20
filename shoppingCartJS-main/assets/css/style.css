@@ -221,8 +221,8 @@ button, a.buyBtn {
 /* ----------------------------------------------------------------------------------------- */
 
 .scale-out-hor-right {
-	-webkit-animation: scale-out-hor-right 0.5s ease-in-out 0.2s forwards;
-	animation: scale-out-hor-right 0.5s ease-in-out 0.2s forwards;
+	-webkit-animation: scale-out-hor-right 0.25s ease-in-out 0.15s forwards;
+	animation: scale-out-hor-right 0.25s ease-in-out 0.15s forwards;
 }
 
 /* ----------------------------------------------
