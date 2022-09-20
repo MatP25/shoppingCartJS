@@ -18,6 +18,10 @@
 
     //////////////------------FUNCTIONS------------//////////////
 
+    const updateCartInLocalStorage = () => {
+        localStorage.setItem("data", JSON.stringify(cart));
+    }
+
     const cleanCartContent = () => {
         cart = [];
         cartLabel.innerHTML = "Cart is empty";
@@ -77,7 +81,7 @@
         btnsContainer.style.display = "flex";
         //update the product quantity inside the card and the cart icon everytime the quantity increments or decrements
         updateQty(selectedProduct, cart);
-        localStorage.setItem("data", JSON.stringify(cart));
+        updateCartInLocalStorage();
     }
 
     const decrementQty = (thisProd) => {
@@ -96,7 +100,7 @@
         }
         updateQty(selectedProduct, cart);
         cart = cart.filter(product => product.quantity !== 0);
-        localStorage.setItem("data", JSON.stringify(cart));
+        updateCartInLocalStorage();
     }
 
     const addShakeAnimation = (targetProduct) => {
@@ -116,7 +120,7 @@
         searchCart === undefined ? document.getElementById(`qtyID${productId}`).innerHTML = 0 : document.getElementById(`qtyID${productId}`).innerHTML = searchCart.quantity;
 
         updateCartIcon(cartAmount);
-        calculateTotalPrice(cart);
+        calculateTotalPrice(totalPrice, cart, productsData);
         generateCartItems(shoppingCartCards, productsData, cart);
     }
 
@@ -168,15 +172,15 @@
         }
     }
 
-    const calculateTotalPrice = (arr) => {
+    const calculateTotalPrice = (targetElement, cartArray, dataArray) => {
         let total = 0;
-        arr.map(productCart => {
+        cartArray.map(productCart => {
             let {id, quantity} = productCart;
-            let searchData = productsData.find( (product) => ("product" + product.id) === id) || [];
+            let searchData = dataArray.find( (product) => ("product" + product.id) === id) || [];
             total += searchData.price * quantity;
         });
 
-        arr.length > 0 ? totalPrice.innerHTML = `TOTAL: $${total}` : totalPrice.innerHTML = "";
+        cartArray.length > 0 ? targetElement.innerHTML = `TOTAL: $${total}` : targetElement.innerHTML = "";
 
         return total
     }
@@ -188,7 +192,7 @@
         createProducts(shop, productsData, cart);
         updateCartIcon(cartAmount);
         generateCartItems(shoppingCartCards, productsData, cart);
-        calculateTotalPrice(cart);
+        calculateTotalPrice(totalPrice, cart, productsData);
     });
 
     //SO-1687296 - dom delegation https://javascript.info/event-delegation
