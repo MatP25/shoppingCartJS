@@ -88,7 +88,7 @@
         const selectedProduct = thisProd.id;
         const searchCart = cart.find( obj => obj.id === selectedProduct );
         //if undefined then there is no object with a matching id, so do nothing
-        if (searchCart === undefined) {
+        if (!searchCart) {
             addShakeAnimation(thisProd);
             return
         }
@@ -96,10 +96,9 @@
             cart = cart.filter(product => product.id !== selectedProduct);
         } else {
             //if the objects exists in the cart but the quantity is not 1, then decrease by 1
-            searchCart.quantity -= 1;
+            searchCart.quantity--;
         }
         updateQty(selectedProduct, cart);
-        cart = cart.filter(product => product.quantity !== 0);
         updateCartInLocalStorage();
     }
 
