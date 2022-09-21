@@ -67,6 +67,11 @@ header {
     margin: .5rem;
 }
 
+.filtersContainer label {
+    display: block;
+    padding: 5px;
+}
+
 .shop {
     display:  grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 30ch));

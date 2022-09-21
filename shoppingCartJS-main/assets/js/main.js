@@ -15,7 +15,12 @@
         cardsQty = document.getElementsByClassName("quantity"),
         totalPrice = document.getElementById("totalPrice"),
         main = document.querySelector("main"),
-        searchBar = document.getElementById("searchBar");
+        searchBar = document.getElementById("searchBar"),
+        searchBtn = document.getElementById("searchBtn"),
+        selectCategory = document.getElementById("selectCategory"),
+        maxPriceInput = document.getElementById("maxPrice"),
+        minPriceInput = document.getElementById("minPrice"),
+        applyFiltersBtn = document.getElementById("applyFiltersBtn");
 
 
     //get the data from the local storage, but if the local storage is empty set it as an empty array
@@ -192,15 +197,30 @@
         })
     }
 
-    const categoryFilter = (dataArray, filterValue) => {
-        return dataArray.filter( prod => {
-            return prod.category.toLowerCase().includes(filterValue)
-        })
+    const multipleFilters = (dataArray, categoryValue, maxPrice, minPrice) => {
+        let filteredData = dataArray
+        .filter( 
+            prod => (!categoryValue || prod.category.toLowerCase().includes(categoryValue))
+        ).filter( 
+            prod => (!minPrice || prod.price >= parseInt(minPrice))
+        ).filter( 
+            prod => (!maxPrice || prod.price <= parseInt(maxPrice))
+        );
+        return filteredData
     }
+
+    const clearFilters = () => {
+        maxPriceInput.value = ""; 
+        minPriceInput.value = "";
+        selectCategory.value= "";
+    }
+
     ///////////////////////////////////////////////////////////////////
     //////////////------------EVENT LISTENERS------------//////////////
     ///////////////////////////////////////////////////////////////////
+    
     window.addEventListener("load", () => {
+        clearFilters();
         createProducts(shop, productsData, cart);
         updateCartIcon(cartAmount);
         generateCartItems(shoppingCartCards, productsData, cart);
@@ -257,8 +277,14 @@
     });
 
     searchBar.addEventListener("input", () => {
+        clearFilters();
         let filtered = nameFilter(productsData, searchBar.value);
         createProducts(shop, filtered, cart);
     });
     
+    applyFiltersBtn.addEventListener("click", () => {
+        let filtered =  multipleFilters(productsData, selectCategory.value, maxPriceInput.value, minPriceInput.value);
+        createProducts(shop, filtered, cart);
+    });
+
 })();
