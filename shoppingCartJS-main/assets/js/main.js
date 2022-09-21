@@ -23,17 +23,20 @@
         applyFiltersBtn = document.getElementById("applyFiltersBtn");
 
 
-    //get the data from the local storage, but if the local storage is empty set it as an empty array
+    //get the data from the local storage, if the local storage is empty set it as an empty array
     let cart = JSON.parse(localStorage.getItem("data")) || [];
+
     ///////////////////////////////////////////////////////////////////
     /////////////////------------FUNCTIONS------------/////////////////
     ///////////////////////////////////////////////////////////////////
+
     const updateCartInLocalStorage = () => {
         localStorage.setItem("data", JSON.stringify(cart));
     }
 
-    const cleanCartContent = () => {
-        localStorage.clear();
+    const resetDynamicContent = () => {
+        //reset dynamic content when clearing cart
+        cart = [];
         cartLabel.innerHTML = "Cart is empty";
         totalPrice.innerHTML = "";
         shoppingCartCards.innerHTML = "";
@@ -45,20 +48,21 @@
     }
 
     const createProducts = (targetElement, dataArray, cartArray) => {
-        //the map function will go over every object in productsData and for every object it will return a new piece of html
+        //map will go over every object in productsData and for each object it will return a new piece of html
         return (targetElement.innerHTML = dataArray.map( 
             (element) => {
-            // object deconstructing, makes calling the object properties easier by avoiding having to type the object name before the property (object.property)
-            let {id, name, price, details, imgSrc} = element;
-            //search inside the products inside the cart, if there are zero products return an empty array
-            //then assign the product's quantity retrieved from the array to the quantity value inside the card, or in case the product doesn't exist inside the cart (if the array is empty searchCart.quantity will be undefined) then let the value be 0
+            // object deconstructing
+            let {id, name, price, details, category, imgSrc} = element;
+            //search the cart, if there are zero products return an empty array
+            //then assign the product's quantity retrieved from the array to the quantity value inside the card, if the array is empty searchCart.quantity will be undefined then let the value be 0
             let searchCart = cartArray.find ( product => product.id === ("product" + id)) || [];
 
             return `<div id="product${id}" class="card">
             <img src=${imgSrc} alt="">
                 <div class="card__details">
                     <h3>${name}</h3>
-                    <p>${details}</p>
+                    <p>Details: ${details}</p>
+                    <p>Category: ${category}</p>
                     <div class="card__price">
                         <p>$${price}</p>
                         <div class="card__buttons">
@@ -69,11 +73,11 @@
                     </div>
                 </div>
             </div>`
-        }).join("")) //the join method will remove the commas that separate the objects in the array by creating a single string with every element concatenated
+        }).join("")) //remove the commas that separate the objects in the array by creating a single string with every element concatenated
     }
 
     const incrementQty = (thisProd) => {
-        // an object is passed as argument, assign selectedProduct to the object's id
+        //receives an obj as parameter, assign selectedProduct to the object's id
         const selectedProduct = thisProd.id;
         //search for the object inside the cart which has an id = the id of the selected product, if no elements are found the find method returns undefined
         const searchCart = cart.find( el => el.id === selectedProduct );
@@ -97,12 +101,11 @@
     const decrementQty = (thisProd) => {
         const selectedProduct = thisProd.id;
         const searchCart = cart.find( obj => obj.id === selectedProduct );
-        //if undefined then there is no object with a matching id, so do nothing
+        //if undefined (qty = 0) then there is no object with a matching id
         if (!searchCart) {
             addShakeAnimation(thisProd);
             return
-        }
-        else if (searchCart.quantity <= 1) {
+        } else if (searchCart.quantity <= 1) {
             cart = cart.filter(product => product.id !== selectedProduct);
         } else {
             //if the objects exists in the cart but the quantity is not 1, then decrease by 1
@@ -113,9 +116,9 @@
     }
 
     const addShakeAnimation = (targetProduct) => {
+        //adds shake animation when clicking the decrement btn on an item with quantity = 0;
         targetProduct.className += " shake-horizontal";
-
-        setTimeout( () => {
+        setTimeout( () => { //then remove the animation class when it ends
             targetProduct.classList.remove("shake-horizontal")
         }, 700);
     }
@@ -123,9 +126,8 @@
     const updateQty = (productId, cartArray) => {
         //find inside the cart the object that matches the id passed as argument by the increment or decrement functions
         const searchCart = cartArray.find( (obj) => obj.id === productId );
-        //if there is no match the object does not exist in the cart so set the quantity inside the corresponding product card to 0
-        //if the object is found then set the quantity inside the corresponding product card to the quantity of the object
-
+        //if there is no matching object set the quantity inside the corresponding product card to 0
+        //else set the quantity inside the corresponding product card to the quantity of the object
         searchCart === undefined ? document.getElementById(`qtyID${productId}`).innerHTML = 0 : document.getElementById(`qtyID${productId}`).innerHTML = searchCart.quantity;
 
         updateCartIcon(cartAmount);
@@ -134,34 +136,36 @@
     }
 
     const removeProduct = (productObj, cartArray) => {
+        //set the quantity of the product to 0 then call the decrementQty function to remove it from the cart
         let foundProduct = cartArray.find ((obj) => obj.id === productObj.id) || [];
         foundProduct.quantity = 0;
         decrementQty(productObj);
     }
 
     const calcAmount = (arr, keyName) => {
+        //calculates the sum of values in an array, used for calculating the total number of products in the cart
         return arr.map( (obj) => obj[keyName]).reduce( (a,b) => a + b, 0);
     }
 
     const updateCartIcon = (targetElement) => {
+        //updates the cart icon's product counter
         targetElement.innerHTML = calcAmount(cart, "quantity");
     }
 
     const displayCartHeader = () => {
+        //change content when there are items inside the cart
         btnsContainer.style.display = "flex";
         cartLabel.innerHTML = "My shopping cart";
     }
 
     const generateCartItems = (targetElement, dataArray, cartArray) => {
-        //if the cart is not empty
         if (cartArray.length !== 0) {
             displayCartHeader();
-            // go through every object in the cart with a .map
             return (targetElement.innerHTML = cartArray.map( (productCart) => {
                     //find the objects inside productsData with a matching id to the id of the objects in the cart so the object's properties can be accessed to construct the cards
                     let { id, quantity } = productCart;
                     let search = dataArray.find( (product) => ("product" + product.id) === id) || [];
-
+                //returns the card's html for every product inside the cart
                 return `<div class="cartCard" id="product${search.id}">
                 <img src=${search.imgSrc} class="cartCard__img" alt="">
                 <div class="cartCard__details">
@@ -177,13 +181,15 @@
             </div>`
             }).join(""));
         } else {
-            cleanCartContent();
+            resetDynamicContent();
         }
     }
 
     const calculateTotalPrice = (targetElement, cartArray, dataArray) => {
+        //calculates the total price for every element in the cart
         let total = 0;
         cartArray.map(productCart => {
+            //finds every product in the data array with a matching id to the products in cart to access the price
             let {id, quantity} = productCart;
             let searchData = dataArray.find( (product) => ("product" + product.id) === id) || [];
             total += searchData.price * quantity;
@@ -192,6 +198,7 @@
     }
 
     const nameFilter = (dataArray, filterValue) => {
+        //filters product by name
         return dataArray.filter( prod => {
             return prod.name.toLowerCase().includes(filterValue)
         })
@@ -210,6 +217,7 @@
     }
 
     const clearFilters = () => {
+        //clear filter values when reloading the page & using the search function
         maxPriceInput.value = ""; 
         minPriceInput.value = "";
         selectCategory.value= "";
@@ -218,7 +226,7 @@
     ///////////////////////////////////////////////////////////////////
     //////////////------------EVENT LISTENERS------------//////////////
     ///////////////////////////////////////////////////////////////////
-    
+
     window.addEventListener("load", () => {
         clearFilters();
         createProducts(shop, productsData, cart);
@@ -230,6 +238,7 @@
     //SO-1687296 - dom delegation https://javascript.info/event-delegation
     main.addEventListener("click", evt => {
         if (evt.target && evt.target.nodeName == "I") {
+            //assigns thisProduct to whichever element doesn't return nullish
             let thisProduct = evt.target.closest(".card") ?? evt.target.closest('.cartCard');
             let classes = evt.target.className.split(" ");
             if (classes) {
@@ -248,7 +257,7 @@
     });
 
     clearCartBtn.addEventListener("click", () => {
-        cleanCartContent();
+        resetDynamicContent();
         localStorage.clear();
     });
 
@@ -257,7 +266,7 @@
         if (cart.length !==0) {
 
             setTimeout( () => {
-                cleanCartContent();
+                resetDynamicContent();
                 localStorage.removeItem("data");
             }, 0);
 
