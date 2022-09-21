@@ -12,16 +12,25 @@
     
 </head>
 <body>
-    <nav class="navbar">
-        <h2>  Store  </h2>
-        <div class="fixed">
-            <div class="cart">
-                <a href="#"><i class="bi bi-cart2"></i></a>
-                <div id="cart-amount">0</div>
+
+    <header>
+        <nav class="navbar">
+            <h2>  Store  </h2>
+            <div class="fixed">
+                <div class="cart">
+                    <a href="#"><i class="bi bi-cart2"></i></a>
+                    <div id="cart-amount">0</div>
+                </div>
             </div>
+        </nav>
+
+        <div class="filtersContainer">
+            <label for="searchBar">Search<input type="search" name="searchBar" id="searchBar"></label>
+            <label for="minPrice">Min Price<input type="text" name="minPrice" id="minPrice"></label>
+            <label for="maxPrice">Max Price<input type="text" name="maxPrice" id="maxPrice"></label>
         </div>
-        
-    </nav>
+    </header>
+    
     
     <main>
         <section class="shop" id="shop">

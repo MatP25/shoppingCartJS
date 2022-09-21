@@ -1,7 +1,9 @@
 (function() {
     
     "use strict";
-
+    ////////////////////////////////////////////////////////////////////
+    ////////////////------------DOM ELEMENTS------------////////////////
+    ////////////////////////////////////////////////////////////////////
     const 
         shop = document.getElementById("shop"),
         cartAmount = document.getElementById("cart-amount"),
@@ -11,19 +13,22 @@
         btnsContainer = document.getElementById("btnsContainer"),
         shoppingCartCards = document.getElementById("cartCard-container"),
         cardsQty = document.getElementsByClassName("quantity"),
-        totalPrice = document.getElementById("totalPrice");
+        totalPrice = document.getElementById("totalPrice"),
+        main = document.querySelector("main"),
+        searchBar = document.getElementById("searchBar");
+
 
     //get the data from the local storage, but if the local storage is empty set it as an empty array
     let cart = JSON.parse(localStorage.getItem("data")) || [];
-
-    //////////////------------FUNCTIONS------------//////////////
-
+    ///////////////////////////////////////////////////////////////////
+    /////////////////------------FUNCTIONS------------/////////////////
+    ///////////////////////////////////////////////////////////////////
     const updateCartInLocalStorage = () => {
         localStorage.setItem("data", JSON.stringify(cart));
     }
 
     const cleanCartContent = () => {
-        cart = [];
+        localStorage.clear();
         cartLabel.innerHTML = "Cart is empty";
         totalPrice.innerHTML = "";
         shoppingCartCards.innerHTML = "";
@@ -43,7 +48,7 @@
             //search inside the products inside the cart, if there are zero products return an empty array
             //then assign the product's quantity retrieved from the array to the quantity value inside the card, or in case the product doesn't exist inside the cart (if the array is empty searchCart.quantity will be undefined) then let the value be 0
             let searchCart = cartArray.find ( product => product.id === ("product" + id)) || [];
-    
+
             return `<div id="product${id}" class="card">
             <img src=${imgSrc} alt="">
                 <div class="card__details">
@@ -124,7 +129,7 @@
     }
 
     const removeProduct = (productObj, cartArray) => {
-        let foundProduct = cartArray.find ((obj) => obj.id === productObj.id);
+        let foundProduct = cartArray.find ((obj) => obj.id === productObj.id) || [];
         foundProduct.quantity = 0;
         decrementQty(productObj);
     }
@@ -178,15 +183,23 @@
             let searchData = dataArray.find( (product) => ("product" + product.id) === id) || [];
             total += searchData.price * quantity;
         });
-
         cartArray.length > 0 ? targetElement.innerHTML = `TOTAL: $${total}` : targetElement.innerHTML = "";
-
-        return total
     }
 
+    const nameFilter = (dataArray, filterValue) => {
+        return dataArray.filter( prod => {
+            return prod.name.toLowerCase().includes(filterValue)
+        })
+    }
 
+    const categoryFilter = (dataArray, filterValue) => {
+        return dataArray.filter( prod => {
+            return prod.category.toLowerCase().includes(filterValue)
+        })
+    }
+    ///////////////////////////////////////////////////////////////////
     //////////////------------EVENT LISTENERS------------//////////////
-
+    ///////////////////////////////////////////////////////////////////
     window.addEventListener("load", () => {
         createProducts(shop, productsData, cart);
         updateCartIcon(cartAmount);
@@ -195,25 +208,9 @@
     });
 
     //SO-1687296 - dom delegation https://javascript.info/event-delegation
-    shop.addEventListener("click", evt => {
+    main.addEventListener("click", evt => {
         if (evt.target && evt.target.nodeName == "I") {
-            let thisProduct = evt.target.closest('.card');
-            let classes = evt.target.className.split(" ");
-            if (classes) {
-                for (let i=0; i<classes.length; i++) {
-                    if (classes[i] == "incrementQty") {
-                    incrementQty(thisProduct);
-                    } else if (classes[i] == "decrementQty") {
-                        decrementQty(thisProduct);
-                    }
-                }
-            }
-        }
-    });
-
-    shoppingCartCards.addEventListener("click", evt => {
-        if (evt.target && evt.target.nodeName == "I") {
-            let thisProduct = evt.target.closest('.cartCard');
+            let thisProduct = evt.target.closest(".card") ?? evt.target.closest('.cartCard');
             let classes = evt.target.className.split(" ");
             if (classes) {
                 for (let i=0; i<classes.length; i++) {
@@ -242,7 +239,7 @@
             setTimeout( () => {
                 cleanCartContent();
                 localStorage.removeItem("data");
-            }, 250);
+            }, 0);
 
             let purchaseInfo = cart.map( (productCart) => {
                 let { id, quantity } = productCart;
@@ -259,6 +256,9 @@
         }
     });
 
-    
+    searchBar.addEventListener("input", () => {
+        let filtered = nameFilter(productsData, searchBar.value);
+        createProducts(shop, filtered, cart);
+    });
     
 })();
