@@ -1,9 +1,11 @@
 (function() {
     
     "use strict";
+
     ////////////////////////////////////////////////////////////////////
     ////////////////------------DOM ELEMENTS------------////////////////
     ////////////////////////////////////////////////////////////////////
+
     const 
         shop = document.getElementById("shop"),
         cartAmount = document.getElementById("cart-amount"),
@@ -16,7 +18,6 @@
         totalPrice = document.getElementById("totalPrice"),
         main = document.querySelector("main"),
         searchBar = document.getElementById("searchBar"),
-        searchBtn = document.getElementById("searchBtn"),
         selectCategory = document.getElementById("selectCategory"),
         maxPriceInput = document.getElementById("maxPrice"),
         minPriceInput = document.getElementById("minPrice"),
@@ -235,8 +236,8 @@
         calculateTotalPrice(totalPrice, cart, productsData);
     });
 
-    //SO-1687296 - dom delegation https://javascript.info/event-delegation
     main.addEventListener("click", evt => {
+        //SO-1687296 - dom delegation https://javascript.info/event-delegation
         if (evt.target && evt.target.nodeName == "I") {
             //assigns thisProduct to whichever element doesn't return nullish
             let thisProduct = evt.target.closest(".card") ?? evt.target.closest('.cartCard');
