@@ -5,7 +5,7 @@ const productsData = [
         details: ["2kg"], 
         category: "food", 
         price: 150,
-        imgSrc: "./imgs/1.jpg"
+        imgSrc: "./assets/imgs/1.jpg"
     },
     {
         id: 102, 
@@ -13,7 +13,7 @@ const productsData = [
         details: ["2kg"], 
         category: "food", 
         price: 150, 
-        imgSrc: "./imgs/2.jpg"
+        imgSrc: "./assets/imgs/1.jpg"
     },
     {
         id: 103, 
@@ -21,7 +21,7 @@ const productsData = [
         details: ["size M", "blue"], 
         category: "accessories", 
         price: 450, 
-        imgSrc: "./imgs/3.jpg"
+        imgSrc: "./assets/imgs/1.jpg"
     },
     {
         id: 104, 
@@ -29,7 +29,7 @@ const productsData = [
         details: ["size S", "blue"], 
         category: "accessories", 
         price: 400, 
-        imgSrc: "./imgs/4.jpg"
+        imgSrc: "./assets/imgs/1.jpg"
     },
     {
         id: 105, 
@@ -37,7 +37,7 @@ const productsData = [
         details: ["size M", "red"], 
         category: "accessories", 
         price: 600, 
-        imgSrc: "./imgs/5.jpg"
+        imgSrc: "./assets/imgs/1.jpg"
     },
     {
         id: 106, 
@@ -45,7 +45,7 @@ const productsData = [
         details: ["size L", "red"], 
         category: "accessories", 
         price: 900, 
-        imgSrc: "./imgs/6.jpg"
+        imgSrc: "./assets/imgs/1.jpg"
     },
     {
         id: 107, 
@@ -53,7 +53,7 @@ const productsData = [
         details: ["50g"], 
         category: "treats", 
         price: 300, 
-        imgSrc: "./imgs/6.jpg"
+        imgSrc: "./assets/imgs/1.jpg"
     },
     {
         id: 108, 
@@ -61,7 +61,7 @@ const productsData = [
         details: ["wood pellets"], 
         category: "hygiene", 
         price: 120, 
-        imgSrc: "./imgs/6.jpg"
+        imgSrc: "./assets/imgs/1.jpg"
     },
     {
         id: 109, 
@@ -69,7 +69,7 @@ const productsData = [
         details: ["300ml", "flea & tick control"], 
         category: "hygiene", 
         price: 250, 
-        imgSrc: "./imgs/6.jpg"
+        imgSrc: "./assets/imgs/1.jpg"
     },
     {
         id: 110, 
@@ -77,7 +77,7 @@ const productsData = [
         details: ["Paper (recyclable)"], 
         category: "hygiene", 
         price: 250, 
-        imgSrc: "./imgs/6.jpg"
+        imgSrc: "./assets/imgs/1.jpg"
     },
     {
         id: 111, 
@@ -85,7 +85,7 @@ const productsData = [
         details: ["small"], 
         category: "accessories", 
         price: 1500, 
-        imgSrc: "./imgs/6.jpg"
+        imgSrc: "./assets/imgs/1.jpg"
     }
 ];
 

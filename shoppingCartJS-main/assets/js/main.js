@@ -68,7 +68,7 @@
                         <p>$${price}</p>
                         <div class="card__buttons">
                             <i class="bi bi-dash decrementQty"></i>
-                            <span id="qtyIDproduct${id}"class="quantity">${searchCart.quantity === undefined ? 0 : searchCart.quantity}</span>
+                            <span id="qtyIDproduct${id}" class="quantity">${searchCart.quantity === undefined ? 0 : searchCart.quantity}</span>
                             <i class="bi bi-plus incrementQty"></i>
                         </div>
                     </div>
