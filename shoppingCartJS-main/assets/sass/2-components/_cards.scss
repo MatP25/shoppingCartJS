@@ -1,0 +1,32 @@
+@use "../0-utilities/" as *;
+
+.card {
+    border: 2px solid $light-orange;
+    border-radius: 4px;
+    margin-bottom: .5em;
+    display: flex;
+    flex-direction: column;
+    background-color: $gray;
+    h3 {
+        margin: .5rem 0;
+    }
+    &__details {
+        padding: .75rem;
+        p {
+            font-size: .9em;
+        }
+    }
+    &__price {
+        font-size: 1.5em;
+        @include flex-parent(row,nowrap,space-between,center);
+        p {
+            letter-spacing: .15em;
+            font-weight: 700;
+        }
+    }
+    &__buttons {
+        display: flex;
+        align-items: center;
+        gap: .5em;
+    }
+}

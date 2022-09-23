@@ -1,0 +1,29 @@
+@use "../0-utilities/" as *;
+
+.cart {
+    background-color: $off-white;
+    padding: .5rem;
+    border-radius: 5px;
+    border: 2px solid $dark;
+    position: relative;
+    #cart-amount {
+        position: absolute;
+        top: -12px;
+        right: -8px;
+        color: $off-white;
+        padding: 3px;
+        background-color: $light-red;
+        border-radius: 3px;
+        font-weight: bold;
+        font-size: 1.1em;
+    }
+}
+
+i {
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+.removeItem {
+    color: $light-red;
+}

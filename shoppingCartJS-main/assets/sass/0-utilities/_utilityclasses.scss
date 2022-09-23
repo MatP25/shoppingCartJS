@@ -1,0 +1,24 @@
+
+
+.hidden {
+    display: none;
+}
+
+.visibleFlex {
+    display: flex;
+}
+
+.visibleBlock {
+    display:block;
+}
+
+.centered {
+    display: grid;
+    place-content: center;
+}
+
+.fixed {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+}

@@ -1,0 +1,9 @@
+@use "../0-utilities/" as *;
+
+.shop {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 30ch));
+    justify-content: center;
+    gap: 1rem;
+}

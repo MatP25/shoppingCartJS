@@ -21,7 +21,9 @@
         selectCategory = document.getElementById("selectCategory"),
         maxPriceInput = document.getElementById("maxPrice"),
         minPriceInput = document.getElementById("minPrice"),
-        applyFiltersBtn = document.getElementById("applyFiltersBtn");
+        applyFiltersBtn = document.getElementById("applyFiltersBtn"),
+        toggleFiltersBtn = document.getElementById("toggleFilters"),
+        filtersDiv = document.getElementById("filters");
 
 
     //get the data from the local storage, if the local storage is empty set it as an empty array
@@ -297,4 +299,7 @@
         createProducts(shop, filtered, cart);
     });
 
+    toggleFiltersBtn.addEventListener("click", (e) => {
+        filtersDiv.className === "hidden" ? filtersDiv.className="visibleBlock" : filtersDiv.className="hidden";
+    });
 })();

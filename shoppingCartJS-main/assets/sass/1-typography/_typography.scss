@@ -1,1 +1,10 @@
 @use "../0-utilities/" as *;
+
+h1, h2, h3, h4, h5, h6, p, a {
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: .075em;
+}
+
+button, input, label {
+    font-family: 'Azeret Mono', monospace;
+}

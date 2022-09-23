@@ -1,3 +1,17 @@
 /////////////////////
 @use "variables";
 /////////////////////
+
+@mixin flex-parent(
+    $direction: row, 
+    $wrap: nowrap, 
+    $justify: start, 
+    $align-items: stretch, 
+    $align-content: normal) {
+        display: flex;
+        flex-direction: $direction;
+        flex-wrap: $wrap;
+        justify-content: $justify;
+        align-items: $align-items;
+        align-content: $align-content;
+}
