@@ -2,10 +2,18 @@
 
 
 .header {
+    
     width: 100%;
     padding: 1.5rem;
-    background-color: $light-green;
+    background-color: $dark;
+    border-bottom: 2px solid $dark;
     margin-bottom: 1.5rem;
+    .title {
+        padding: 1rem 0;
+        display: block;
+        text-align: center;
+        font-size: 2.5em;
+    }
     .searchbar {
         margin: .5rem;
     }
@@ -22,12 +30,20 @@
             font-size: 1.2em;
         }
     }
-    label {
-        display:block;
-        padding: .75rem .5rem;
+    #filters {
+        list-style: none;
+        label {
+            display:block;
+            padding: .75rem .5rem;
+        }
+        button {
+            padding: 5px 10px;
+        }
     }
-    button {
-        padding: 5px 10px;
-        margin: .75rem .5rem;
-    }
+    
+}
+
+#clearCartBtn {
+    display:block;
+    margin: 0.75rem .5rem;
 }

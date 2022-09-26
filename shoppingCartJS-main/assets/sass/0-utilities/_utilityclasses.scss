@@ -1,4 +1,4 @@
-
+@use "variables" as *;
 
 .hidden {
     display: none;
@@ -9,7 +9,7 @@
 }
 
 .visibleBlock {
-    display:block;
+    display: block;
 }
 
 .centered {
@@ -21,4 +21,8 @@
     position: fixed;
     top: 24px;
     right: 24px;
+}
+
+.textWhite {
+    color: $off-white;
 }

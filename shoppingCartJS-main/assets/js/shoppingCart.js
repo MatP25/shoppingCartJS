@@ -2,6 +2,10 @@
 
     "use strict";
 
+    ////////////////////////////////////////////////////////////////////
+    ////////////////------------DOM ELEMENTS------------////////////////
+    ////////////////////////////////////////////////////////////////////
+
     const 
         cartAmount = document.getElementById("cart-amount"),
         cartLabel = document.getElementById("cart-label"),
@@ -13,13 +17,16 @@
         totalPrice = document.getElementById("totalPrice"),
         main = document.querySelector("main");
 
-
     //get the data from the local storage, if the local storage is empty set it as an empty array
     let cart = JSON.parse(localStorage.getItem("data")) || [];
 
     ///////////////////////////////////////////////////////////////////
     /////////////////------------FUNCTIONS------------/////////////////
     ///////////////////////////////////////////////////////////////////
+
+    const toggleVisibility = (targetElement, displayType) => {
+        targetElement.style.display = displayType;
+    }
 
     const updateCartInLocalStorage = () => {
         localStorage.setItem("data", JSON.stringify(cart));
@@ -35,17 +42,17 @@
         for (let i=0;i<cardsQty.length;i++) {
             cardsQty[i].innerHTML = 0;
         }
-        btnsContainer.style.display = "none";
+        toggleVisibility(btnsContainer, "none")
     }
 
-    const incrementQty = (thisProd) => {
+    const incrementQty = (thisProd, cartArray) => {
         //receives an obj as parameter, assign selectedProduct to the object's id
         const selectedProduct = thisProd.id;
         //search for the object inside the cart which has an id = the id of the selected product, if no elements are found the find method returns undefined
-        const searchCart = cart.find( el => el.id === selectedProduct );
+        const searchCart = cartArray.find( el => el.id === selectedProduct );
         //if the find method returns undefined the object does not exist in the cart, therefore add it to the cart
         if (searchCart === undefined) {
-            cart.push( {
+            cartArray.push( {
                 id: selectedProduct,
                 quantity: 1,
             });
@@ -54,9 +61,11 @@
             searchCart.quantity += 1;
         }
         //if a new product is added then there is at least 1 product in the cart therefore set the display of the buttons to flex
-        btnsContainer.style.display = "flex";
+        if (btnsContainer) {
+            toggleVisibility(btnsContainer, "flex")
+        }
         //update the product quantity inside the card and the cart icon everytime the quantity increments or decrements
-        updateQty(selectedProduct, cart);
+        updateQty(cardsQty,cart);
         updateCartInLocalStorage();
     }
 
@@ -67,23 +76,21 @@
         if (!searchCart) {
             addShakeAnimation(thisProd);
             return
-        } else if (searchCart.quantity <= 1) {
-            cart = cart.filter(product => product.id !== selectedProduct);
-        } else {
-            //if the objects exists in the cart but the quantity is not 1, then decrease by 1
+        } else if (searchCart.quantity >= 1) {
             searchCart.quantity--;
         }
-        updateQty(selectedProduct, cart);
+        
+        cart = cart.filter( product => product.quantity > 0);
+        updateQty(cardsQty,cart);
         updateCartInLocalStorage();
     }
 
-    const updateQty = (productId, cartArray) => {
-        //find inside the cart the object that matches the id passed as argument by the increment or decrement functions
-        const searchCart = cartArray.find( (obj) => obj.id === productId );
-        //if there is no matching object set the quantity inside the corresponding product card to 0
-        //else set the quantity inside the corresponding product card to the quantity of the object
-        // searchCart === undefined ? document.getElementById(`qtyID${productId}`).innerHTML = 0 : document.getElementById(`qtyID${productId}`).innerHTML = searchCart.quantity;
-
+    const updateQty = (elemCollection, cartArray) => {
+        for (let i = 0; i < elemCollection.length; i++) {
+            const thisCardID = elemCollection[i].id;
+            const thisProduct = cartArray.find((product)=> product.id === thisCardID.slice(-10)) || 0;
+            elemCollection[i].innerHTML = thisProduct.quantity || 0;
+        }
         updateCartIcon(cartAmount);
         calculateTotalPrice(totalPrice, cart, productsData);
         generateCartItems(shoppingCartCards, productsData, cart);
@@ -108,7 +115,7 @@
 
     const displayCartHeader = () => {
         //change content when there are items inside the cart
-        btnsContainer.style.display = "flex";
+        toggleVisibility(btnsContainer, "flex");
         cartLabel.innerHTML = "My shopping cart";
     }
 
@@ -148,15 +155,18 @@
             let searchData = dataArray.find( (product) => ("product" + product.id) === id) || [];
             total += searchData.price * quantity;
         });
-        cartArray.length > 0 ? targetElement.innerHTML = `TOTAL: $${total}` : targetElement.innerHTML = "";
+        cartArray.length > 0 ? 
+        targetElement.innerHTML = `TOTAL: $${total}` : 
+        targetElement.innerHTML = "";
     }
 
     ///////////////////////////////////////////////////////////////////
     //////////////------------EVENT LISTENERS------------//////////////
     ///////////////////////////////////////////////////////////////////
+
     window.addEventListener("storage", () => {
         location.reload();
-    })
+    });
 
     window.addEventListener("load", () => {
         updateCartIcon(cartAmount);
@@ -173,7 +183,7 @@
             if (classes) {
                 for (let i=0; i<classes.length; i++) {
                     if (classes[i] == "incrementQty") {
-                    incrementQty(thisProduct);
+                    incrementQty(thisProduct, cart);
                     } else if (classes[i] == "decrementQty") {
                         decrementQty(thisProduct);
                     } else if (classes[i] == "removeItem") {
@@ -197,7 +207,7 @@
             setTimeout( () => {
                 resetDynamicContent();
                 localStorage.removeItem("data");
-            }, 0);
+            }, 500);
 
             let purchaseInfo = cart.map( (productCart) => {
                 let { id, quantity } = productCart;

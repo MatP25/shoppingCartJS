@@ -27,13 +27,16 @@
 
     <header class="header">
         <nav class="navbar">
-            <h2>  Store  </h2>
+            <h2><a href="index.html" class="title textWhite">Store</a></h2>
             
             <div class="searchbar">
                 <label for="searchBar">
                     <input placeholder="Search by name" type="search" name="searchBar" id="searchBar">
                 </label>
+                
             </div>
+
+            <button id="clearCartBtn">Clear Cart</button>
 
             <div class="fixed">
                 <div class="cart">
@@ -41,69 +44,58 @@
                     <div id="cart-amount">0</div>
                 </div>
             </div>
-
         </nav>
         
         <div id="filters-wrapper">
             
-            <h3 class="filterTitle">Customize Search 
-                <i id="toggleFilters" class="bi bi-caret-down"></i>
-                <!-- <i class="bi bi-caret-up"></i> -->
-            </h3>
+            <a href="#" id="toggleFilters">
+                <h3 class="filterTitle textWhite">Customize Search 
+                    <i class="bi bi-caret-down"></i>
+                </h3>
+            </a>
 
-            <div id="filters" class="hidden">
-                <label for="minPrice">
-                    Min Price
-                    <input type="text" name="minPrice" id="minPrice">
-                </label>
-                <label for="maxPrice">
-                    Max Price
-                    <input type="text" name="maxPrice" id="maxPrice">
-                </label>
-                <label for="selectCategory">
-                    Category
-                    <select name="selectCategory" id="selectCategory">
-                        <option value="" selected>All</option>
-                        <option value="food">Food</option>
-                        <option value="treats">Treats</option>
-                        <option value="accessories">Accessories</option>
-                        <option value="hygiene">Hygiene</option>
-                    </select>
-                </label>
-    
-                <button id="applyFiltersBtn">Apply</button>
-            </div>
+            <ul id="filters" class="hidden">
+                <li>
+                    <label for="minPrice" class="textWhite">
+                        Min Price
+                        <input type="text" name="minPrice" id="minPrice">
+                    </label>
+                </li>
+                <li>
+                    <label for="maxPrice" class="textWhite">
+                        Max Price
+                        <input type="text" name="maxPrice" id="maxPrice">
+                    </label>
+                </li>
+                <li>
+                    <label for="selectCategory" class="textWhite">
+                        Category
+                        <select name="selectCategory" id="selectCategory">
+                            <option value="" selected>All</option>
+                            <option value="food">Food</option>
+                            <option value="treats">Treats</option>
+                            <option value="accessories">Accessories</option>
+                            <option value="hygiene">Hygiene</option>
+                        </select>
+                    </label>
+                </li>
+                
+                <li>
+                    <button id="applyFiltersBtn">Apply</button>
+                    <button id="clearFiltersBtn">Clear</button>
+                </li>
+                
+            </ul>
             
         </div>
     </header>
     
-    
     <main>
+
         <section class="shop" id="shop">
-            
         
         </section>
 
-        
-
-        <section class="shopping-cart" id="shopping-cart">
-            
-            <h4 id="cart-label"></h2>
-            
-            <div class="btns-container" id="btnsContainer">
-                <a href="./pages/purchaseDetails.html" target="_blank" id="buyBtn" class="buyBtn">Buy</a>
-                <button id="clearCartBtn">Clear Cart</button>
-            </div>
-
-            <h5 id="totalPrice"></h5>
-        
-            <div id="cartCard-container">
-
-            </div>
-            
-            
-
-        </section>
     </main>
     
 </body>
