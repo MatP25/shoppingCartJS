@@ -1,1 +1,1 @@
-sass --watch shoppingCartJS-main/assets/sass/style.scss:shoppingCartJS-main/assets/css/stylesheet.css
+sass --watch assets/sass/style.scss:assets/css/stylesheet.css
