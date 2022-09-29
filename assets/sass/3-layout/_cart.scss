@@ -1,0 +1,15 @@
+@use "../0-utilities/" as *;
+
+#totalPrice {
+    font-size: 1.75rem;
+    text-align: center;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    margin: 1rem auto; 
+}
+
+.btns-container {
+    margin: 2vh 0;
+    display:none;
+    justify-content: center;
+}

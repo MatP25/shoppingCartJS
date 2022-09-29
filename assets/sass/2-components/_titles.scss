@@ -1,0 +1,9 @@
+@use "../0-utilities/" as *;
+
+.titleFullWidth {
+    text-align: start;
+    font-size: 1.3em;
+    background-color: $dark;
+    color: $off-white;
+    padding: .75rem 3rem;
+}

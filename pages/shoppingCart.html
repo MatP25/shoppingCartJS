@@ -4,16 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <!-- CSS -->
+    <!-- <link rel="stylesheet" href="../assets/css/style.css"> -->
+    <link rel="stylesheet" href="../assets/css/stylesheet.css">
+
+    <!-- BOOTSTRAP ICONS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+    <!-- JS LIBRARIES -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- JS -->
     <script src="../assets/js/Data.js" defer></script>
     <script src="../assets/js/shoppingCart.js" defer></script>
+
     <title>My Shopping Cart</title>
 </head>
 <body>
-    <header>
+    <header class="header">
         <nav class="navbar">
-            <h2><a href="../index.html" class="title textWhite">Store</a></h2>
+            <h2>
+                <a href="../index.html" class="title textWhite">Store</a>
+            </h2>
+            <span id="userEmail">
+
+            </span>
             <div class="fixed">
                 <div class="cart">
                     <a href="#"><i class="bi bi-cart2"></i></a>
@@ -24,25 +40,112 @@
     </header>
 
     <main>
-    
+
         <section class="shopping-cart" id="shopping-cart">
             
-            <h4 id="cart-label"></h2>
+            <h4 class="titleFullWidth" id="cart-label"></h2>
             
-            <div class="btns-container" id="btnsContainer">
-                <a href="./purchaseDetails.html" target="_blank" id="buyBtn" class="buyBtn">Buy</a>
-                <button id="clearCartBtn">Clear Cart</button>
-            </div>
-
             <h5 id="totalPrice"></h5>
         
             <div id="cartCard-container">
 
             </div>
             
-            
+            <div class="btns-container" id="btnsContainer">
+                <a href="#paymentSection" class="btn">Go to Payment</a>
+                <button class="btn btn--danger" id="clearCartBtn">Clear Cart</button>
+            </div>
 
         </section>
+
+        <section id="paymentSection" class="payment-details"> 
+            <h3 class="titleFullWidth"> Payment information </h3>
+
+            <form id="paymentForm">
+                <div>
+                    <fieldset class="formGroup">
+                        <legend class="formGroup__title">Name</legend>
+                        <label>
+                            First Name
+                            <input type="text" name="First Name" id="fname" pattern="([^\s][A-zÀ-ž\s]+)" required>
+                        </label>
+                        <label>
+                            Last Name
+                            <input type="text" name="Last Name" id="lname" pattern="([^\s][A-zÀ-ž\s]+)" required>
+                        </label>
+                    </fieldset>
+                    
+                    <fieldset class="formGroup">
+                        <legend class="formGroup__title">Contact Information</legend>
+                        <label>
+                            Street Address
+                            <input type="text" name="Street Address" id="streetAdd1" pattern="([^\s][A-z0-9À-ž\s]+)" required>
+                        </label>
+                        <label>
+                            Street Address Line 2
+                            <input type="text" name="Street Address L2" id="streetAdd2" pattern="([^\s][A-z0-9À-ž\s]+)">
+                        </label>
+                        <label>
+                            City
+                            <input type="text" name="City" id="city" pattern="([^\s][A-zÀ-ž\s]+)" required>
+                        </label>
+                        <label>
+                            State/Province
+                            <input type="text" name="State/Province" id="state" pattern="([^\s][A-zÀ-ž\s]+)">
+                        </label>
+                        <label>
+                            Zip Code
+                            <input type="text" name="Zip Code" id="zipCode" title="Digits only, 4 to 8"  required>
+                        </label>
+                        <label>
+                            Phone Number
+                            <input type="text" name="Phone Number" id="phoneNumber" title="Digits only, 6 to 18" required>
+                        </label>
+                    </fieldset>
+                </div>
+                
+                <div>
+                    <fieldset class="formGroup">
+                        <legend class="formGroup__title">Payment Method</legend>
+                        <label>
+                            Cash
+                            <input type="radio" name="Payment Method" id="cash" value="Cash">
+                        </label>
+                        <label>
+                            Deposit
+                            <input type="radio" name="Payment Method" id="deposit" value="Deposit">
+                        </label>
+                        <label>
+                            Credit Card
+                            <input type="radio" name="Payment Method" id="creditCard" value="Credit Card">
+                        </label>
+                    </fieldset>
+    
+                    <fieldset class="formGroup" id="creditCardFieldset" disabled>
+                        <legend class="formGroup__title">Credit Card Information</legend>
+                        <label>
+                            Credit Card Number
+                            <input type="text" name="CC Number" id="ccNumber" required  pattern="([0-9]{13,16})" maxlength="16" title="16 digits, no spaces or dashes">
+                        </label>
+                        <label>
+                            CC Security Code
+                            <input type="text" name="CC Security Code" id="ccCode" required pattern="([0-9]{3,4})" maxlength="3" title="3 digit number behind your CC">
+                        </label>
+                    </fieldset>
+                </div>
+                
+
+                <fieldset class="formGroup">
+                    <legend class="formGroup__title">Confirmation</legend>
+                    <div class="btn-group">
+                        <input class="btn btn--danger" type="reset" value="Reset Form">
+                        <a href="./purchaseDetails.html" id="buyBtn" class="btn">Confirm</a>
+                    </div>
+                    
+                </fieldset>
+            </form>
+        </section>
+
     </main>
 </body>
 </html>

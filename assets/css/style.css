@@ -132,7 +132,7 @@ button, a.buyBtn {
   padding: 10px 16px;
   font-weight: bold;
   border-radius: 8px;
-  background-color: cadetblue;
+  background-color: lightblue;
   border: 2px solid #2b2b2b;
   margin: 1% 2%;
 }
@@ -141,7 +141,6 @@ button, a.buyBtn {
   margin: 2vh 0;
   display:none;
   justify-content: center;
-
 }
 
 #cart-label {

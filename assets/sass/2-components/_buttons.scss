@@ -1,0 +1,25 @@
+@use "../0-utilities/" as *;
+
+.btn {
+    width: fit-content;
+    padding: .75em 1em;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 12px;
+    background-color: $light-blue;
+    background-clip: padding-box;
+    border: 3px solid $dark;
+    margin: .5rem;
+    &--danger {
+        background-color: $light-red;
+    }
+}
+
+
+
+.btn-group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}

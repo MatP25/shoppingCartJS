@@ -1,0 +1,19 @@
+@use "../0-utilities/" as *;
+
+.alert__text {
+    text-align: start;
+    font-size: 1.1em;
+    color: $dark;
+    padding: .25rem;
+    margin-bottom: 5px;
+}
+
+.alert__link {
+    color: darkblue;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+#userEmail {
+    color: $off-white;
+}

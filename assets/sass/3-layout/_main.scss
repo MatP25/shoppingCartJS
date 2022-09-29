@@ -1,9 +1,20 @@
 @use "../0-utilities/" as *;
 
+section {
+    border-bottom: 2px solid $gray;
+    
+}
+
 .shop {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(13rem, 30ch));
     justify-content: center;
     gap: 1rem;
+}
+
+.shopping-cart {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3vh;
 }

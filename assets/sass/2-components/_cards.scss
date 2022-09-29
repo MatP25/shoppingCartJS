@@ -30,3 +30,36 @@
         gap: .5em;
     }
 }
+
+.cartCard {
+    margin: 1em auto;
+    display: flex;
+    flex-direction: row;
+    border: 2px solid $dark;
+    width: min(90%, 50ch);
+    &__img {
+        max-width: 8rem;
+    }
+    &__details {
+        display:flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 1em;
+        position: relative;
+        h3 {
+            font-size: 1em;
+        }
+    }
+    &__price {
+        display: block;
+        margin-top: 4px;
+        font-size: .8em;
+    }
+}
+
+.removeItem {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}

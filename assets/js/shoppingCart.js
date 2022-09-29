@@ -15,7 +15,24 @@
         shoppingCartCards = document.getElementById("cartCard-container"),
         cardsQty = document.getElementsByClassName("quantity"),
         totalPrice = document.getElementById("totalPrice"),
+        userEmail = document.getElementById("userEmail"),
         main = document.querySelector("main");
+
+    ///////////////////////////////////////////////////////////////////
+    ///////////////------------FORM ELEMENTS------------///////////////
+    ///////////////////////////////////////////////////////////////////
+
+    const
+        form = document.getElementById("paymentForm"),
+        fnameValue = document.getElementById("fname").value,
+        lnameValue = document.getElementById("lname").value,
+        address1Value = document.getElementById("streetAdd1").value,
+        address2Value = document.getElementById("streetAdd2").value,
+        cityValue = document.getElementById("city").value,
+        stateValue = document.getElementById("state").value,
+        zipCodeValue = document.getElementById("zipCode").value,
+        phoneNumValue = document.getElementById("phoneNumber").value,
+        paymentOptionsRadios = form.elements.namedItem("Payment Method");
 
     //get the data from the local storage, if the local storage is empty set it as an empty array
     let cart = JSON.parse(localStorage.getItem("data")) || [];
@@ -158,8 +175,61 @@
         cartArray.length > 0 ? 
         targetElement.innerHTML = `TOTAL: $${total}` : 
         targetElement.innerHTML = "";
+        return total
     }
 
+    const purchaseHandler = () => {
+        
+            window.open("./purchaseDetails.html");
+
+            setTimeout( () => {
+                resetDynamicContent();
+                localStorage.removeItem("data");
+            }, 500);
+
+            let purchaseInfo = cart.map( (productCart) => {
+                let { id, quantity } = productCart;
+                let searchProductData = productsData.find( (product) => ("product" + product.id) === id) || [];
+                return  {
+                    name: searchProductData.name,
+                    price: searchProductData.price,
+                    qty: quantity,
+                    subtotal: (quantity * searchProductData.price)
+                }
+            } );
+            
+            localStorage.setItem("purchaseInfo", JSON.stringify(purchaseInfo));
+        
+    }
+
+    const checkSession = () => {
+        let sessionStorageData = JSON.parse(sessionStorage.getItem("email")) || [];
+
+        if (sessionStorageData.length === 0) {
+            loginAlert();
+        } else {
+            userEmail.innerHTML = `Welcome! ${sessionStorageData}`;
+        }
+    }
+
+    const loginAlert = async () => {
+        const {value: email } = await Swal.fire({
+            title: 'Please enter your email before continuing',
+            input: 'email',
+            inputLabel: 'Your email address',
+            inputPlaceholder: 'Enter your email address'
+        });
+        if (email) {
+            Swal.fire({
+                title: `Success
+                Entered email: ${email}`,
+                icon: 'success',
+                showCloseButton: true
+                });
+            sessionStorage.setItem("email", JSON.stringify(email));
+            userEmail.innerHTML = `Welcome! ${email}`;
+        }
+    }
     ///////////////////////////////////////////////////////////////////
     //////////////------------EVENT LISTENERS------------//////////////
     ///////////////////////////////////////////////////////////////////
@@ -172,6 +242,8 @@
         updateCartIcon(cartAmount);
         generateCartItems(shoppingCartCards, productsData, cart);
         calculateTotalPrice(totalPrice, cart, productsData);
+        checkSession();
+        
     });
 
     main.addEventListener("click", evt => {
@@ -200,28 +272,47 @@
         localStorage.clear();
     });
 
-    buyBtn.addEventListener("click", () => {
+    buyBtn.addEventListener("click", (evt) => {
+        evt.preventDefault();
+        Swal.fire({
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm',
+            titleText: "Verify your information",
+            html: `<p class="alert__text"> <strong> Total:</strong> $${calculateTotalPrice(totalPrice, cart, productsData)}</p>
+            <p class="alert__text"><strong>Name:</strong> ${fnameValue} ${lnameValue}</p>
+            <p class="alert__text"><strong>Address:</strong> ${address1Value}, ${address2Value} </p>
+            <p class="alert__text"><strong>City & State:</strong> ${cityValue}, ${stateValue} </p>
+            <p class="alert__text"><strong>Zip Code:</strong> ${zipCodeValue}</p>
+            <p class="alert__text"><strong>Phone: </strong> ${phoneNumValue} </p>
+            <p class="alert__text"><strong>Payment Option:</strong> ${paymentOptionsRadios.value}</p>`,
 
-        if (cart.length !==0) {
-
-            setTimeout( () => {
-                resetDynamicContent();
-                localStorage.removeItem("data");
-            }, 500);
-
-            let purchaseInfo = cart.map( (productCart) => {
-                let { id, quantity } = productCart;
-                let searchProductData = productsData.find( (product) => ("product" + product.id) === id) || [];
-                return  {
-                    name: searchProductData.name,
-                    price: searchProductData.price,
-                    qty: quantity,
-                    subtotal: (quantity * searchProductData.price)
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: `Order Confirmed
+                    Thank you for your purchase!`,
+                    timer: 5000,
+                    icon: 'success',
+                    showCloseButton: true
+                });
+                if (cart.length !==0) {
+                    setTimeout( () => {
+                        purchaseHandler();
+                    }, 2500);
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'There are no items in your cart!',
+                        footer: '<a class="alert__link" href="../index.html">Go back to the main page to add items</a>'
+                    })
                 }
-            } );
-            
-            localStorage.setItem("purchaseInfo", JSON.stringify(purchaseInfo));
-        }
+                
+            } 
+        });
     });
-
+    
 })()
