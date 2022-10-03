@@ -163,7 +163,7 @@
     }
     
     
-    const urljson = "/assets/json/dataCats.JSON";
+    const urljson = "/shoppingCartJS/assets/json/dataCats.JSON";
 
     const getJsonData = async (url, hasFilter) => {
         const resp = await fetch(url);
