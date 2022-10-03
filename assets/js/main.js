@@ -5,7 +5,7 @@
     ////////////////////////////////////////////////////////////////////
     ////////////////------------DOM ELEMENTS------------////////////////
     ////////////////////////////////////////////////////////////////////
-
+    const urljson = "https://github.com/MatP25/shoppingCartJS/assets/js/json/dataCats.JSON";
     const 
         shop = document.getElementById("shop"),
         cartAmount = document.getElementById("cart-amount"),
@@ -161,10 +161,6 @@
         minPriceInput.value = "";
         selectCategory.value = "";
     }
-
-    
-    
-    const url = "./assets/js/json/dataCats.JSON";
     
     const getJsonData = async (url, hasFilter) => {
         const resp = await fetch(url);
@@ -191,7 +187,7 @@
 
     window.addEventListener("load", () => {
         clearFilters();
-        getJsonData(url, false);
+        getJsonData(urljson, false);
         updateCartIcon(cartAmount);
     });
 
@@ -222,7 +218,7 @@
     });
     
     applyFiltersBtn.addEventListener("click", () => {
-        getJsonData(url, true);
+        getJsonData(urljson, true);
     });
 
     clearFiltersBtn.addEventListener("click", clearFilters);
