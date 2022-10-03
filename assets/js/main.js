@@ -162,6 +162,24 @@
         selectCategory.value = "";
     }
 
+    
+    
+    const url = "./assets/js/json/dataCats.JSON";
+    
+    const getJsonData = async (url, hasFilter) => {
+        const resp = await fetch(url);
+        const data = await resp.json();
+
+        if (!hasFilter) {
+            createProducts(shop, data, cart);
+        } else {
+            const filteredByName = nameFilter(data, searchBar.value.toLowerCase());
+            const multiFiltered = multipleFilters(filteredByName, selectCategory.value, maxPriceInput.value, minPriceInput.value);
+            createProducts(shop, multiFiltered, cart);
+        }
+        
+    }
+    
     ///////////////////////////////////////////////////////////////////
     //////////////------------EVENT LISTENERS------------//////////////
     ///////////////////////////////////////////////////////////////////
@@ -173,7 +191,7 @@
 
     window.addEventListener("load", () => {
         clearFilters();
-        createProducts(shop, productsData, cart);
+        getJsonData(url, false);
         updateCartIcon(cartAmount);
     });
 
@@ -202,16 +220,9 @@
         resetDynamicContent();
         localStorage.clear();
     });
-
-    searchBar.addEventListener("input", () => {
-        clearFilters();
-        let filtered = nameFilter(productsData, searchBar.value);
-        createProducts(shop, filtered, cart);
-    });
     
     applyFiltersBtn.addEventListener("click", () => {
-        let filtered =  multipleFilters(productsData, selectCategory.value, maxPriceInput.value, minPriceInput.value);
-        createProducts(shop, filtered, cart);
+        getJsonData(url, true);
     });
 
     clearFiltersBtn.addEventListener("click", clearFilters);
