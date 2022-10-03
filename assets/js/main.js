@@ -164,7 +164,12 @@
     
     const getJsonData = async (url, hasFilter) => {
         const resp = await fetch(url);
+
+        console.log(resp);
+
         const data = await resp.json();
+
+        console.log(data);
 
         if (!hasFilter) {
             createProducts(shop, data, cart);
@@ -187,6 +192,7 @@
 
     window.addEventListener("load", () => {
         clearFilters();
+        console.log("Loaded");
         getJsonData(urljson, false);
         updateCartIcon(cartAmount);
     });
