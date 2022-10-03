@@ -46,7 +46,7 @@
         return (targetElement.innerHTML = dataArray.map( 
             (element) => {
             // object deconstructing
-            let {id, name, price, details, category, imgSrc} = element;
+            let {id, name, price, details, category, subcategory, imgSrc} = element;
             //search the cart, if there are zero products return an empty array
             //then assign the product's quantity retrieved from the array to the quantity value inside the card, if the array is empty searchCart.quantity will be undefined then let the value be 0
             let searchCart = cartArray.find ( product => product.id === ("product" + id)) || [];
@@ -55,8 +55,7 @@
             <img src=${imgSrc} alt="">
                 <div class="card__details">
                     <h3>${name}</h3>
-                    <p>Details: ${details}</p>
-                    <p>Category: ${category}</p>
+                    <p>Category: ${category} - ${subcategory}</p>
                     <div class="card__price">
                         <p>$${price}</p>
                         <div class="card__buttons">
@@ -147,7 +146,7 @@
     const multipleFilters = (dataArray, categoryValue, maxPrice, minPrice) => {
         let filteredData = dataArray
         .filter( 
-            prod => (!categoryValue || prod.category.toLowerCase().includes(categoryValue))
+            prod => (!categoryValue || prod.subcategory.toLowerCase().includes(categoryValue))
         ).filter( 
             prod => (!minPrice || prod.price >= parseInt(minPrice))
         ).filter( 

@@ -1,0 +1,322 @@
+[
+   {
+      "id":134,
+      "name":"SCIENCE DIET Chicken dental formula dry food for cats",
+      "details":"7kg",
+      "description":"Hill's® Science Diet® Adult Dental Care Dry Cat Food provides balanced nutrition with precision for dental health and the health of the body as a whole. Clinically proven kibble technology to reduce plaque and tartar. Daily dental protection to freshen the breath. Helps brush your cat's teeth with every bite. Nutrition balanced with 100% accuracy.",
+      "category":"Cats",
+      "subcategory":"food",
+      "price":82,
+      "imgSrc":"./assets/imgs/34.jpg"
+   },
+   {
+      "id":135,
+      "name":"FANCY FEAST Tender liver and chicken wet food for adult cats",
+      "details":"85g",
+      "description":"This paté's delicious taste of poultry will please even the fussiest cats. This balanced meal contains vitamins and essential minerals to promote your companion's health. Contains liver, meat broth, meat by-products, chicken, artificial and natural flavours, calcium phosphate, guar gum, potassium chloride, minerals, taurine, salt, vitamins.",
+      "category":"Cats",
+      "subcategory":"food",
+      "price":0.99,
+      "imgSrc":"./assets/imgs/35.jpg"
+   },
+   {
+      "id":136,
+      "name":"VETDIET Dental care dry food for adult cats",
+      "details":"6.8kg",
+      "description":"Vetdiet adult dental health cat food is specially formulated to support your cat's dental health. Our specialized kibble contains sodium hexametaphosphate to help prevent tartar build-up while pea fiber creates a brushing-like action to help remove plaque. The shape and size of the kibble encourage chewing and added peppermint and parsley help keep your cat's breath fresh.",
+      "category":"Cats",
+      "subcategory":"food",
+      "price":63,
+      "imgSrc":"./assets/imgs/36.jpg"
+   },
+   {
+      "id":137,
+      "name":"VETDIET Dental care dry food for adult cats",
+      "details":"1.6kg",
+      "description":"Vetdiet adult dental health cat food is specially formulated to support your cat's dental health. Our specialized kibble contains sodium hexametaphosphate to help prevent tartar build-up while pea fiber creates a brushing-like action to help remove plaque. The shape and size of the kibble encourage chewing and added peppermint and parsley help keep your cat's breath fresh.",
+      "category":"Cats",
+      "subcategory":"food",
+      "price":32,
+      "imgSrc":"./assets/imgs/36.jpg"
+   },
+   {
+      "id":138,
+      "name":"VETDIET Dental care dry food for adult cats",
+      "details":"3.2kg",
+      "description":"Vetdiet adult dental health cat food is specially formulated to support your cat's dental health. Our specialized kibble contains sodium hexametaphosphate to help prevent tartar build-up while pea fiber creates a brushing-like action to help remove plaque. The shape and size of the kibble encourage chewing and added peppermint and parsley help keep your cat's breath fresh.",
+      "category":"Cats",
+      "subcategory":"food",
+      "price":51,
+      "imgSrc":"./assets/imgs/36.jpg"
+   },
+   {
+      "id":139,
+      "name":"ALMO NATURE Tuna and cheese in broth for adult cats",
+      "details":"70g",
+      "description":"This adult cat wet food is a delicious complement to dry food diets and is a good source of hydration. 100% natural and full of proteins, it is additives and sub-products free to preserve its high nutritional value and your pet's health. This food is composed of human grade ingredients and is conserved in its own broth. Tuna 71%, Cheese 5% and Cooking water 24%. Moisture: 80% Raw protein: 19% Raw fat: 1% Raw ash: 2% Raw fibre: 1%.",
+      "category":"Cats",
+      "subcategory":"food",
+      "price":1.99,
+      "imgSrc":"./assets/imgs/39.jpg"
+   },
+   {
+      "id":140,
+      "name":"VETDIET Hairball control chicken and rice formula for adult cat",
+      "details":"6.8kg",
+      "description":"Vetdiet® adult hairball control cat food is specifically formulated to help prevent hairballs for your cat. Made from natural ingredients, this formula contains: optimal fiber levels from miscanthus grass, pea fiber and psyllium to help control hairballs, omega-3 from flaxseed and fish oil for a healthy skin and coat, natural prebiotics to help support digestive health.",
+      "category":"Cats",
+      "subcategory":"food",
+      "price":60,
+      "imgSrc":"./assets/imgs/40.jpg"
+   },
+   {
+      "id":141,
+      "name":"VETDIET Hairball control chicken and rice formula for adult cat",
+      "details":"1.59kg",
+      "description":"Vetdiet® adult hairball control cat food is specifically formulated to help prevent hairballs for your cat. Made from natural ingredients, this formula contains: optimal fiber levels from miscanthus grass, pea fiber and psyllium to help control hairballs, omega-3 from flaxseed and fish oil for a healthy skin and coat, natural prebiotics to help support digestive health.",
+      "category":"Cats",
+      "subcategory":"food",
+      "price":30,
+      "imgSrc":"./assets/imgs/41.jpg"
+   },
+   {
+      "id":142,
+      "name":"VETDIET Skin and stomach health dry food for adult cat",
+      "details":"3.18kg",
+      "description":"Vetdiet® adult skin and stomach health grain-free cat food is specially formulated with salmon and other natural ingredients for cats with special digestive and dermal needs. This dry cat food contains: Limited sources of protein from fish for cats with specific needs, Omega-3 and omega-6 fatty acids from salmon, fish oil and canola oil to help maintain skin and coat health, Chicory root extract, a natural source of prebiotics, to support digestive health.",
+      "category":"Cats",
+      "subcategory":"food",
+      "price":51,
+      "imgSrc":"./assets/imgs/42.jpg"
+   },
+   {
+      "id":143,
+      "name":"CATIT Creamy Cat Lickable Treat, Chicken and Liver, 50-pack",
+      "details":"750g, x50 15g tubes",
+      "description":"Catit Creamy is a healthy and hydrating lickable treat, rich in amino acids. Serve on a dish or feed your cat directly from the tube as a special reward. Catit Creamy treats are natural, tasty and full of essential nutrients. Add some tasty variation to your cat's diet with Catit Creamy treats - delicious by itself or as a dry food topping.",
+      "category":"Cats",
+      "subcategory":"treats",
+      "price":35,
+      "imgSrc":"./assets/imgs/43.jpg"
+   },
+   {
+      "id":144,
+      "name":"PUREBITE Plus Squeezables cat treats, skin & coat",
+      "details":"2.5oz | 71g",
+      "description":"PureBites® Plus Squeezables Skin & Coat daily health support is made with only 5 high-quality ingredients; 100% pure & natural chicken, water, tapioca starch, sunflower oil, and tuna oil. Every pouch contains 113mg of omega-3 and 1,065mg of omega-6 to support skin and coat health. Made fresh and pure in a fun and interactive squeezable pouch that dispenses pure protein + functional ingredients with no mess or fuss.",
+      "category":"Cats",
+      "subcategory":"treats",
+      "price":2.29,
+      "imgSrc":"./assets/imgs/44.jpg"
+   },
+   {
+      "id":145,
+      "name":"TREAT TIME Catnip Flavored Cat Treats",
+      "details":"100g",
+      "description":"Your cat will love this catnip flavoured treat with no artificial flavours or colours. Crunchy on the outside and tender on the inside, cats will do anything for the great taste of the Treat Time cat treats. A shake of the pack and our feline will come purring with happiness. Crude protein: min 31.0%, crude fat: min 18.0%, crude fiber: max 5.0%, moisture: max 12.0%.",
+      "category":"Cats",
+      "subcategory":"treats",
+      "price":3.5,
+      "imgSrc":"./assets/imgs/45.jpg"
+   },
+   {
+      "id":146,
+      "name":"SHAMELESS Yam Good Salmon",
+      "details":"71g",
+      "description":"Shameless Pets is an all-natural, nutritionist-crafted, sustainable cat treat brand using upcycled ingredients such as sweet potatoes that are too big or too small to have made it to grocery store shelves. All of our products are made in the USA, and our mission is to save as much food as possible by combining healthy ingredients into innovative and fun treats. Crude Protein (min) 22%, Crude Fat (min) 10.5%, Crude Fiber (min) 4.5%, Moisture (max) 8%, Omega-6 Fatty Acids (min) 1.25%, Omega-3 Fatty Acids (min) 3.50% ",
+      "category":"Cats",
+      "subcategory":"treats",
+      "price":4.99,
+      "imgSrc":"./assets/imgs/46.jpg"
+   },
+   {
+      "id":147,
+      "name":"ODOURBLOCK Clumping litter",
+      "details":"12kg",
+      "description":"This litter is made of 100% natural clay and has an unparalleled odor control with its 'Smart Odor Shield' technology that neutralizes odours for up to 40 days. It has an excellent absorption rate, which makes it easy to scoop and clean.",
+      "category":"Cats",
+      "subcategory":"hygiene & care",
+      "price":19.49,
+      "imgSrc":"./assets/imgs/47.jpg"
+   },
+   {
+      "id":148,
+      "name":"O'SELECT Clumping Clay Litter",
+      "details":"18kg",
+      "description":"Made of premium quality bentonite clay, this litter clumps more effectively and offers better absorption. It clumps on contact with urine, which makes for easier scooping and lets you clean the litter box less frequently. Dust free and made of medium granules, it will not stick to your cat's paws for less tracking. In addition to controlling odours, this O'select Original litter is unscented, which most cats prefer.",
+      "category":"Cats",
+      "subcategory":"hygiene & care",
+      "price":13.99,
+      "imgSrc":"./assets/imgs/48.jpg"
+   },
+   {
+      "id":149,
+      "name":"MODERNA Recycled jumbo scoop, grey",
+      "details":"",
+      "description":"This jumbo scoop is designed to make cleaning easier. With ergonomic handle for comfortable use.",
+      "category":"Cats",
+      "subcategory":"accessories",
+      "price":1.89,
+      "imgSrc":"./assets/imgs/49.jpg"
+   },
+   {
+      "id":150,
+      "name":"MODERNA High Litter Box for Cats",
+      "details":"Height: 45cm, width: 25cm, length: 61cm",
+      "description":"This cat litter box was conceived to really reduce litter scatter and is great for large cat breeds and multi-cat households.",
+      "category":"Cats",
+      "subcategory":"hygiene & care",
+      "price":21,
+      "imgSrc":"./assets/imgs/50.jpg"
+   },
+   {
+      "id":151,
+      "name":"BACI+ Buco+ Oral Health for Small Dogs and Cats",
+      "details":"x56 1g pouches. For small dogs and cats up to 15 kg. 6 months and older",
+      "description":"Buco+ helps to prevent and reduce: tartar, plaque and bad breath in dogs and cats. Buco+ is a product that is highly specific to the gingipain enzyme (a protease that damages tooth cavities and reduces natural oral defences). This very fast-acting product is natural, safe, has no aftertaste and is simple to use.",
+      "category":"Cats",
+      "subcategory":"hygiene & care",
+      "price":65,
+      "imgSrc":"./assets/imgs/51.jpg"
+   },
+   {
+      "id":152,
+      "name":"ADVANTAGE II Topical flea protection for cat 4+ kg, 6 pack",
+      "details":"Imidacloprid 9.1% and Pyriproxyfen 0.46%",
+      "description":"A monthly topical flea treatment that works through contact so fleas don't have to bite to die. Controls fleas (including all life stages) and helps to protect against Flea Allergy Dermatitis (FAD). Available in three different sizes for kittens and cats. Advantage® II is not absorbed internally when applied to the skin on the back of the neck. It spreads in a thin layer and remains locked in the oil of the pets skin. Contact between fleas and the treated hair coat and skin results in paralysis and death of adult fleas. Advantage® II not only kills adult fleas through contact, the product also contains the insect growth regulator pyriproxyfen which is distributed into the home on fur and skin shed by the cat and prevents flea eggs and larvae from developing into the next stage of the flea life cycle, effectively killing them.",
+      "category":"Cats",
+      "subcategory":"hygiene & care",
+      "price":103,
+      "imgSrc":"./assets/imgs/52.jpg"
+   },
+   {
+      "id":153,
+      "name":"CATIT CATI CHA HERBE VAPO Catnip spray",
+      "details":"Catnip spray 90ml",
+      "description":"Directions: Hold spray bottle 20-25 cm (8-10 in.) from object to be sprayed. Do not spray on the cat or any other animal. Do not spray on furniture (except cat furniture). Keep out of reach of children.",
+      "category":"Cats",
+      "subcategory":"hygiene & care",
+      "price":8.99,
+      "imgSrc":"./assets/imgs/53.jpg"
+   },
+   {
+      "id":154,
+      "name":"SAFARI Deluxe nail trimmer for cats and small animals",
+      "details":"",
+      "description":"Quality stainless steel ensures a long lasting, sharp cutting edge on our Safari Cat Deluxe Nail Trimmer. This cat nail trimmer provides ultimate comfort for more hand sizes with a larger finger hole, over-molded handle and non-slip finger rest. It is suitable for cats and small animals. This product allows you to safely trim your pet's claws for your peace of mind.",
+      "category":"Cats",
+      "subcategory":"hygiene & care",
+      "price":12,
+      "imgSrc":"./assets/imgs/54.jpg"
+   },
+   {
+      "id":155,
+      "name":"AMAZONIA Citro Protect flean and tick repellent",
+      "details":"500g For domestic use only. Avoid contact with eyes.",
+      "description":"Amazonia Pet Care Citro Protect is a natural Flea and Tick repellent. One of mother nature's most well-known shields, Citro Protect Natural Repellent can offer a natural insect repellent your pet needs without harsh chemicals and smells. A go-to in aromatherapy, it combines a fresh scent with rich Vitamin E and a number of other practical uses with its antibacterial, anti-inflammatory, antidepressant, antiseptic and fungicide properties. Protection without irritation is an application away (and you don't have to worry about it irritating your hands either).",
+      "category":"Cats",
+      "subcategory":"hygiene & care",
+      "price":19.99,
+      "imgSrc":"./assets/imgs/55.jpg"
+   },
+   {
+      "id":156,
+      "name":"ANIVET Laxative paste for hairballs",
+      "details":"100g. This product is for veterinary use only.",
+      "description":"This laxative paste aids in the prevention and the removal of the hairballs in cats. This product is for veterinary use only.",
+      "category":"Cats",
+      "subcategory":"hygiene & care",
+      "price":14.99,
+      "imgSrc":"./assets/imgs/56.jpg"
+   },
+   {
+      "id":157,
+      "name":"RIGA Scratching post",
+      "details":"Dimensions when assembled : 33 x 33 x 61 cm",
+      "description":"Help your cat fight boredom and maintain healthy claws with this simple and easy-to-carry post. It allows your cat to mark its territory without scratching your furniture!",
+      "category":"Cats",
+      "subcategory":"accessories",
+      "price":19.59,
+      "imgSrc":"./assets/imgs/57.jpg"
+   },
+   {
+      "id":158,
+      "name":"CATIT Play 3-in-1 Circuit Ball Toy with Scratch Pad, Red",
+      "details":"530g",
+      "description":"The Catit Play Circuit Ball Toy is a-3 in-1 activity toy that will entertain your kitty with hours of playtime. The 3-in-1 activity toy includes a: scratching pad, circuit ball toy, a bouncy bee and catnip.",
+      "category":"Cats",
+      "subcategory":"accessories",
+      "price":25,
+      "imgSrc":"./assets/imgs/58.jpg"
+   },
+   {
+      "id":159,
+      "name":"VESPER Minou Bench Scratcher",
+      "details":"Weight: 5kg. Dimensions : L. 36 x l. 36,5 x H. 40,5 cm",
+      "description":"The Catit Vesper Minou is a horizontal scratcher and a two-entries hiding place in one. Thanks to its compact design, it can be placed near any object that you would like to prevent your cat from scratching. ",
+      "category":"Cats",
+      "subcategory":"accessories",
+      "price":85,
+      "imgSrc":"./assets/imgs/59.jpg"
+   },
+   {
+      "id":160,
+      "name":"PRO PLAN Feline probiotic supplement",
+      "details":"30g. For cats of all sizes, orally administer by adding to food, one sachet daily. Not for long term use, unless directed by a Veterinarian",
+      "description":"Purina Pro Plan Veterinary Supplements FortiFlora® Feline Probiotic Supplement contains a safe and effective strain of beneficial bacteria proven to promote normal intestinal microflora. FortiFlora® is the #1 probiotic brand recommended by veterinarians*. The science behind our therapeutic products represents a collaboration between Purina nutritionists, researchers and veterinarians.",
+      "category":"Cats",
+      "subcategory":"hygiene & care",
+      "price":85,
+      "imgSrc":"./assets/imgs/60.jpg"
+   },
+   {
+      "id":161,
+      "name":"TURBO Fish Toy with Feather and Catnip",
+      "details":"",
+      "description":"Turbo Cat offer a wide variety of toys made of materials such as feathers, sponge, plastic and fuzzy fabrics. Select toys feature rattle and crinkling sounds. These features will quickly make these toys among your cat's favorites.",
+      "category":"Cats",
+      "subcategory":"accessories",
+      "price":4,
+      "imgSrc":"./assets/imgs/61.jpg"
+   },
+   {
+      "id":162,
+      "name":"TRIXIE Cat scratching tunnel",
+      "details":"Dimensions: 110 x 30 x 38 cm",
+      "description":"Plush-covered scratching tunnel for cats",
+      "category":"Cats",
+      "subcategory":"accessories",
+      "price":125,
+      "imgSrc":"./assets/imgs/62.jpg"
+   },
+   {
+      "id":163,
+      "name":"CLÖE E CLUZO Cat Collar, Fishes",
+      "details":"3/8\" X 6-10\" (1cm X 15 - 25.5cm)",
+      "description":"Spiff your cat up with this high-quality designer collar. It is adjustable with a built in safety elastic to avoid your cat getting stuck. It also has a bell to easily find your little furry friend!",
+      "category":"Cats",
+      "subcategory":"accessories",
+      "price":9,
+      "imgSrc":"./assets/imgs/63.jpg"
+   },
+   {
+      "id":164,
+      "name":"CLÖE E CLUZO Mesh Cat Harness, Black",
+      "details":"Size: Girth Medium: 25 - 38 cm, Large: 33 45 cm",
+      "description":"Gorgeous black Cloe Cluzo adjustable mesh cat harness. Great for special occasions and everyday fun! Since it is made of mesh, the fabric breathes for your pet's comfort.",
+      "category":"Cats",
+      "subcategory":"accessories",
+      "price":18.99,
+      "imgSrc":"./assets/imgs/64.jpg"
+   },
+   {
+      "id":164,
+      "name":"CLÖE E CLUZO Ergonomic cat double bowl feeder",
+      "details":"L: 27.5 cm x W: 13.5 cm x H: 14 cm",
+      "description":"The ergonomic Cloe e Cluzo double bowl for cats improves food digestion and helps prevent acid reflux. The tilting design helps to solve long-term spinal problems. Bowls are removable and dishwasher safe.",
+      "category":"Cats",
+      "subcategory":"accessories",
+      "price":19.99,
+      "imgSrc":"./assets/imgs/65.jpg"
+   }
+]
