@@ -163,17 +163,14 @@
     }
     
     
-    const urljson = "shoppingCartJS/assets/json/dataCats.JSON";
+    const urljson = "./assets/js/json/dataCats.JSON";
 
     const getJsonData = async (url, hasFilter) => {
         const resp = await fetch(url);
 
         console.log(resp);
 
-        // const data = await resp.text();
         const data = await resp.json();
-
-        // console.log(data);
 
         if (!hasFilter) {
             createProducts(shop, data, cart);
@@ -196,7 +193,6 @@
 
     window.addEventListener("load", () => {
         clearFilters();
-        // console.log("Loaded");
         getJsonData(urljson, false);
         updateCartIcon(cartAmount);
     });
