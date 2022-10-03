@@ -5,7 +5,7 @@
     ////////////////////////////////////////////////////////////////////
     ////////////////------------DOM ELEMENTS------------////////////////
     ////////////////////////////////////////////////////////////////////
-    const urljson = "https://github.com/MatP25/shoppingCartJS/assets/js/json/dataCats.JSON";
+    const urljson = "./assets/js/json/dataCats.JSON";
     const 
         shop = document.getElementById("shop"),
         cartAmount = document.getElementById("cart-amount"),
