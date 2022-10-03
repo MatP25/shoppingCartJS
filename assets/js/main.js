@@ -163,7 +163,7 @@
     }
     
     
-    const urljson = "./assets/js/json/dataCats.JSON";
+    const urljson = "/assets/json/dataCats.JSON";
 
     const getJsonData = async (url, hasFilter) => {
         const resp = await fetch(url);
