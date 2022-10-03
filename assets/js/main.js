@@ -167,20 +167,20 @@
     const getJsonData = async (url, hasFilter) => {
         const resp = await fetch(url);
 
-        console.log(resp);
+        // console.log(resp);
 
-        const data = await resp.text();
-        // const data = await resp.json();
+        // const data = await resp.text();
+        const data = await resp.json();
 
-        console.log(data);
+        // console.log(data);
 
-        // if (!hasFilter) {
-        //     createProducts(shop, data, cart);
-        // } else {
-        //     const filteredByName = nameFilter(data, searchBar.value.toLowerCase());
-        //     const multiFiltered = multipleFilters(filteredByName, selectCategory.value, maxPriceInput.value, minPriceInput.value);
-        //     createProducts(shop, multiFiltered, cart);
-        // }
+        if (!hasFilter) {
+            createProducts(shop, data, cart);
+        } else {
+            const filteredByName = nameFilter(data, searchBar.value.toLowerCase());
+            const multiFiltered = multipleFilters(filteredByName, selectCategory.value, maxPriceInput.value, minPriceInput.value);
+            createProducts(shop, multiFiltered, cart);
+        }
         
     }
     
