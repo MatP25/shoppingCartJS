@@ -5,7 +5,7 @@
     ////////////////////////////////////////////////////////////////////
     ////////////////------------DOM ELEMENTS------------////////////////
     ////////////////////////////////////////////////////////////////////
-    const urljson = "shoppingCartJS/assets/js/json/dataCats.JSON";
+    
     const 
         shop = document.getElementById("shop"),
         cartAmount = document.getElementById("cart-amount"),
@@ -163,7 +163,8 @@
     }
     
     
-
+    const urljson = "/assets/js/json/dataCats.JSON";
+    
     const getJsonData = async (url, hasFilter) => {
         const resp = await fetch(url);
 
