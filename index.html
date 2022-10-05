@@ -12,12 +12,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@200;300;400;600;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,800&display=swap" rel="stylesheet">
 
     <!-- CSS -->
-    <!-- <link rel="stylesheet" href="./assets/css/style.css"> -->
     <link rel="stylesheet" href="./assets/css/stylesheet.css">
 
     <!-- BOOTSTRAP ICONS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
+    <!-- JS LIBRARIES -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <!-- JAVASCRIPT -->
     <script src="./assets/js/Data.js" defer></script>  
     <script src="./assets/js/main.js" defer></script>
@@ -42,6 +44,11 @@
                     <div id="cart-amount">0</div>
                 </div>
             </div>
+
+            <div>
+                <button id="openLoginModal">Login</button>
+            </div>
+            
     </header>
 
 
@@ -150,5 +157,21 @@
 
     </main>
     
+    <section class="modal hidden" id="loginModal">
+        <form class="modal__form" id="loginForm">
+            <div class="modal__inputdivs">
+                <label for="userEmail">Please enter your user email</label><span class="form-err-msg" id="errmsg-email"></span>
+                <input type="email" name="userEmail" id="loginEmail" placeholder="user@email.com" value="user@email.com">
+            </div>
+            <div class="modal__inputdivs">
+                <label for="userPassword">Enter your password</label><span class="form-err-msg" id="errmsg-password"></span>
+                <input type="password" name="userPassword" id="loginPassword" placeholder="password" value="password">
+            </div>
+            <div class="modal__btnsdiv">
+                <button class="btn" id="loginBtn">Log in</button>
+                <button class="btn" id="closeLoginBtn">Cancel</button>
+            </div>
+        </form>
+    </section>
 </body>
 </html>

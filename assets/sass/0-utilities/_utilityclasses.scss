@@ -28,3 +28,11 @@
 .textWhite {
     color: $off-white;
 }
+
+.validInput {
+    border: 2px solid $light-green;
+}
+
+.invalidInput {
+    border: 2px solid red;
+}

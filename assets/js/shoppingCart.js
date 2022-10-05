@@ -15,7 +15,12 @@
         shoppingCartCards = document.getElementById("cartCard-container"),
         cardsQty = document.getElementsByClassName("quantity"),
         totalPrice = document.getElementById("totalPrice"),
-        userEmail = document.getElementById("userEmail"),
+        openLoginModalBtn = document.getElementById("openLoginModal"),
+        loginModal = document.getElementById("loginModal"),
+        loginBtn = document.getElementById("loginBtn"),
+        closeLoginBtn = document.getElementById("closeLoginBtn"),
+        emailInput = document.getElementById("loginEmail"),
+        passwordInput = document.getElementById("loginPassword"),
         main = document.querySelector("main");
 
     ///////////////////////////////////////////////////////////////////
@@ -40,6 +45,17 @@
     ///////////////////////////////////////////////////////////////////
     /////////////////------------FUNCTIONS------------/////////////////
     ///////////////////////////////////////////////////////////////////
+
+    
+    const openModal = () => {
+            loginModal.classList.remove("hidden");
+            loginModal.className += " visibleBlock";
+        }
+    
+    const closeModal = () => {
+        loginModal.classList.remove("visibleBlock");
+        loginModal.className += " hidden";
+    }
 
     const toggleVisibility = (targetElement, displayType) => {
         targetElement.style.display = displayType;
@@ -202,7 +218,7 @@
     }
 
     const purchaseHandler = async (dataUrl) => {
-        
+        //NOT WORKING!!!
             const resp = await fetch(dataUrl);
             const data = await resp.json();
 
@@ -227,35 +243,6 @@
             localStorage.setItem("purchaseInfo", JSON.stringify(purchaseInfo));
         
     }
-
-    // const checkSession = () => {
-    //     let sessionStorageData = JSON.parse(sessionStorage.getItem("email")) || [];
-
-    //     if (sessionStorageData.length === 0) {
-    //         loginAlert();
-    //     } else {
-    //         userEmail.innerHTML = `Welcome! ${sessionStorageData}`;
-    //     }
-    // }
-
-    // const loginAlert = async () => {
-    //     const {value: email } = await Swal.fire({
-    //         title: 'Please enter your email before continuing',
-    //         input: 'email',
-    //         inputLabel: 'Your email address',
-    //         inputPlaceholder: 'Enter your email address'
-    //     });
-    //     if (email) {
-    //         Swal.fire({
-    //             title: `Success
-    //             Entered email: ${email}`,
-    //             icon: 'success',
-    //             showCloseButton: true
-    //             });
-    //         sessionStorage.setItem("email", JSON.stringify(email));
-    //         userEmail.innerHTML = `Welcome! ${email}`;
-    //     }
-    // }
 
     const urljson = "../assets/js/json/data.JSON";
 
@@ -310,6 +297,32 @@
             } 
         });
     }
+
+    const fakeLoginValidation = (email, passw) => {
+        const validUserEmail = "user@email.com";
+        const validUserPassword = "password";
+
+        if (email !== validUserEmail) {
+            emailInput.className += " invalidInput";
+        } else {
+            if (passw !== validUserPassword) {
+                passwordInput.className += " invalidInput";
+            } else {
+                return true
+            }
+        }
+        return false
+    }
+
+    const checkLoginState = () => {
+        let loginState = localStorage.getItem("loginState");
+        if (loginState === "true") {
+            openLoginModalBtn.innerHTML = "Logout";
+        } else {
+            openLoginModalBtn.innerHTML = "Login";
+        }
+        return loginState
+    }
     ///////////////////////////////////////////////////////////////////
     //////////////------------EVENT LISTENERS------------//////////////
     ///////////////////////////////////////////////////////////////////
@@ -322,8 +335,8 @@
         updateCartIcon(cartAmount);
         getJsonData(urljson);
         calculateTotalPrice(totalPrice, cart, urljson);
-        // checkSession();
-        
+        checkLoginState();
+
     });
 
     main.addEventListener("click", evt => {
@@ -354,7 +367,56 @@
 
     buyBtn.addEventListener("click", (evt) => {
         evt.preventDefault();
-        confirmationPopup();
+
+        if (checkLoginState() === "false") {
+            Swal.fire({
+                title: 'Please Login before continuing',
+                icon: 'info',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirm'
+            });
+        } else {
+            confirmationPopup();
+        }
     });
     
+    window.addEventListener("click", (evt) => {
+        if (evt.target == loginModal) {
+            closeModal();
+        }
+    });
+
+    closeLoginBtn.addEventListener("click", closeModal);
+
+    loginBtn.addEventListener("click", (evt) => {
+        evt.preventDefault();
+        emailInput.className = "";
+        passwordInput.className = "";
+
+        if (fakeLoginValidation(emailInput.value, passwordInput.value)) {
+            localStorage.setItem("loginState", true);
+            closeModal();
+            Swal.fire('Login successful!', 'Reloading the page...', 'success').then(
+                setTimeout( () => { location.reload(); }, 1000 ));
+        } else {
+            localStorage.setItem("loginState", false);
+        }
+    });
+
+    openLoginModalBtn.addEventListener("click", (evt) => {
+        
+        if (checkLoginState() === "true") {
+            evt.preventDefault();
+            localStorage.setItem("loginState", false);
+            Swal.fire('Logged out!', 'Reloading the page...', 'info').then(
+                setTimeout( () => { location.reload(); }, 1000)
+            );
+        } else if (checkLoginState() === "false"){
+            openModal();
+        }
+
+        checkLoginState();
+    });
+
 })()

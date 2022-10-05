@@ -37,3 +37,33 @@
     }
 }
 
+.modal {
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.9);
+    &__form {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: calc(2rem + 2vmin);
+        border: 1px solid #888;
+        width: min(30rem, 80%);
+    }
+    &__inputdivs {
+        margin: 1em auto;
+        label, input {
+            display: block;
+        }
+        input {
+            width: 90%;
+        }
+    }
+    &__btnsdiv {
+        margin: 0 auto;
+    }
+}

@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- CSS -->
-    <!-- <link rel="stylesheet" href="../assets/css/style.css"> -->
     <link rel="stylesheet" href="../assets/css/stylesheet.css">
 
     <!-- BOOTSTRAP ICONS -->
@@ -39,6 +38,10 @@
                 <a href="./pages/shoppingCart.html" title="Go to my Shopping Cart" target="_blank"><i class="bi bi-cart2"></i></a>
                 <div id="cart-amount">0</div>
             </div>
+        </div>
+
+        <div>
+            <button id="openLoginModal">Login</button>
         </div>
     </header>
 
@@ -177,6 +180,22 @@
             </form>
         </section>
 
+        <section class="modal hidden" id="loginModal">
+            <form class="modal__form" id="loginForm">
+                <div class="modal__inputdivs">
+                    <label for="userEmail">Please enter your user email</label><span class="form-err-msg" id="errmsg-email"></span>
+                    <input type="email" name="userEmail" id="loginEmail" placeholder="user@email.com" value="user@email.com">
+                </div>
+                <div class="modal__inputdivs">
+                    <label for="userPassword">Enter your password</label><span class="form-err-msg" id="errmsg-password"></span>
+                    <input type="password" name="userPassword" id="loginPassword" placeholder="password" value="password">
+                </div>
+                <div class="modal__btnsdiv">
+                    <button class="btn" id="loginBtn">Log in</button>
+                    <button class="btn" id="closeLoginBtn">Cancel</button>
+                </div>
+            </form>
+        </section>
     </main>
 </body>
 </html>

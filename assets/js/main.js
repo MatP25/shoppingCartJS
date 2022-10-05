@@ -11,6 +11,10 @@
         cartAmount = document.getElementById("cart-amount"),
         cardsQty = document.getElementsByClassName("quantity"),
         main = document.querySelector("main"),
+        openLoginModalBtn = document.getElementById("openLoginModal"),
+        loginModal = document.getElementById("loginModal"),
+        loginBtn = document.getElementById("loginBtn"),
+        closeLoginBtn = document.getElementById("closeLoginBtn"),
         searchBar = document.getElementById("searchBar"),
         searchIcon = document.getElementById("searchByName"),
         selectSubCategory = document.getElementById("selectCategory"),
@@ -20,14 +24,26 @@
         toggleFiltersBtn = document.getElementById("toggleFilters"),
         filtersDiv = document.getElementById("filters"),
         clearFiltersBtn = document.getElementById("clearFiltersBtn"),
+        emailInput = document.getElementById("loginEmail"),
+        passwordInput = document.getElementById("loginPassword"),
         selectPetCategoryRadios = document.querySelectorAll("input[name='petCategory'");
 
     //get the data from the local storage, if the local storage is empty set it as an empty array
     let cart = JSON.parse(localStorage.getItem("data")) || [];
-
+    
     ///////////////////////////////////////////////////////////////////
     /////////////////------------FUNCTIONS------------/////////////////
     ///////////////////////////////////////////////////////////////////
+
+    const openModal = () => {
+        loginModal.classList.remove("hidden");
+        loginModal.className += " visibleBlock";
+    }
+
+    const closeModal = () => {
+        loginModal.classList.remove("visibleBlock");
+        loginModal.className += " hidden";
+    }
 
     const updateCartInLocalStorage = () => {
         localStorage.setItem("data", JSON.stringify(cart));
@@ -200,6 +216,32 @@
             title.innerHTML = `Showing ${getRadioValue().toLowerCase().slice(0,3)} products`;
         }
     }
+
+    const fakeLoginValidation = (email, passw) => {
+        const validUserEmail = "user@email.com";
+        const validUserPassword = "password";
+
+        if (email !== validUserEmail) {
+            emailInput.className += " invalidInput";
+        } else {
+            if (passw !== validUserPassword) {
+                passwordInput.className += " invalidInput";
+            } else {
+                return true
+            }
+        }
+        return false
+    }
+
+    const checkLoginState = () => {
+        let loginState = localStorage.getItem("loginState");
+        if (loginState === "true") {
+            openLoginModalBtn.innerHTML = "Logout";
+        } else {
+            openLoginModalBtn.innerHTML = "Login";
+        }
+        return loginState
+    }
     ///////////////////////////////////////////////////////////////////
     //////////////------------EVENT LISTENERS------------//////////////
     ///////////////////////////////////////////////////////////////////
@@ -207,6 +249,7 @@
     window.addEventListener("storage", () => {
         cart = JSON.parse(localStorage.getItem("data")) || [];
         updateQty(cardsQty,cart);
+        checkLoginState();
     });
 
     window.addEventListener("load", () => {
@@ -214,6 +257,7 @@
         getJsonData(urljson, false);
         updateCartIcon(cartAmount);
         updateTitle();
+        checkLoginState();
     });
 
     main.addEventListener("click", evt => {
@@ -254,4 +298,43 @@
         filtersDiv.style.display = "block" : 
         filtersDiv.style.display = "none";
     });
+
+    window.addEventListener("click", (evt) => {
+        if (evt.target == loginModal) {
+            closeModal();
+        }
+    });
+
+    closeLoginBtn.addEventListener("click", closeModal);
+
+    loginBtn.addEventListener("click", (evt) => {
+        evt.preventDefault();
+        emailInput.className = "";
+        passwordInput.className = "";
+
+        if (fakeLoginValidation(emailInput.value, passwordInput.value)) {
+            localStorage.setItem("loginState", true);
+            closeModal();
+            Swal.fire('Login successful!', 'Reloading the page...', 'success').then(
+                setTimeout( () => { location.reload(); }, 1000 ));
+        } else {
+            localStorage.setItem("loginState", false);
+        }
+    });
+
+    openLoginModalBtn.addEventListener("click", (evt) => {
+        
+        if (checkLoginState() === "true") {
+            evt.preventDefault();
+            localStorage.setItem("loginState", false);
+            Swal.fire('Logged out!', 'Reloading the page...', 'info').then(
+                setTimeout( () => { location.reload(); }, 1000)
+            );
+        } else if (checkLoginState() === "false"){
+            openModal();
+        }
+
+        checkLoginState();
+    });
+
 })();
