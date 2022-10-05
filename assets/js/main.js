@@ -9,10 +9,10 @@
     const 
         shop = document.getElementById("shop"),
         cartAmount = document.getElementById("cart-amount"),
-        clearCartBtn = document.getElementById("clearCartBtn"),
         cardsQty = document.getElementsByClassName("quantity"),
         main = document.querySelector("main"),
         searchBar = document.getElementById("searchBar"),
+        searchIcon = document.getElementById("searchByName"),
         selectCategory = document.getElementById("selectCategory"),
         maxPriceInput = document.getElementById("maxPrice"),
         minPriceInput = document.getElementById("minPrice"),
@@ -32,17 +32,8 @@
         localStorage.setItem("data", JSON.stringify(cart));
     }
 
-    const resetDynamicContent = () => {
-        //reset dynamic content when clearing cart
-        cart = [];
-        cartAmount.innerHTML = 0;
-        for (let i=0;i<cardsQty.length;i++) {
-            cardsQty[i].innerHTML = 0;
-        }
-    }
-
     const createProducts = (targetElement, dataArray, cartArray) => {
-        //map will go over every object in productsData and for each object it will return a new piece of html
+        //map will go over every object in the data array and for each object it will return a new piece of html
         return (targetElement.innerHTML = dataArray.map( 
             (element) => {
             // object deconstructing
@@ -91,7 +82,7 @@
         const searchCart = cart.find( obj => obj.id === selectedProduct );
         //if undefined (qty = 0) then there is no object with a matching id
         if (!searchCart) {
-            addShakeAnimation(thisProd);
+            addQuickAnimation(thisProd, "shake-horizontal", true, 700);
             return
         } else if (searchCart.quantity >= 1) {
             searchCart.quantity--;
@@ -102,12 +93,17 @@
         updateCartInLocalStorage();
     }
 
-    const addShakeAnimation = (targetProduct) => {
+    const addQuickAnimation = (targetElement, animationClass, removeClassAfter, timeout) => {
         //adds shake animation when clicking the decrement btn on an item with quantity = 0;
-        targetProduct.className += " shake-horizontal";
-        setTimeout( () => { //then remove the animation class when it ends
-            targetProduct.classList.remove("shake-horizontal")
-        }, 700);
+        // targetProduct.className += " shake-horizontal";
+        targetElement.className += ` ${animationClass}`;
+
+        if (removeClassAfter) {
+            setTimeout( () => { //then remove the animation class when it ends
+                targetElement.classList.remove(animationClass)
+            }, timeout);
+        }
+        
     }
 
     const updateQty = (elemCollection, cartArray) => {
@@ -162,14 +158,10 @@
         selectCategory.value = "";
     }
     
-    
-    const urljson = "./assets/js/json/dataCats.JSON";
+    const urljson = "./assets/js/json/data.JSON";
 
     const getJsonData = async (url, hasFilter) => {
         const resp = await fetch(url);
-
-        console.log(resp);
-
         const data = await resp.json();
 
         if (!hasFilter) {
@@ -179,7 +171,6 @@
             const multiFiltered = multipleFilters(filteredByName, selectCategory.value, maxPriceInput.value, minPriceInput.value);
             createProducts(shop, multiFiltered, cart);
         }
-        
     }
     
     ///////////////////////////////////////////////////////////////////
@@ -195,6 +186,7 @@
         clearFilters();
         getJsonData(urljson, false);
         updateCartIcon(cartAmount);
+        
     });
 
     main.addEventListener("click", evt => {
@@ -217,13 +209,13 @@
             }
         }
     });
-
-    clearCartBtn.addEventListener("click", () => {
-        resetDynamicContent();
-        localStorage.clear();
-    });
     
     applyFiltersBtn.addEventListener("click", () => {
+        getJsonData(urljson, true);
+    });
+
+    searchIcon.addEventListener("click", (evt) => {
+        evt.preventDefault();
         getJsonData(urljson, true);
     });
 
@@ -231,8 +223,8 @@
 
     toggleFiltersBtn.addEventListener("click", evt => {
         evt.preventDefault();
-        filtersDiv.className === "hidden" ? 
-        filtersDiv.className = "visibleBlock" : 
-        filtersDiv.className = "hidden";
+        filtersDiv.style.display === "none" ?
+        filtersDiv.style.display = "block" : 
+        filtersDiv.style.display = "none";
     });
 })();

@@ -1,16 +1,23 @@
 @use "../0-utilities/" as *;
 
 section {
-    border-bottom: 2px solid $gray;
-    
+    .sectionHeader {
+        background-color: $dark-blue;
+        .title {
+            font-size: 2rem;
+            padding: 2rem 1rem 0;
+            text-align: center;
+        }
+    }
 }
 
 .shop {
     width: 100%;
+    padding: .5em;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(13rem, 30ch));
     justify-content: center;
-    gap: 1rem;
+    gap: 1em;
 }
 
 .shopping-cart {

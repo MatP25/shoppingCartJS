@@ -148,7 +148,7 @@
                 <img src=${'.' + search.imgSrc} class="cartCard__img" alt="">
                 <div class="cartCard__details">
                     <h3> ${search.name}<span class="cartCard__price" id="">$${search.price}</span></h3>
-                    <i class="bi bi-x-lg removeItem"></i>
+                    <i class="bi bi-trash removeItem"></i>
                     <div class="card__buttons">
                         <i class="bi bi-dash decrementQty"></i>
                         <span id=""class="quantity">${quantity}</span>
@@ -230,6 +230,21 @@
             userEmail.innerHTML = `Welcome! ${email}`;
         }
     }
+
+    // const urljson = "./assets/js/json/dataCats.JSON";
+
+    // const getJsonData = async (url, hasFilter) => {
+    //     const resp = await fetch(url);
+    //     const data = await resp.json();
+
+    //     if (!hasFilter) {
+    //         createProducts(shop, data, cart);
+    //     } else {
+    //         const filteredByName = nameFilter(data, searchBar.value.toLowerCase());
+    //         const multiFiltered = multipleFilters(filteredByName, selectCategory.value, maxPriceInput.value, minPriceInput.value);
+    //         createProducts(shop, multiFiltered, cart);
+    //     }
+    // }
     ///////////////////////////////////////////////////////////////////
     //////////////------------EVENT LISTENERS------------//////////////
     ///////////////////////////////////////////////////////////////////

@@ -25,75 +25,112 @@
 </head>
 <body>
 
-    <header class="header">
-        <nav class="navbar">
-            <h2><a href="index.html" class="title textWhite">Store</a></h2>
+    <header class="mainHeader" id="pagetop">
+        
+            <h1><a href="index.html" class="mainTitle textWhite">Store</a></h1>
             
             <div class="searchbar">
-                <label for="searchBar">
+                <label for="searchBar" title="Seach Products by Name">
                     <input placeholder="Search by name" type="search" name="searchBar" id="searchBar">
+                    <a href="#" id="searchByName"><i class="bi bi-search"></i></a>
                 </label>
-                <div>
-                    <button class="btn" id="applyFiltersBtn">Apply</button>
-                    <button class="btn" id="clearFiltersBtn">Clear</button>
-                </div>
             </div>
 
-            
-
-            <div class="fixed">
+            <div class="cartIconContainer">
                 <div class="cart">
-                    <a href="./pages/shoppingCart.html" target="_blank"><i class="bi bi-cart2"></i></a>
+                    <a href="./pages/shoppingCart.html" title="Go to my Shopping Cart" target="_blank"><i class="bi bi-cart2"></i></a>
                     <div id="cart-amount">0</div>
                 </div>
-                <button class="btn" id="clearCartBtn">Clear Cart</button>
             </div>
-        </nav>
-        
-        <div id="filters-wrapper">
-            
-            <a href="#" id="toggleFilters">
-                <h3 class="filterTitle textWhite">Customize Search 
-                    <i class="bi bi-caret-down"></i>
-                </h3>
-            </a>
-
-            <ul id="filters" class="hidden">
-                <li>
-                    <label for="minPrice" class="textWhite">
-                        Min Price
-                        <input type="text" name="minPrice" id="minPrice">
-                    </label>
-                </li>
-                <li>
-                    <label for="maxPrice" class="textWhite">
-                        Max Price
-                        <input type="text" name="maxPrice" id="maxPrice">
-                    </label>
-                </li>
-                <li>
-                    <label for="selectCategory" class="textWhite">
-                        Category
-                        <select name="selectCategory" id="selectCategory">
-                            <option value="" selected>All</option>
-                            <option value="food">Food</option>
-                            <option value="treats">Treats</option>
-                            <option value="accessories">Accessories</option>
-                            <option value="hygiene & care">Hygiene & Care</option>
-                        </select>
-                    </label>
-                </li>
-                
-                
-            </ul>
-            
-        </div>
     </header>
-    
-    <main>
 
-        <section class="shop" id="shop">
+
+    <input id="page-nav-toggle" title="Press space to toggle navigation menu" tabindex="0" class="main-navigation-toggle" type="checkbox" />
+    <label for="page-nav-toggle"  title="View navigation menu">
+        <svg class="icon--menu-toggle" viewBox="0 0 60 30">
+            <g class="icon-group">
+            <g class="icon--menu">
+                <path d="M 6 0 L 54 0" />
+                <path d="M 6 15 L 54 15" />
+                <path d="M 6 30 L 54 30" />
+            </g>
+            <g class="icon--close">
+                <path d="M 15 0 L 45 30" />
+                <path d="M 15 30 L 45 0" />
+            </g>
+            </g>
+        </svg>
+    </label>
+
+    <nav class="main-navigation">
+        <ul>
+            <li><a href="#">home</a></li>
+            <li><a href="#">about us</a></li>
+            <li><a href="#">cat products</a></li>
+            <li><a href="#">dog products</a></li>
+            <li><a href="./pages/shoppingCart.html" title="Go to my Shopping Cart" target="_blank">my shopping cart</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="fixed goTop">
+            <a href="#pagetop" title="Go to the Top"><i class="bi bi-arrow-up-circle-fill"></i></a>
+        </div>
+
+        <section>
+            
+            <header class="sectionHeader">
+                <h2 class="title textWhite">Showing all products</h2>
+
+                <div id="filters-wrapper">
+                    <a href="#" id="toggleFilters">
+                        <h3 class="filterTitle textWhite">Customize Search 
+                            <i class="bi bi-caret-down"></i>
+                        </h3>
+                    </a>
         
+                    <ul id="filters" class="">
+                        <li>
+                            <label for="minPrice" class="textWhite">
+                                Min Price
+                                <input type="text" name="minPrice" id="minPrice">
+                            </label>
+                        </li>
+                        <li>
+                            <label for="maxPrice" class="textWhite">
+                                Max Price
+                                <input type="text" name="maxPrice" id="maxPrice">
+                            </label>
+                        </li>
+                        <li>
+                            <label for="selectCategory" class="textWhite">
+                                Category
+                                <select name="selectCategory" id="selectCategory">
+                                    <option value="" selected>All</option>
+                                    <option value="food">Food</option>
+                                    <option value="treats">Treats</option>
+                                    <option value="accessories">Accessories</option>
+                                    <option value="hygiene & care">Hygiene & Care</option>
+                                </select>
+                            </label>
+                        </li>
+                        <li>
+                            <div>
+                                <button class="btn" id="applyFiltersBtn">Apply</button>
+                                <button class="btn" id="clearFiltersBtn">Clear</button>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                </div>
+
+                
+            </header>
+
+            <article class="shop" id="shop">
+
+            </article>
+
         </section>
 
     </main>

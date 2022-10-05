@@ -1,46 +1,36 @@
 @use "../0-utilities/" as *;
 
 
-.header {
-    
+.mainHeader {
     width: 100%;
     padding: 1.5rem;
-    background-color: $dark;
-    border-bottom: 2px solid $dark;
-    margin-bottom: 1.5rem;
-    .title {
+    background-color: $dark-blue;
+    margin-bottom: 2vw;
+    position: relative;
+    .mainTitle {
         padding: 1rem 0;
         display: block;
-        text-align: center;
-        font-size: 2.5em;
+        text-align: left;
+        font-size: clamp(2.5rem, 12vw, 7.5rem);
     }
     .searchbar {
-        margin: .5rem;
-    }
-}
-
-#filters-wrapper {
-    margin: .75rem 0;
-    @include flex-parent(column, nowrap, space-around, start);
-    .filterTitle {
-        font-size: 1.25em;
-        font-weight: 600;
-        padding: .75rem .5rem;
-        i {
-            font-size: 1.2em;
-        }
-    }
-    #filters {
-        list-style: none;
+        margin: .5rem 0;
+        padding: 1em;
+        border-radius: 8px;
+        border: 2px solid $off-white;
+        max-width: 25rem;
         label {
-            display:block;
-            padding: .75rem .5rem;
+            display:flex;
         }
-        button {
-            padding: 5px 10px;
+        input {
+            display: inline-block;
+            width: 100%;
+        }
+        i {
+            margin-left: .5em;
+            color: $off-white;
         }
     }
-    
 }
 
 #clearCartBtn {

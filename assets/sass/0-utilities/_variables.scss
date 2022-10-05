@@ -3,7 +3,15 @@ $light-orange: #FFAB76;
 $yellow: #FFFDA2;
 $light-green: #BAFFB4;
 $dark: #2b2b2b;
-$off-white: #F9F9F9;
+$dark-blue: #13131d;
+$off-white: rgb(252, 250, 235);
 $gray: #e7e7e7;
 $light-blue: #add8e6;
 
+$nav-duration: calc(var(--duration) / 1.75);
+$ease: ease-in-out;
+
+:root {
+    --duration: 1s;
+    --space: 1rem;
+}

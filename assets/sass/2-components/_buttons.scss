@@ -2,7 +2,7 @@
 
 .btn {
     width: fit-content;
-    padding: .75em 1em;
+    padding: .75em 1.5em;
     font-size: 1em;
     font-weight: bold;
     border-radius: 12px;
@@ -14,8 +14,6 @@
         background-color: $light-red;
     }
 }
-
-
 
 .btn-group {
     display: flex;

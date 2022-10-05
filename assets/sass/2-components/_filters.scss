@@ -1,0 +1,25 @@
+@use "../0-utilities/" as *;
+
+#filters-wrapper {
+    padding: .5rem 2rem;
+    @include flex-parent(column, nowrap, space-around, start);
+    .filterTitle {
+        font-size: 1.25em;
+        font-weight: 600;
+        padding: .75rem .5rem;
+        i {
+            font-size: 1.2em;
+        }
+    }
+    #filters {
+        list-style: none;
+        label {
+            display:block;
+            padding: .75rem .5rem;
+        }
+        .btn {
+            border: none;
+        }
+    }
+    
+}
