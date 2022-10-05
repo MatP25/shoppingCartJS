@@ -412,7 +412,7 @@
             Swal.fire('Logged out!', 'Reloading the page...', 'info').then(
                 setTimeout( () => { location.reload(); }, 1000)
             );
-        } else if (checkLoginState() === "false"){
+        } else {
             openModal();
         }
 

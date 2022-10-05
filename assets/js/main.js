@@ -30,7 +30,7 @@
 
     //get the data from the local storage, if the local storage is empty set it as an empty array
     let cart = JSON.parse(localStorage.getItem("data")) || [];
-    
+
     ///////////////////////////////////////////////////////////////////
     /////////////////------------FUNCTIONS------------/////////////////
     ///////////////////////////////////////////////////////////////////
@@ -330,7 +330,7 @@
             Swal.fire('Logged out!', 'Reloading the page...', 'info').then(
                 setTimeout( () => { location.reload(); }, 1000)
             );
-        } else if (checkLoginState() === "false"){
+        } else { (checkLoginState() === "false")
             openModal();
         }
 
