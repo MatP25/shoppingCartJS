@@ -80,7 +80,7 @@
         <section>
             
             <header class="sectionHeader">
-                <h2 class="title textWhite">Showing all products</h2>
+                <h2 class="title textWhite" id="productsTitle">DOGS & CATS</h2>
 
                 <div id="filters-wrapper">
                     <a href="#" id="toggleFilters">
@@ -89,7 +89,22 @@
                         </h3>
                     </a>
         
-                    <ul id="filters" class="">
+                    <ul id="filters">
+                        <li class="radioGroup">
+                            <div class="radioGroup--item">
+                                <input type="radio" name="petCategory" id="catCategory" value="Cats">
+                                <label for="catCategory"><h4>Cats</h4></label>
+                            </div>
+                            <div class="radioGroup--item">
+                                <input type="radio" name="petCategory" id="dogCategory" value="Dogs">
+                                <label for="dogCategory"><h4>Dogs</h4></label>
+                            </div>
+                            <div class="radioGroup--item">
+                                <input type="radio" name="petCategory" id="allPets" value="">
+                                <label for="allPets"><h4>All</h4></label>
+                            </div>
+                            
+                        </li>
                         <li>
                             <label for="minPrice" class="textWhite">
                                 Min Price

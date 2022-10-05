@@ -1,6 +1,7 @@
 @use "../0-utilities/" as *;
 
 #filters-wrapper {
+    width: 100%;
     padding: .5rem 2rem;
     @include flex-parent(column, nowrap, space-around, start);
     .filterTitle {
@@ -11,8 +12,9 @@
             font-size: 1.2em;
         }
     }
-    #filters {
+    ul {
         list-style: none;
+        padding-left: 0;
         label {
             display:block;
             padding: .75rem .5rem;

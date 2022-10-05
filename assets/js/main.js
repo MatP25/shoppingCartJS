@@ -13,13 +13,14 @@
         main = document.querySelector("main"),
         searchBar = document.getElementById("searchBar"),
         searchIcon = document.getElementById("searchByName"),
-        selectCategory = document.getElementById("selectCategory"),
+        selectSubCategory = document.getElementById("selectCategory"),
         maxPriceInput = document.getElementById("maxPrice"),
         minPriceInput = document.getElementById("minPrice"),
         applyFiltersBtn = document.getElementById("applyFiltersBtn"),
         toggleFiltersBtn = document.getElementById("toggleFilters"),
         filtersDiv = document.getElementById("filters"),
-        clearFiltersBtn = document.getElementById("clearFiltersBtn");
+        clearFiltersBtn = document.getElementById("clearFiltersBtn"),
+        selectPetCategoryRadios = document.querySelectorAll("input[name='petCategory'");
 
     //get the data from the local storage, if the local storage is empty set it as an empty array
     let cart = JSON.parse(localStorage.getItem("data")) || [];
@@ -139,10 +140,14 @@
         })
     }
 
-    const multipleFilters = (dataArray, categoryValue, maxPrice, minPrice) => {
+    const multipleFilters = (dataArray, categoryValue, subcategoryValue, maxPrice, minPrice) => {
+        
         let filteredData = dataArray
+        .filter(
+            prod => (!categoryValue || prod.category === categoryValue)
+        )
         .filter( 
-            prod => (!categoryValue || prod.subcategory.toLowerCase().includes(categoryValue))
+            prod => (!subcategoryValue || prod.subcategory.toLowerCase().includes(subcategoryValue))
         ).filter( 
             prod => (!minPrice || prod.price >= parseInt(minPrice))
         ).filter( 
@@ -156,6 +161,7 @@
         maxPriceInput.value = ""; 
         minPriceInput.value = "";
         selectCategory.value = "";
+        document.querySelector("#allPets").checked = true;
     }
     
     const urljson = "./assets/js/json/data.JSON";
@@ -168,11 +174,29 @@
             createProducts(shop, data, cart);
         } else {
             const filteredByName = nameFilter(data, searchBar.value.toLowerCase());
-            const multiFiltered = multipleFilters(filteredByName, selectCategory.value, maxPriceInput.value, minPriceInput.value);
+            const multiFiltered = multipleFilters(filteredByName, getRadioValue(), selectSubCategory.value, maxPriceInput.value, minPriceInput.value);
             createProducts(shop, multiFiltered, cart);
         }
     }
     
+    const getRadioValue = () => {
+        let radioValue;
+        for (let i=0; i<selectPetCategoryRadios.length; i++) {
+            if (selectPetCategoryRadios[i].checked) {
+                radioValue = selectPetCategoryRadios[i].value;
+            }
+        }
+        return radioValue;
+    }
+
+    const updateTitle = () => {
+        const title = document.getElementById("productsTitle");
+        if (!getRadioValue()) {
+            title.innerHTML = "Showing products for Dogs & Cats";
+        } else {
+            title.innerHTML = `Showing ${getRadioValue().toLowerCase().slice(0,3)} products`;
+        }
+    }
     ///////////////////////////////////////////////////////////////////
     //////////////------------EVENT LISTENERS------------//////////////
     ///////////////////////////////////////////////////////////////////
@@ -186,7 +210,7 @@
         clearFilters();
         getJsonData(urljson, false);
         updateCartIcon(cartAmount);
-        
+        updateTitle();
     });
 
     main.addEventListener("click", evt => {
@@ -212,11 +236,14 @@
     
     applyFiltersBtn.addEventListener("click", () => {
         getJsonData(urljson, true);
+        updateTitle();
+        shop.scrollIntoView();
     });
 
     searchIcon.addEventListener("click", (evt) => {
         evt.preventDefault();
         getJsonData(urljson, true);
+        shop.scrollIntoView();
     });
 
     clearFiltersBtn.addEventListener("click", clearFilters);
