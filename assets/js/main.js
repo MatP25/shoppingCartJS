@@ -95,12 +95,11 @@
     }
 
     const addQuickAnimation = (targetElement, animationClass, removeClassAfter, timeout) => {
-        //adds shake animation when clicking the decrement btn on an item with quantity = 0;
-        // targetProduct.className += " shake-horizontal";
+        //adds animation class to a target element, if removeClassAfter is true it removes the class after a set timeout so the animation can be run again
         targetElement.className += ` ${animationClass}`;
 
         if (removeClassAfter) {
-            setTimeout( () => { //then remove the animation class when it ends
+            setTimeout( () => { //remove the animation class when it ends
                 targetElement.classList.remove(animationClass)
             }, timeout);
         }
@@ -109,18 +108,14 @@
 
     const updateQty = (elemCollection, cartArray) => {
         for (let i = 0; i < elemCollection.length; i++) {
+
             const thisCardID = elemCollection[i].id;
-            const thisProduct = cartArray.find((product)=> product.id === thisCardID.slice(-10)) || 0;
+
+            const thisProduct = cartArray.find( (product) => product.id === thisCardID.slice(-10)) || 0;
+
             elemCollection[i].innerHTML = thisProduct.quantity || 0;
         }
         updateCartIcon(cartAmount);
-    }
-
-    const removeProduct = (productObj, cartArray) => {
-        //set the quantity of the product to 0 then call the decrementQty function to remove it from the cart
-        let foundProduct = cartArray.find ((obj) => obj.id === productObj.id) || [];
-        foundProduct.quantity = 0;
-        decrementQty(productObj);
     }
 
     const calcAmount = (arr, keyName) => {
@@ -145,8 +140,7 @@
         let filteredData = dataArray
         .filter(
             prod => (!categoryValue || prod.category === categoryValue)
-        )
-        .filter( 
+        ).filter( 
             prod => (!subcategoryValue || prod.subcategory.toLowerCase().includes(subcategoryValue))
         ).filter( 
             prod => (!minPrice || prod.price >= parseInt(minPrice))
@@ -173,8 +167,17 @@
         if (!hasFilter) {
             createProducts(shop, data, cart);
         } else {
-            const filteredByName = nameFilter(data, searchBar.value.toLowerCase());
-            const multiFiltered = multipleFilters(filteredByName, getRadioValue(), selectSubCategory.value, maxPriceInput.value, minPriceInput.value);
+            const filteredByName = nameFilter(
+                data, 
+                searchBar.value.toLowerCase());
+
+            const multiFiltered = multipleFilters(
+                filteredByName, 
+                getRadioValue(), 
+                selectSubCategory.value, 
+                maxPriceInput.value, 
+                minPriceInput.value);
+
             createProducts(shop, multiFiltered, cart);
         }
     }
@@ -225,9 +228,6 @@
                     incrementQty(thisProduct, cart);
                     } else if (classes[i] == "decrementQty") {
                         decrementQty(thisProduct);
-                    } else if (classes[i] == "removeItem") {
-                        thisProduct.className += " scale-out-hor-right";
-                        setTimeout(() => {removeProduct(thisProduct, cart)}, 500);
                     }
                 }
             }

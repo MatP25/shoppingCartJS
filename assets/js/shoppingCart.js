@@ -47,6 +47,10 @@
 
     const updateCartInLocalStorage = () => {
         localStorage.setItem("data", JSON.stringify(cart));
+
+        if (cart.length === 0) {
+            resetDynamicContent();
+        }
     }
 
     const resetDynamicContent = () => {
@@ -59,7 +63,7 @@
         for (let i=0;i<cardsQty.length;i++) {
             cardsQty[i].innerHTML = 0;
         }
-        toggleVisibility(btnsContainer, "none")
+        toggleVisibility(btnsContainer, "none");
     }
 
     const incrementQty = (thisProd, cartArray) => {
@@ -82,42 +86,57 @@
             toggleVisibility(btnsContainer, "flex")
         }
         //update the product quantity inside the card and the cart icon everytime the quantity increments or decrements
-        updateQty(cardsQty,cart);
+        updateCards();
         updateCartInLocalStorage();
     }
 
     const decrementQty = (thisProd) => {
-        const selectedProduct = thisProd.id;
-        const searchCart = cart.find( obj => obj.id === selectedProduct );
+        //get the id of the object
+        const thisID = thisProd.id;
+        //find the product with matching id
+        const matchingProduct = cart.find( obj => obj.id === thisID );
         //if undefined (qty = 0) then there is no object with a matching id
-        if (!searchCart) {
-            addShakeAnimation(thisProd);
+        if (!matchingProduct) {
             return
-        } else if (searchCart.quantity >= 1) {
-            searchCart.quantity--;
+        } else if (matchingProduct.quantity === 1) {
+            matchingProduct.quantity--;
+            //if the quantity is 1, the next time it decreases it will remove the card
+            removeCard(thisProd);
+        } else if (matchingProduct.quantity > 1) {
+            matchingProduct.quantity--;
         }
-        
+        //filters from the cart all products with a quantity of 0;
         cart = cart.filter( product => product.quantity > 0);
-        updateQty(cardsQty,cart);
+        updateCards();
         updateCartInLocalStorage();
     }
 
-    const updateQty = (elemCollection, cartArray) => {
-        for (let i = 0; i < elemCollection.length; i++) {
-            const thisCardID = elemCollection[i].id;
-            const thisProduct = cartArray.find((product)=> product.id === thisCardID.slice(-10)) || 0;
-            elemCollection[i].innerHTML = thisProduct.quantity || 0;
-        }
+    const updateCards = () => {
+        //updates the item counter in the cart icon
         updateCartIcon(cartAmount);
-        calculateTotalPrice(totalPrice, cart, productsData);
-        generateCartItems(shoppingCartCards, productsData, cart);
+        //calculates and updates the total price
+        calculateTotalPrice(totalPrice, cart, urljson);
+        //renders all cards with the updated content (quantity & subtotal)
+        //need to find a way to update the content without re-rendering every card again
+        getJsonData(urljson);
     }
 
     const removeProduct = (productObj, cartArray) => {
-        //set the quantity of the product to 0 then call the decrementQty function to remove it from the cart
+        //find the product inside the cart that matches the id of the obj passed as parameter
         let foundProduct = cartArray.find ((obj) => obj.id === productObj.id) || [];
+        //set the quantity of that item to 0
         foundProduct.quantity = 0;
-        decrementQty(productObj);
+        //filter the cart array to remove all products with 0 quantity
+        cart = cart.filter( product => product.quantity > 0);
+        //removes the card obj from the html
+        removeCard(productObj);
+        updateCards();
+        updateCartInLocalStorage();
+    }
+
+    const removeCard = (productObj) => {
+        //removes the object passed as parameter
+        productObj.remove();
     }
 
     const calcAmount = (arr, keyName) => {
@@ -140,7 +159,7 @@
         if (cartArray.length !== 0) {
             displayCartHeader();
             return (targetElement.innerHTML = cartArray.map( (productCart) => {
-                    //find the objects inside productsData with a matching id to the id of the objects in the cart so the object's properties can be accessed to construct the cards
+                    //find the objects inside data array with a matching id to the id of the objects in the cart, so the object's properties can be accessed to construct the cards
                     let { id, quantity } = productCart;
                     let search = dataArray.find( (product) => ("product" + product.id) === id) || [];
                 //returns the card's html for every product inside the cart
@@ -151,10 +170,10 @@
                     <i class="bi bi-trash removeItem"></i>
                     <div class="card__buttons">
                         <i class="bi bi-dash decrementQty"></i>
-                        <span id=""class="quantity">${quantity}</span>
+                        <span id="qtyID${id}" class="quantity">${quantity}</span>
                         <i class="bi bi-plus incrementQty"></i>
                     </div>
-                    <p class="cartCard__subtotal">Subtotal: $${quantity * search.price}</p>
+                    <p class="cartCard__subtotal">Subtotal: $${(quantity * search.price).toFixed(2)}</p>
                 </div>
             </div>`
             }).join(""));
@@ -163,23 +182,30 @@
         }
     }
 
-    const calculateTotalPrice = (targetElement, cartArray, dataArray) => {
+    const calculateTotalPrice = async (targetElement, cartArray, dataUrl) => {
+
+        const resp = await fetch(dataUrl);
+        const data = await resp.json();
+
         //calculates the total price for every element in the cart
         let total = 0;
         cartArray.map(productCart => {
             //finds every product in the data array with a matching id to the products in cart to access the price
             let {id, quantity} = productCart;
-            let searchData = dataArray.find( (product) => ("product" + product.id) === id) || [];
+            let searchData = data.find( (product) => ("product" + product.id) === id) || [];
             total += searchData.price * quantity;
         });
         cartArray.length > 0 ? 
-        targetElement.innerHTML = `TOTAL: $${total}` : 
+        targetElement.innerHTML = `TOTAL: $${total.toFixed(2)}` : 
         targetElement.innerHTML = "";
-        return total
+        return total.toFixed(2)
     }
 
-    const purchaseHandler = () => {
+    const purchaseHandler = async (dataUrl) => {
         
+            const resp = await fetch(dataUrl);
+            const data = await resp.json();
+
             window.open("./purchaseDetails.html");
 
             setTimeout( () => {
@@ -189,7 +215,7 @@
 
             let purchaseInfo = cart.map( (productCart) => {
                 let { id, quantity } = productCart;
-                let searchProductData = productsData.find( (product) => ("product" + product.id) === id) || [];
+                let searchProductData = data.find( (product) => ("product" + product.id) === id) || [];
                 return  {
                     name: searchProductData.name,
                     price: searchProductData.price,
@@ -202,49 +228,88 @@
         
     }
 
-    const checkSession = () => {
-        let sessionStorageData = JSON.parse(sessionStorage.getItem("email")) || [];
+    // const checkSession = () => {
+    //     let sessionStorageData = JSON.parse(sessionStorage.getItem("email")) || [];
 
-        if (sessionStorageData.length === 0) {
-            loginAlert();
-        } else {
-            userEmail.innerHTML = `Welcome! ${sessionStorageData}`;
-        }
-    }
-
-    const loginAlert = async () => {
-        const {value: email } = await Swal.fire({
-            title: 'Please enter your email before continuing',
-            input: 'email',
-            inputLabel: 'Your email address',
-            inputPlaceholder: 'Enter your email address'
-        });
-        if (email) {
-            Swal.fire({
-                title: `Success
-                Entered email: ${email}`,
-                icon: 'success',
-                showCloseButton: true
-                });
-            sessionStorage.setItem("email", JSON.stringify(email));
-            userEmail.innerHTML = `Welcome! ${email}`;
-        }
-    }
-
-    // const urljson = "./assets/js/json/dataCats.JSON";
-
-    // const getJsonData = async (url, hasFilter) => {
-    //     const resp = await fetch(url);
-    //     const data = await resp.json();
-
-    //     if (!hasFilter) {
-    //         createProducts(shop, data, cart);
+    //     if (sessionStorageData.length === 0) {
+    //         loginAlert();
     //     } else {
-    //         const filteredByName = nameFilter(data, searchBar.value.toLowerCase());
-    //         const multiFiltered = multipleFilters(filteredByName, selectCategory.value, maxPriceInput.value, minPriceInput.value);
-    //         createProducts(shop, multiFiltered, cart);
+    //         userEmail.innerHTML = `Welcome! ${sessionStorageData}`;
     //     }
     // }
+
+    // const loginAlert = async () => {
+    //     const {value: email } = await Swal.fire({
+    //         title: 'Please enter your email before continuing',
+    //         input: 'email',
+    //         inputLabel: 'Your email address',
+    //         inputPlaceholder: 'Enter your email address'
+    //     });
+    //     if (email) {
+    //         Swal.fire({
+    //             title: `Success
+    //             Entered email: ${email}`,
+    //             icon: 'success',
+    //             showCloseButton: true
+    //             });
+    //         sessionStorage.setItem("email", JSON.stringify(email));
+    //         userEmail.innerHTML = `Welcome! ${email}`;
+    //     }
+    // }
+
+    const urljson = "../assets/js/json/data.JSON";
+
+    const getJsonData = async (url) => {
+        const resp = await fetch(url);
+        const data = await resp.json();
+        generateCartItems(shoppingCartCards, data, cart);
+    }
+
+    const confirmationPopup = async () => {
+        let totalPriceValue = await calculateTotalPrice(totalPrice, cart, urljson);
+        confirmationAlert(totalPriceValue);
+    } 
+
+    const confirmationAlert = (totalValue) => {
+        Swal.fire({
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm',
+            titleText: "Verify your information",
+            html: `<p class="alert__text"> <strong> Total:</strong> $ ${totalValue}</p>
+            <p class="alert__text"><strong>Name:</strong> ${fnameValue} ${lnameValue}</p>
+            <p class="alert__text"><strong>Address:</strong> ${address1Value}, ${address2Value} </p>
+            <p class="alert__text"><strong>City & State:</strong> ${cityValue}, ${stateValue} </p>
+            <p class="alert__text"><strong>Zip Code:</strong> ${zipCodeValue}</p>
+            <p class="alert__text"><strong>Phone: </strong> ${phoneNumValue} </p>
+            <p class="alert__text"><strong>Payment Option:</strong> ${paymentOptionsRadios.value}</p>`,
+
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: `Order Confirmed
+                    Thank you for your purchase!`,
+                    timer: 5000,
+                    icon: 'success',
+                    showCloseButton: true
+                });
+                if (cart.length !==0) {
+                    setTimeout( () => {
+                        purchaseHandler();
+                    }, 2500);
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'There are no items in your cart!',
+                        footer: '<a class="alert__link" href="../index.html">Go back to the main page to add items</a>'
+                    })
+                }
+            } 
+        });
+    }
     ///////////////////////////////////////////////////////////////////
     //////////////------------EVENT LISTENERS------------//////////////
     ///////////////////////////////////////////////////////////////////
@@ -255,9 +320,9 @@
 
     window.addEventListener("load", () => {
         updateCartIcon(cartAmount);
-        generateCartItems(shoppingCartCards, productsData, cart);
-        calculateTotalPrice(totalPrice, cart, productsData);
-        checkSession();
+        getJsonData(urljson);
+        calculateTotalPrice(totalPrice, cart, urljson);
+        // checkSession();
         
     });
 
@@ -289,45 +354,7 @@
 
     buyBtn.addEventListener("click", (evt) => {
         evt.preventDefault();
-        Swal.fire({
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Confirm',
-            titleText: "Verify your information",
-            html: `<p class="alert__text"> <strong> Total:</strong> $${calculateTotalPrice(totalPrice, cart, productsData)}</p>
-            <p class="alert__text"><strong>Name:</strong> ${fnameValue} ${lnameValue}</p>
-            <p class="alert__text"><strong>Address:</strong> ${address1Value}, ${address2Value} </p>
-            <p class="alert__text"><strong>City & State:</strong> ${cityValue}, ${stateValue} </p>
-            <p class="alert__text"><strong>Zip Code:</strong> ${zipCodeValue}</p>
-            <p class="alert__text"><strong>Phone: </strong> ${phoneNumValue} </p>
-            <p class="alert__text"><strong>Payment Option:</strong> ${paymentOptionsRadios.value}</p>`,
-
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: `Order Confirmed
-                    Thank you for your purchase!`,
-                    timer: 5000,
-                    icon: 'success',
-                    showCloseButton: true
-                });
-                if (cart.length !==0) {
-                    setTimeout( () => {
-                        purchaseHandler();
-                    }, 2500);
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'There are no items in your cart!',
-                        footer: '<a class="alert__link" href="../index.html">Go back to the main page to add items</a>'
-                    })
-                }
-                
-            } 
-        });
+        confirmationPopup();
     });
     
 })()
