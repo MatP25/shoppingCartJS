@@ -1,9 +1,8 @@
 @use "../0-utilities/" as *;
 
-// #paymentForm > div {
-//     display: inline-block;
-//     width: 100%;
-// }
+#paymentForm {
+    padding: 0 .5em;
+}
 
 .formGroup {
     display: flex;
@@ -16,24 +15,30 @@
         font-size: 1.25em;
         padding: .25rem;
         background-color: $light-blue;
-        border: 2px solid darkblue;
+        border: 2px solid $dark-blue;
         font-weight: 600;
     }
     label {
-        display:flex;
-        justify-content: space-between;
+        font-size: 1.125em;
+        font-weight: 600;
+    }
+    input {
         margin-bottom: 1rem;
-        input[required] {
-            border-right: 5px solid red;
-        }
-        input:not([type="radio"]) {
-            display: inline-block;
-            margin-left: .5rem;
-            width: min(100%, 17rem);
-        }
-        input:invalid {
-            border-bottom: 2px dotted red;
-        }
+    }
+    input[required] {
+        border-right: 5px solid red;
+    }
+    input:not([type="radio"]) {
+        display: inline-block;
+        margin-left: .5rem;
+        width: min(100%, 17rem);
+    }
+    input:invalid {
+        border-bottom: 2px dotted red;
+    }
+    span {
+        font-size: 85%;
+        color:red;
     }
 }
 

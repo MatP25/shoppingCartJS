@@ -20,8 +20,7 @@
         loginBtn = document.getElementById("loginBtn"),
         closeLoginBtn = document.getElementById("closeLoginBtn"),
         emailInput = document.getElementById("loginEmail"),
-        passwordInput = document.getElementById("loginPassword"),
-        main = document.querySelector("main");
+        passwordInput = document.getElementById("loginPassword");
 
     ///////////////////////////////////////////////////////////////////
     ///////////////------------FORM ELEMENTS------------///////////////
@@ -73,7 +72,6 @@
         //reset dynamic content when clearing cart
         cart = [];
         cartLabel.innerHTML = "Cart is empty";
-        totalPrice.innerHTML = "";
         shoppingCartCards.innerHTML = "";
         cartAmount.innerHTML = 0;
         for (let i=0;i<cardsQty.length;i++) {
@@ -213,12 +211,13 @@
         });
         cartArray.length > 0 ? 
         targetElement.innerHTML = `TOTAL: $${total.toFixed(2)}` : 
-        targetElement.innerHTML = "";
+        targetElement.innerHTML = "TOTAL: $0";
+
         return total.toFixed(2)
     }
 
     const purchaseHandler = async (dataUrl) => {
-        //NOT WORKING!!!
+
             const resp = await fetch(dataUrl);
             const data = await resp.json();
 
@@ -227,7 +226,7 @@
             setTimeout( () => {
                 resetDynamicContent();
                 localStorage.removeItem("data");
-            }, 500);
+            }, 0);
 
             let purchaseInfo = cart.map( (productCart) => {
                 let { id, quantity } = productCart;
@@ -284,7 +283,7 @@
                 });
                 if (cart.length !==0) {
                     setTimeout( () => {
-                        purchaseHandler();
+                        purchaseHandler(urljson);
                     }, 2500);
                 } else {
                     Swal.fire({
@@ -339,7 +338,7 @@
 
     });
 
-    main.addEventListener("click", evt => {
+    document.querySelector("main").addEventListener("click", evt => {
         //SO-1687296 - dom delegation https://javascript.info/event-delegation
         if (evt.target && evt.target.nodeName == "I") {
             //assigns thisProduct to whichever element doesn't return nullish
@@ -367,6 +366,8 @@
 
     buyBtn.addEventListener("click", (evt) => {
         evt.preventDefault();
+        console.log(form.reportValidity())
+        iterateFormElements();
 
         if (checkLoginState() === "false") {
             Swal.fire({

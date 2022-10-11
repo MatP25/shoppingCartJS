@@ -251,6 +251,10 @@ i {
   right: 5px;
 }
 
+#paymentForm {
+  padding: 0 0.5em;
+}
+
 .formGroup {
   display: flex;
   flex-direction: column;
@@ -263,24 +267,30 @@ i {
   font-size: 1.25em;
   padding: 0.25rem;
   background-color: #add8e6;
-  border: 2px solid darkblue;
+  border: 2px solid #13131d;
   font-weight: 600;
 }
 .formGroup label {
-  display: flex;
-  justify-content: space-between;
+  font-size: 1.125em;
+  font-weight: 600;
+}
+.formGroup input {
   margin-bottom: 1rem;
 }
-.formGroup label input[required] {
+.formGroup input[required] {
   border-right: 5px solid red;
 }
-.formGroup label input:not([type=radio]) {
+.formGroup input:not([type=radio]) {
   display: inline-block;
   margin-left: 0.5rem;
   width: min(100%, 17rem);
 }
-.formGroup label input:invalid {
+.formGroup input:invalid {
   border-bottom: 2px dotted red;
+}
+.formGroup span {
+  font-size: 85%;
+  color: red;
 }
 
 .modal {

@@ -15,7 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- JS -->
-    <script src="../assets/js/Data.js" defer></script>
+    <script src="../assets/js/formValidator.js" defer></script>
     <script src="../assets/js/shoppingCart.js" defer></script>
 
     <title>My Shopping Cart</title>
@@ -79,7 +79,7 @@
             
             <h4 class="titleFullWidth" id="cart-label"></h2>
             
-            <h5 id="totalPrice"></h5>
+            <h5 id="totalPrice">TOTAL: $0</h5>
         
             <div id="cartCard-container">
 
@@ -97,86 +97,96 @@
 
             <form id="paymentForm">
                 <div>
+
                     <fieldset class="formGroup">
                         <legend class="formGroup__title">Name</legend>
-                        <label>
-                            First Name
-                            <input type="text" name="First Name" id="fname" pattern="([^\s][A-zÀ-ž\s]+)" required>
-                        </label>
-                        <label>
-                            Last Name
-                            <input type="text" name="Last Name" id="lname" pattern="([^\s][A-zÀ-ž\s]+)" required>
-                        </label>
+
+                        <label for="fname">First Name</label>
+                        <span id="err-fname"></span>
+                        <input type="text" name="First Name" id="fname" pattern="([^\s][A-zÀ-ž\s]+)" required>
+                        
+                        <label for="lname">Last Name</label>
+                        <span id="err-lname"></span>
+                        <input type="text" name="Last Name" id="lname" pattern="([^\s][A-zÀ-ž\s]+)" required>
+                        
                     </fieldset>
                     
                     <fieldset class="formGroup">
                         <legend class="formGroup__title">Contact Information</legend>
-                        <label>
-                            Street Address
-                            <input type="text" name="Street Address" id="streetAdd1" pattern="([^\s][A-z0-9À-ž\s]+)" required>
-                        </label>
-                        <label>
-                            Street Address Line 2
-                            <input type="text" name="Street Address L2" id="streetAdd2" pattern="([^\s][A-z0-9À-ž\s]+)">
-                        </label>
-                        <label>
-                            City
-                            <input type="text" name="City" id="city" pattern="([^\s][A-zÀ-ž\s]+)" required>
-                        </label>
-                        <label>
-                            State/Province
-                            <input type="text" name="State/Province" id="state" pattern="([^\s][A-zÀ-ž\s]+)">
-                        </label>
-                        <label>
-                            Zip Code
-                            <input type="text" name="Zip Code" id="zipCode" title="Digits only, 4 to 8"  required>
-                        </label>
-                        <label>
-                            Phone Number
-                            <input type="text" name="Phone Number" id="phoneNumber" title="Digits only, 6 to 18" required>
-                        </label>
+
+                        <label for="streetAdd1">Street Address</label>
+                        <span id="err-streetAdd1"></span>
+                        <input type="text" name="Street Address" id="streetAdd1" pattern="([^\s][A-z0-9À-ž\s]+)" required>
+                        
+                        <label for="streetAdd2">Street Address Line 2</label>
+                        <span id="err-streetAdd2"></span>
+                        <input type="text" name="Street Address L2" id="streetAdd2" pattern="([^\s][A-z0-9À-ž\s]+)">
+                        
+                        <label for="city">City</label>
+                        <span id="err-city"></span>
+                        <input type="text" name="City" id="city" pattern="([^\s][A-zÀ-ž\s]+)" required>
+                        
+                        <label for="state">State/Province</label>
+                        <span id="err-state"></span>
+                        <input type="text" name="State-Province" id="state" pattern="([^\s][A-zÀ-ž\s]+)">
+                        
+                        <label for="zipCode">Zip Code</label>
+                        <span id="err-zipCode"></span>
+                        <input type="text" name="Zip Code" id="zipCode" title="Digits only, 4 to 8"  required>
+                        
+                        <label for="phoneNumber">Phone Number</label>
+                        <span id="err-phoneNumber"></span>
+                        <input type="text" name="Phone Number" id="phoneNumber" title="Digits only, 6 to 18" required>
+
+                        <label for="emailAddress">Email</label>
+                        <span id="err-emailAddress"></span>
+                        <input type="email" name="Email Address" id="emailAddress">
                     </fieldset>
+
                 </div>
                 
                 <div>
+
                     <fieldset class="formGroup">
                         <legend class="formGroup__title">Payment Method</legend>
-                        <label>
-                            Cash
-                            <input type="radio" name="Payment Method" id="cash" value="Cash">
+
+                        <label>Cash
+                            <input type="radio" name="Payment Method" id="cash" value="Cash" checked>
                         </label>
-                        <label>
-                            Deposit
+                        
+                        <label>Deposit
                             <input type="radio" name="Payment Method" id="deposit" value="Deposit">
                         </label>
-                        <label>
-                            Credit Card
+                        
+                        <label>Credit Card
                             <input type="radio" name="Payment Method" id="creditCard" value="Credit Card">
                         </label>
+                        
                     </fieldset>
     
-                    <fieldset class="formGroup" id="creditCardFieldset" disabled>
+                    <fieldset class="formGroup" id="creditCardFieldset">
                         <legend class="formGroup__title">Credit Card Information</legend>
-                        <label>
-                            Credit Card Number
-                            <input type="text" name="CC Number" id="ccNumber" required  pattern="([0-9]{13,16})" maxlength="16" title="16 digits, no spaces or dashes">
-                        </label>
-                        <label>
-                            CC Security Code
-                            <input type="text" name="CC Security Code" id="ccCode" required pattern="([0-9]{3,4})" maxlength="3" title="3 digit number behind your CC">
-                        </label>
+
+                        <label for="ccNumber">Credit Card Number</label>
+                        <span id="err-ccNumber"></span>
+                        <input type="text" name="CC Number" id="ccNumber" required  pattern="([0-9]{13,16})" maxlength="16" title="16 digits, no spaces or dashes">
+                        
+                        <label for="ccCode">CC Security Code</label>
+                        <span id="err-ccCode"></span>
+                        <input type="text" name="CC Security Code" id="ccCode" required pattern="([0-9]{3})" maxlength="3" title="3 digit number behind your CC">
                     </fieldset>
+
                 </div>
                 
 
                 <fieldset class="formGroup">
                     <legend class="formGroup__title">Confirmation</legend>
                     <div class="btn-group">
-                        <input class="btn btn--danger" type="reset" value="Reset Form">
+                        <!-- <input class="btn btn--danger" type="reset" value="Reset Form"> -->
                         <a href="./purchaseDetails.html" id="buyBtn" class="btn">Confirm</a>
                     </div>
-                    
                 </fieldset>
+
             </form>
         </section>
 

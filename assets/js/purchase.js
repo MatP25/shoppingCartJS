@@ -8,7 +8,7 @@
     let purchaseInformation = JSON.parse(localStorage.getItem("purchaseInfo")) || [];
 
     const calcTotal = (arr, keyName) => {
-        return arr.map( (obj) => obj[keyName]).reduce( (a,b) => a + b, 0);
+        return arr.map( (obj) => obj[keyName]).reduce( (a,b) => a + b, 0).toFixed(2);
     }
 
     if (purchaseInformation.length !== 0) {
@@ -22,7 +22,8 @@
         return (purchaseDetails.innerHTML = purchaseInformation.map( (product) => {
             let {name, price, qty, subtotal} = product;
             return `<li>
-                        <p>Product: ${name} $${price}</p>
+                        <p>Product: ${name.slice(0,50)}...</p>
+                        <p>Price:  $${price}</p>
                         <p>Quantity: ${qty}</p>
                         <p>Subtotal: $${subtotal}</p>
                     </li>`

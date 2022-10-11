@@ -196,6 +196,7 @@
 
             createProducts(shop, multiFiltered, cart);
         }
+        updateTitle();
     }
     
     const getRadioValue = () => {
@@ -210,11 +211,19 @@
 
     const updateTitle = () => {
         const title = document.getElementById("productsTitle");
-        if (!getRadioValue()) {
-            title.innerHTML = "Showing products for Dogs & Cats";
+        const foundQty = shop.children.length;
+
+        if (!foundQty) {
+            title.innerHTML = "Sorry... No matching products were found."
         } else {
-            title.innerHTML = `Showing ${getRadioValue().toLowerCase().slice(0,3)} products`;
+            if (!getRadioValue()) {
+                title.innerHTML = `Showing ${foundQty} products for Dogs & Cats`;
+            } else {
+                title.innerHTML = `Showing ${foundQty} ${getRadioValue().toLowerCase().slice(0,3)} products`;
+            }
         }
+
+        
     }
 
     const fakeLoginValidation = (email, passw) => {
@@ -280,7 +289,6 @@
     
     applyFiltersBtn.addEventListener("click", () => {
         getJsonData(urljson, true);
-        updateTitle();
         shop.scrollIntoView();
     });
 
