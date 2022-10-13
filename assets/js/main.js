@@ -10,20 +10,13 @@
         shop = document.getElementById("shop"),
         cartAmount = document.getElementById("cart-amount"),
         cardsQty = document.getElementsByClassName("quantity"),
-        main = document.querySelector("main"),
         openLoginModalBtn = document.getElementById("openLoginModal"),
         loginModal = document.getElementById("loginModal"),
-        loginBtn = document.getElementById("loginBtn"),
-        closeLoginBtn = document.getElementById("closeLoginBtn"),
         searchBar = document.getElementById("searchBar"),
-        searchIcon = document.getElementById("searchByName"),
         selectSubCategory = document.getElementById("selectCategory"),
         maxPriceInput = document.getElementById("maxPrice"),
         minPriceInput = document.getElementById("minPrice"),
-        applyFiltersBtn = document.getElementById("applyFiltersBtn"),
-        toggleFiltersBtn = document.getElementById("toggleFilters"),
         filtersDiv = document.getElementById("filters"),
-        clearFiltersBtn = document.getElementById("clearFiltersBtn"),
         emailInput = document.getElementById("loginEmail"),
         passwordInput = document.getElementById("loginPassword"),
         selectPetCategoryRadios = document.querySelectorAll("input[name='petCategory'");
@@ -31,8 +24,9 @@
     //get the data from the local storage, if the local storage is empty set it as an empty array
     let cart = JSON.parse(localStorage.getItem("data")) || [];
 
-    //json data
+    //JSON DATA
     const urljson = "./assets/js/json/data.JSON";
+
     ///////////////////////////////////////////////////////////////////
     /////////////////------------FUNCTIONS------------/////////////////
     ///////////////////////////////////////////////////////////////////
@@ -141,11 +135,9 @@
         targetElement.innerHTML = calcAmount(cart, "quantity");
     }
 
+    //filters product by name
     const nameFilter = (dataArray, filterValue) => {
-        //filters product by name
-        return dataArray.filter( prod => {
-            return prod.name.toLowerCase().includes(filterValue)
-        })
+        return dataArray.filter( prod => prod.name.toLowerCase().includes(filterValue) )
     }
 
     const multipleFilters = (dataArray, categoryValue, subcategoryValue, maxPrice, minPrice) => {
@@ -263,38 +255,40 @@
         checkLoginState();
     });
 
-    main.addEventListener("click", evt => {
+    document.querySelector("main").addEventListener("click", evt => {
         //SO-1687296 - dom delegation https://javascript.info/event-delegation
         if (evt.target && evt.target.nodeName == "I") {
             //assigns thisProduct to whichever element doesn't return nullish
-            let thisProduct = evt.target.closest(".card") ?? evt.target.closest('.cartCard');
+            let thisProduct = evt.target.closest(".card");
             let classes = evt.target.className.split(" ");
             if (classes) {
                 for (let i=0; i<classes.length; i++) {
                     if (classes[i] == "incrementQty") {
                     incrementQty(thisProduct, cart);
+                    break;
                     } else if (classes[i] == "decrementQty") {
                         decrementQty(thisProduct);
+                        break;
                     }
                 }
             }
         }
     });
     
-    applyFiltersBtn.addEventListener("click", () => {
+    document.getElementById("applyFiltersBtn").addEventListener("click", () => {
         getJsonData(urljson, true);
         shop.scrollIntoView();
     });
 
-    searchIcon.addEventListener("click", (evt) => {
+    document.getElementById("searchByName").addEventListener("click", (evt) => {
         evt.preventDefault();
         getJsonData(urljson, true);
         shop.scrollIntoView();
     });
 
-    clearFiltersBtn.addEventListener("click", clearFilters);
+    document.getElementById("clearFiltersBtn").addEventListener("click", clearFilters);
 
-    toggleFiltersBtn.addEventListener("click", evt => {
+    document.getElementById("toggleFilters").addEventListener("click", evt => {
         evt.preventDefault();
         filtersDiv.style.display === "none" ?
         filtersDiv.style.display = "block" : 
@@ -305,9 +299,9 @@
         if ( evt.target == loginModal ) { closeModal(); }
     });
 
-    closeLoginBtn.addEventListener("click", closeModal);
+    document.getElementById("closeLoginBtn").addEventListener("click", closeModal);
 
-    loginBtn.addEventListener("click", (evt) => {
+    document.getElementById("loginBtn").addEventListener("click", (evt) => {
         evt.preventDefault();
         emailInput.className = "";
         passwordInput.className = "";
@@ -333,7 +327,6 @@
         } else { (checkLoginState() === "false")
             openModal();
         }
-
         checkLoginState();
     });
 

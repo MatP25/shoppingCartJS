@@ -5,26 +5,18 @@
     ////////////////////////////////////////////////////////////////////
     ////////////////------------DOM ELEMENTS------------////////////////
     ////////////////////////////////////////////////////////////////////
-
     const 
         cartAmount = document.getElementById("cart-amount"),
         cartLabel = document.getElementById("cart-label"),
-        buyBtn = document.getElementById("buyBtn"),
-        clearCartBtn = document.getElementById("clearCartBtn"),
         btnsContainer = document.getElementById("btnsContainer"),
         shoppingCartCards = document.getElementById("cartCard-container"),
         cardsQty = document.getElementsByClassName("quantity"),
         totalPrice = document.getElementById("totalPrice"),
         openLoginModalBtn = document.getElementById("openLoginModal"),
         loginModal = document.getElementById("loginModal"),
-        loginBtn = document.getElementById("loginBtn"),
-        closeLoginBtn = document.getElementById("closeLoginBtn"),
         emailInput = document.getElementById("loginEmail"),
         passwordInput = document.getElementById("loginPassword");
-
-    ///////////////////////////////////////////////////////////////////
     ///////////////------------FORM ELEMENTS------------///////////////
-    ///////////////////////////////////////////////////////////////////
     const
         form = document.getElementById("paymentForm"),
         paymentOptionsRadios = form.elements.namedItem("Payment Method");
@@ -32,6 +24,9 @@
     //get the data from the local storage, if the local storage is empty set it as an empty array
     let cart = JSON.parse(localStorage.getItem("data")) || [];
     let loginState = localStorage.getItem("loginState") || false;
+
+    //JSON DATA
+    const urljson = "../assets/js/json/data.JSON";
 
     ///////////////////////////////////////////////////////////////////
     /////////////////------------FUNCTIONS------------/////////////////
@@ -52,10 +47,7 @@
 
     const updateCartInLocalStorage = () => {
         localStorage.setItem("data", JSON.stringify(cart));
-
-        if (cart.length === 0) {
-            resetDynamicContent();
-        }
+        if (cart.length === 0) { resetDynamicContent(); }
     }
 
     const resetDynamicContent = () => {
@@ -86,9 +78,7 @@
             searchCart.quantity += 1;
         }
         //if a new product is added then there is at least 1 product in the cart therefore set the display of the buttons to flex
-        if (btnsContainer) {
-            toggleVisibility(btnsContainer, "flex")
-        }
+        if (btnsContainer) { toggleVisibility( btnsContainer, "flex" ) }
         //update the product quantity inside the card and the cart icon everytime the quantity increments or decrements
         updateCards();
         updateCartInLocalStorage();
@@ -138,13 +128,11 @@
         updateCartInLocalStorage();
     }
 
-    const removeCard = (productObj) => {
-        //removes the object passed as parameter
-        productObj.remove();
-    }
+    //removes the object passed as parameter
+    const removeCard = (productObj) => { productObj.remove(); }
 
+    //calculates the sum of values in an array, used for calculating the total number of products in the cart
     const calcAmount = (arr, keyName) => {
-        //calculates the sum of values in an array, used for calculating the total number of products in the cart
         return arr.map( (obj) => obj[keyName]).reduce( (a,b) => a + b, 0);
     }
 
@@ -232,8 +220,6 @@
             localStorage.setItem("purchaseInfo", JSON.stringify(purchaseInfo));
         
     }
-
-    const urljson = "../assets/js/json/data.JSON";
 
     const getJsonData = async (url) => {
         const resp = await fetch(url);
@@ -335,12 +321,12 @@
         //SO-1687296 - dom delegation https://javascript.info/event-delegation
         if (evt.target && evt.target.nodeName == "I") {
             //assigns thisProduct to whichever element doesn't return nullish
-            let thisProduct = evt.target.closest(".card") ?? evt.target.closest('.cartCard');
+            let thisProduct = evt.target.closest('.cartCard');
             let classes = evt.target.className.split(" ");
             if (classes) {
                 for (let i=0; i<classes.length; i++) {
                     if (classes[i] == "incrementQty") {
-                    incrementQty(thisProduct, cart);
+                        incrementQty(thisProduct, cart);
                     } else if (classes[i] == "decrementQty") {
                         decrementQty(thisProduct);
                     } else if (classes[i] == "removeItem") {
@@ -352,12 +338,12 @@
         }
     });
 
-    clearCartBtn.addEventListener("click", () => {
+    document.getElementById("clearCartBtn").addEventListener("click", () => {
         resetDynamicContent();
         localStorage.clear();
     });
 
-    buyBtn.addEventListener("click", (evt) => {
+    document.getElementById("buyBtn").addEventListener("click", (evt) => {
         evt.preventDefault();
         checkLoginState();
 
@@ -388,14 +374,12 @@
     });
     
     window.addEventListener("click", (evt) => {
-        if (evt.target == loginModal) {
-            closeModal();
-        }
+        if ( evt.target == loginModal ) { closeModal(); }
     });
 
-    closeLoginBtn.addEventListener("click", closeModal);
+    document.getElementById("closeLoginBtn").addEventListener("click", closeModal);
 
-    loginBtn.addEventListener("click", (evt) => {
+    document.getElementById("loginBtn").addEventListener("click", (evt) => {
         evt.preventDefault();
         emailInput.className = "";
         passwordInput.className = "";
@@ -464,7 +448,7 @@
         /*6*/"INVALID CREDIT CARD NUMBER. It may not contain any letters or special characters and must be between 13 and 16 characters long",
         /*7*/"INVALID CREDIT CARD SECURITY NUMBER. It may not contain any letters or special characters and must be 3 characters long",
         /*8*/""
-    ]
+        ];
 
     const checkForm = () => {
 
