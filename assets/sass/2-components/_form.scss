@@ -25,8 +25,9 @@
     input {
         margin-bottom: 1rem;
     }
-    input[required] {
-        border-right: 5px solid red;
+    .required::after {
+        content: " *";
+        color: red;
     }
     input:not([type="radio"]) {
         display: inline-block;

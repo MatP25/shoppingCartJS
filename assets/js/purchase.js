@@ -7,9 +7,7 @@
 
     let purchaseInformation = JSON.parse(localStorage.getItem("purchaseInfo")) || [];
 
-    const calcTotal = (arr, keyName) => {
-        return arr.map( (obj) => obj[keyName]).reduce( (a,b) => a + b, 0).toFixed(2);
-    }
+    const calcTotal = (arr, keyName) => arr.map( (obj) => obj[keyName]).reduce( (a,b) => a + b, 0).toFixed(2);
 
     if (purchaseInformation.length !== 0) {
 

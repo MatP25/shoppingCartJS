@@ -15,7 +15,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- JS -->
-    <script src="../assets/js/formValidator.js" defer></script>
     <script src="../assets/js/shoppingCart.js" defer></script>
 
     <title>My Shopping Cart</title>
@@ -101,53 +100,53 @@
                     <fieldset class="formGroup">
                         <legend class="formGroup__title">Name</legend>
 
-                        <label for="fname">First Name</label>
+                        <label for="fname" class="required" >First Name</label>
                         <span id="err-fname"></span>
-                        <input type="text" name="First Name" id="fname" pattern="([^\s][A-zÀ-ž\s]+)" required>
+                        <input type="text" name="First Name" id="fname" minlength="1" maxlength="20" required>
                         
-                        <label for="lname">Last Name</label>
+                        <label for="lname" class="required">Last Name</label>
                         <span id="err-lname"></span>
-                        <input type="text" name="Last Name" id="lname" pattern="([^\s][A-zÀ-ž\s]+)" required>
+                        <input type="text" name="Last Name" id="lname" minlength="1" maxlength="20" required>
                         
                     </fieldset>
                     
                     <fieldset class="formGroup">
                         <legend class="formGroup__title">Contact Information</legend>
 
-                        <label for="streetAdd1">Street Address</label>
+                        <label for="streetAdd1" class="required">Street Address</label>
                         <span id="err-streetAdd1"></span>
-                        <input type="text" name="Street Address" id="streetAdd1" pattern="([^\s][A-z0-9À-ž\s]+)" required>
+                        <input type="text" name="Street Address" id="streetAdd1" minlength="1" maxlength="30" required>
                         
                         <label for="streetAdd2">Street Address Line 2</label>
                         <span id="err-streetAdd2"></span>
-                        <input type="text" name="Street Address L2" id="streetAdd2" pattern="([^\s][A-z0-9À-ž\s]+)">
+                        <input type="text" name="Street Address L2" id="streetAdd2" minlength="1" maxlength="30">
                         
-                        <label for="city">City</label>
+                        <label for="city" class="required">City</label>
                         <span id="err-city"></span>
-                        <input type="text" name="City" id="city" pattern="([^\s][A-zÀ-ž\s]+)" required>
+                        <input type="text" name="City" id="city" minlength="1" maxlength="30" required>
                         
-                        <label for="state">State/Province</label>
+                        <label for="state" class="required">State/Province</label>
                         <span id="err-state"></span>
-                        <input type="text" name="State-Province" id="state" pattern="([^\s][A-zÀ-ž\s]+)">
+                        <input type="text" name="State-Province" id="state" minlength="1" maxlength="30" required>
                         
-                        <label for="zipCode">Zip Code</label>
+                        <label for="zipCode" class="required">Zip Code</label>
                         <span id="err-zipCode"></span>
-                        <input type="text" name="Zip Code" id="zipCode" title="Digits only, 4 to 8"  required>
+                        <input type="text" name="Zip Code" id="zipCode" title="Digits only, 4 to 8" minlength="4" maxlength="8" required>
                         
-                        <label for="phoneNumber">Phone Number</label>
+                        <label for="phoneNumber" class="required">Phone Number</label>
                         <span id="err-phoneNumber"></span>
-                        <input type="text" name="Phone Number" id="phoneNumber" title="Digits only, 6 to 18" required>
+                        <input type="text" name="Phone Number" id="phoneNumber" title="Digits only, 6 to 18" minlength="6" maxlength="18" required>
 
-                        <label for="emailAddress">Email</label>
+                        <label for="emailAddress" class="required">Email</label>
                         <span id="err-emailAddress"></span>
-                        <input type="email" name="Email Address" id="emailAddress">
+                        <input type="email" name="Email Address" id="emailAddress" minlength="1" required>
                     </fieldset>
 
                 </div>
                 
                 <div>
 
-                    <fieldset class="formGroup">
+                    <fieldset class="formGroup" id="paymentOptionFieldset">
                         <legend class="formGroup__title">Payment Method</legend>
 
                         <label>Cash
@@ -167,13 +166,13 @@
                     <fieldset class="formGroup" id="creditCardFieldset">
                         <legend class="formGroup__title">Credit Card Information</legend>
 
-                        <label for="ccNumber">Credit Card Number</label>
+                        <label for="ccNumber" class="required">Credit Card Number</label>
                         <span id="err-ccNumber"></span>
-                        <input type="text" name="CC Number" id="ccNumber" required  pattern="([0-9]{13,16})" maxlength="16" title="16 digits, no spaces or dashes">
+                        <input type="text" name="CC Number" id="ccNumber" required disabled pattern="([0-9]{13,16})" minlength="1" maxlength="16" title="16 digits, no spaces or dashes">
                         
-                        <label for="ccCode">CC Security Code</label>
+                        <label for="ccCode" class="required">CC Security Code</label>
                         <span id="err-ccCode"></span>
-                        <input type="text" name="CC Security Code" id="ccCode" required pattern="([0-9]{3})" maxlength="3" title="3 digit number behind your CC">
+                        <input type="text" name="CC Security Code" id="ccCode" required disabled pattern="([0-9]{3})" minlength="1" maxlength="3" title="3 digit number behind your CC">
                     </fieldset>
 
                 </div>
@@ -183,7 +182,7 @@
                     <legend class="formGroup__title">Confirmation</legend>
                     <div class="btn-group">
                         <!-- <input class="btn btn--danger" type="reset" value="Reset Form"> -->
-                        <a href="./purchaseDetails.html" id="buyBtn" class="btn">Confirm</a>
+                        <a href="#" id="buyBtn" class="btn">Confirm</a>
                     </div>
                 </fieldset>
 

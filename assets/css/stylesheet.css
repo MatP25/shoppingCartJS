@@ -277,8 +277,9 @@ i {
 .formGroup input {
   margin-bottom: 1rem;
 }
-.formGroup input[required] {
-  border-right: 5px solid red;
+.formGroup .required::after {
+  content: " *";
+  color: red;
 }
 .formGroup input:not([type=radio]) {
   display: inline-block;

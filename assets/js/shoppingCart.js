@@ -25,27 +25,17 @@
     ///////////////////////////////////////////////////////////////////
     ///////////////------------FORM ELEMENTS------------///////////////
     ///////////////////////////////////////////////////////////////////
-
     const
         form = document.getElementById("paymentForm"),
-        fnameValue = document.getElementById("fname").value,
-        lnameValue = document.getElementById("lname").value,
-        address1Value = document.getElementById("streetAdd1").value,
-        address2Value = document.getElementById("streetAdd2").value,
-        cityValue = document.getElementById("city").value,
-        stateValue = document.getElementById("state").value,
-        zipCodeValue = document.getElementById("zipCode").value,
-        phoneNumValue = document.getElementById("phoneNumber").value,
         paymentOptionsRadios = form.elements.namedItem("Payment Method");
 
     //get the data from the local storage, if the local storage is empty set it as an empty array
     let cart = JSON.parse(localStorage.getItem("data")) || [];
+    let loginState = localStorage.getItem("loginState") || false;
 
     ///////////////////////////////////////////////////////////////////
     /////////////////------------FUNCTIONS------------/////////////////
     ///////////////////////////////////////////////////////////////////
-
-    
     const openModal = () => {
             loginModal.classList.remove("hidden");
             loginModal.className += " visibleBlock";
@@ -257,6 +247,17 @@
     } 
 
     const confirmationAlert = (totalValue) => {
+        const
+            fname = document.getElementById("fname"),
+            lname = document.getElementById("lname"),
+            address1 = document.getElementById("streetAdd1"),
+            address2 = document.getElementById("streetAdd2"),
+            city = document.getElementById("city"),
+            state = document.getElementById("state"),
+            zipCode = document.getElementById("zipCode"),
+            phoneNum = document.getElementById("phoneNumber"),
+            emailAddress = document.getElementById("emailAddress");
+
         Swal.fire({
             icon: 'warning',
             showCancelButton: true,
@@ -265,11 +266,13 @@
             confirmButtonText: 'Confirm',
             titleText: "Verify your information",
             html: `<p class="alert__text"> <strong> Total:</strong> $ ${totalValue}</p>
-            <p class="alert__text"><strong>Name:</strong> ${fnameValue} ${lnameValue}</p>
-            <p class="alert__text"><strong>Address:</strong> ${address1Value}, ${address2Value} </p>
-            <p class="alert__text"><strong>City & State:</strong> ${cityValue}, ${stateValue} </p>
-            <p class="alert__text"><strong>Zip Code:</strong> ${zipCodeValue}</p>
-            <p class="alert__text"><strong>Phone: </strong> ${phoneNumValue} </p>
+            <p class="alert__text"><strong>Name:</strong> ${fname.value} ${lname.value}</p>
+            <p class="alert__text"><strong>Email:</strong> ${emailAddress.value}</p>
+            <p class="alert__text"><strong>Address:</strong> ${address1.value} 
+            ${address2.value} </p>
+            <p class="alert__text"><strong>City & State:</strong> ${city.value}, ${state.value} </p>
+            <p class="alert__text"><strong>Zip Code:</strong> ${zipCode.value}</p>
+            <p class="alert__text"><strong>Phone: </strong> ${phoneNum.value} </p>
             <p class="alert__text"><strong>Payment Option:</strong> ${paymentOptionsRadios.value}</p>`,
 
         }).then((result) => {
@@ -285,13 +288,6 @@
                     setTimeout( () => {
                         purchaseHandler(urljson);
                     }, 2500);
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'There are no items in your cart!',
-                        footer: '<a class="alert__link" href="../index.html">Go back to the main page to add items</a>'
-                    })
                 }
             } 
         });
@@ -314,7 +310,7 @@
     }
 
     const checkLoginState = () => {
-        let loginState = localStorage.getItem("loginState");
+        loginState = localStorage.getItem("loginState") || false;
         if (loginState === "true") {
             openLoginModalBtn.innerHTML = "Logout";
         } else {
@@ -326,16 +322,13 @@
     //////////////------------EVENT LISTENERS------------//////////////
     ///////////////////////////////////////////////////////////////////
 
-    window.addEventListener("storage", () => {
-        location.reload();
-    });
+    window.addEventListener("storage", () => { location.reload(); });
 
     window.addEventListener("load", () => {
         updateCartIcon(cartAmount);
         getJsonData(urljson);
         calculateTotalPrice(totalPrice, cart, urljson);
         checkLoginState();
-
     });
 
     document.querySelector("main").addEventListener("click", evt => {
@@ -366,8 +359,7 @@
 
     buyBtn.addEventListener("click", (evt) => {
         evt.preventDefault();
-        console.log(form.reportValidity())
-        iterateFormElements();
+        checkLoginState();
 
         if (checkLoginState() === "false") {
             Swal.fire({
@@ -378,7 +370,20 @@
                 confirmButtonText: 'Confirm'
             });
         } else {
-            confirmationPopup();
+            if (cart.length === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'There are no items in your cart!',
+                    footer: '<a class="alert__link" href="../index.html">Go back to the main page to add items</a>'
+                })
+            } else {
+                if (checkForm() && form.reportValidity()) {
+                    
+                    confirmationPopup();
+                }
+            }
+            
         }
     });
     
@@ -399,7 +404,7 @@
             localStorage.setItem("loginState", true);
             closeModal();
             Swal.fire('Login successful!', 'Reloading the page...', 'success').then(
-                setTimeout( () => { location.reload(); }, 1000 ));
+                setTimeout( () => { location.reload(); }, 1500 ));
         } else {
             localStorage.setItem("loginState", false);
         }
@@ -411,7 +416,7 @@
             evt.preventDefault();
             localStorage.setItem("loginState", false);
             Swal.fire('Logged out!', 'Reloading the page...', 'info').then(
-                setTimeout( () => { location.reload(); }, 1000)
+                setTimeout( () => { location.reload(); }, 1500)
             );
         } else {
             openModal();
@@ -419,5 +424,145 @@
 
         checkLoginState();
     });
+
+    document.getElementById("paymentOptionFieldset").addEventListener("change", () => {
+        if (paymentOptionsRadios.value === "Credit Card") {
+            document.getElementById("ccNumber").removeAttribute("disabled");
+            document.getElementById("ccCode").removeAttribute("disabled");
+        } else {
+            document.getElementById("ccNumber").setAttribute("disabled", "disabled");
+            document.getElementById("ccCode").setAttribute("disabled", "disabled");
+        }
+    });
+    ///////////////////////////////////////////////////////////////////
+    //////////////------------FORM VALIDATION------------//////////////
+    ///////////////////////////////////////////////////////////////////
+
+    //only letters, allows diacritics
+    const 
+        nameRegex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(([\'\,\.\- ][a-zA-ZÀ-ÿ\u00f1\u00d1 ])?[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*$/,
+        //only alphanumeric, allows diacritics
+        addressRegex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(([\'\,\.\- ][0-9a-zA-ZÀ-ÿ\u00f1\u00d1 ])?[a-zA-ZÀ-ÿ\u00f1\u00d10-9]*)*$/,
+        //only digits any length
+        onlyDigitRegex = /^\d+$/,
+        //only digits, length: 4 to 8
+        zipCodeRegex = /^\d{4,8}$/,
+        //only digits, length: 6 to 14
+        phoneRegex = /^\d{6,14}$/,
+        //only 3 digits
+        CCsecurityRegex = /^\d{3}$/,
+        //only digits, length: 13 to 16
+        CCRegex = /^\d{13,16}$/,
+
+        formErrors = [
+        /*0*/"INVALID NAME. It may not contain any numbers or special characters and must be between 1 and 20 characters long.",
+        /*1*/"INVALID ADDRESS. It may not contain any special characters and must be between 1 and 30 characters long.",
+        /*2*/"INVALID CITY or STATE NAME. It may not contain any numbers or special characters and must be between 1 and 30 characters long.",
+        /*3*/"INVALID ZIP CODE. It may not contain any letters or special characters and must be between 4 and 8 characters long",
+        /*4*/"INVALID PHONE NUMBER. It may not contain any letters or special characters and must be between 6 and 18 characters long",
+        /*5*/"INVALID EMAIL ADDRESS. Please verify that it matches the correct format: user@domain. It may not contain any blank spaces.",
+        /*6*/"INVALID CREDIT CARD NUMBER. It may not contain any letters or special characters and must be between 13 and 16 characters long",
+        /*7*/"INVALID CREDIT CARD SECURITY NUMBER. It may not contain any letters or special characters and must be 3 characters long",
+        /*8*/""
+    ]
+
+    const checkForm = () => {
+
+        let errors = 0,
+            firstInvalidFieldset;
+
+        for (let node of form.elements) {
+            if (node.nodeName !== "FIELDSET" && node.type !== "radio" && !node.disabled) {
+                if (!validateInput(node).status) {
+                    errors++;
+                    document.getElementById(`err-${node.id}`).innerHTML = `${formErrors[validateInput(node).errorCode]}`;
+                    if (!firstInvalidFieldset) { firstInvalidFieldset = node.closest("fieldset") };
+                } else {
+                    document.getElementById(`err-${node.id}`).innerHTML = "";
+                }
+            }
+        }
+        if (firstInvalidFieldset) { firstInvalidFieldset.scrollIntoView() }
+        return errors === 0 ? true : false
+    }
+    
+    const validateEmail = (email) => {
+        //this function only checks: 
+        //- if the address contains at least 1 "@", 
+        //- if it has any blank spaces,
+        //- if it has at least 1 character before and after the "@"
+        let atPos = email.indexOf("@"),
+            noBlankSpaces = !(/(\s)/.test(email)),
+            atLeast1CharBefore = false,
+            atLeast1CharAfter = false;
+
+        if (atPos !== -1 && noBlankSpaces) {
+            atLeast1CharBefore = email.slice(0,atPos).length > 0;
+            atLeast1CharAfter = email.slice(atPos+1).length > 0;
+        }
+        return ( atLeast1CharAfter && atLeast1CharBefore )
+    }
+
+    const validateInput = (formElement) => {
+
+        const thisInputID = formElement.id;
+        const thisValue = formElement.value.trim();
+        const checkStringLength = (str,min,max) => str.length < max && str.length >= min;
+
+        switch (thisInputID) {
+            case "fname": 
+            case "lname": 
+                return {
+                    status: ( nameRegex.test(thisValue) && checkStringLength(thisValue,1,20) ),
+                    errorCode: 0
+                    }; 
+            case "streetAdd1":
+                return {
+                    status: ( addressRegex.test(thisValue) && checkStringLength(thisValue,1,30) ),
+                    errorCode: 1
+                    };
+            case "streetAdd2":
+                if (thisValue === "") {
+                    return { status: true, errorCode: 8 }
+                } else {
+                    return {
+                        status: ( checkStringLength(thisValue,1,30) && addressRegex.test(thisValue) ),
+                        errorCode: 1
+                        };
+                }
+            case "city": 
+            case "state":  
+                return {
+                    status: ( nameRegex.test(thisValue) && checkStringLength(thisValue,1,30) ),
+                    errorCode: 2
+                    };
+            case "zipCode": 
+                return {
+                    status: ( zipCodeRegex.test(thisValue) ),
+                    errorCode: 3
+                    };
+            case "phoneNumber": 
+                return {
+                    status: ( phoneRegex.test(thisValue) ),
+                    errorCode: 4
+                    };
+            case "emailAddress":
+                return {
+                    status: ( validateEmail(thisValue) ),
+                    errorCode: 5
+                    };
+            case "ccNumber": 
+                return {
+                    status: ( CCRegex.test(thisValue) ),
+                    errorCode: 6
+                    };
+            case "ccCode": 
+                return {
+                    status: ( CCsecurityRegex.test(thisValue) ),
+                    errorCode: 7
+                    };
+            default: console.log("There was an error with the form validation"); break;
+        }
+    }
 
 })()

@@ -31,6 +31,8 @@
     //get the data from the local storage, if the local storage is empty set it as an empty array
     let cart = JSON.parse(localStorage.getItem("data")) || [];
 
+    //json data
+    const urljson = "./assets/js/json/data.JSON";
     ///////////////////////////////////////////////////////////////////
     /////////////////------------FUNCTIONS------------/////////////////
     ///////////////////////////////////////////////////////////////////
@@ -45,9 +47,7 @@
         loginModal.className += " hidden";
     }
 
-    const updateCartInLocalStorage = () => {
-        localStorage.setItem("data", JSON.stringify(cart));
-    }
+    const updateCartInLocalStorage = () => { localStorage.setItem("data", JSON.stringify(cart)); }
 
     const createProducts = (targetElement, dataArray, cartArray) => {
         //map will go over every object in the data array and for each object it will return a new piece of html
@@ -119,7 +119,6 @@
                 targetElement.classList.remove(animationClass)
             }, timeout);
         }
-        
     }
 
     const updateQty = (elemCollection, cartArray) => {
@@ -134,11 +133,9 @@
         updateCartIcon(cartAmount);
     }
 
-    const calcAmount = (arr, keyName) => {
-        //calculates the sum of values in an array, used for calculating the total number of products in the cart
-        return arr.map( (obj) => obj[keyName]).reduce( (a,b) => a + b, 0);
-    }
-
+    //calculates the sum of values in an array, used for calculating the total number of products in the cart
+    const calcAmount = (arr, keyName) => arr.map( (obj) => obj[keyName]).reduce( (a,b) => a + b, 0);
+    
     const updateCartIcon = (targetElement) => {
         //updates the cart icon's product counter
         targetElement.innerHTML = calcAmount(cart, "quantity");
@@ -173,8 +170,6 @@
         selectCategory.value = "";
         document.querySelector("#allPets").checked = true;
     }
-    
-    const urljson = "./assets/js/json/data.JSON";
 
     const getJsonData = async (url, hasFilter) => {
         const resp = await fetch(url);
@@ -204,6 +199,7 @@
         for (let i=0; i<selectPetCategoryRadios.length; i++) {
             if (selectPetCategoryRadios[i].checked) {
                 radioValue = selectPetCategoryRadios[i].value;
+                break;
             }
         }
         return radioValue;
@@ -222,8 +218,6 @@
                 title.innerHTML = `Showing ${foundQty} ${getRadioValue().toLowerCase().slice(0,3)} products`;
             }
         }
-
-        
     }
 
     const fakeLoginValidation = (email, passw) => {
@@ -308,9 +302,7 @@
     });
 
     window.addEventListener("click", (evt) => {
-        if (evt.target == loginModal) {
-            closeModal();
-        }
+        if ( evt.target == loginModal ) { closeModal(); }
     });
 
     closeLoginBtn.addEventListener("click", closeModal);
