@@ -17,27 +17,37 @@
     <!-- BOOTSTRAP ICONS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
-    <!-- JAVASCRIPT -->
+    <!-- JS LIBRARIES -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+
+    <!-- JS -->
     <script src="../assets/js/purchase.js" defer></script>
 </head>
 <body>
 
     <main class="centered">
-        <div id="successfulPurchase">
+        <div class="purchaseInfoContainer" id="successfulPurchase">
 
             <h2>Thank you for your purchase!</h2>
-            <h3>Order details:</h3>
 
+            <h3>Client details:</h3>
+            <ul id="clientDetails">
+            </ul>
+
+            <h3>Order details:</h3>
             <ul id="purchaseDetails">
             </ul>
+
         </div>
 
-        <div id="noProducts">
+        <button id="downloadBtn">Download this receipt as PDF</button>
+
+        <div class="purchaseInfoContainer" id="noProducts">
             <h1>No products</h1>
             <a href="../index.html"><h5>Go back to the home page</h5></a>
         </div>
 
     </main>
-    
 </body>
 </html>

@@ -194,7 +194,7 @@
         return total.toFixed(2)
     }
 
-    const purchaseHandler = async (dataUrl) => {
+    const purchaseHandler = async (dataUrl, userInfo) => {
 
             const resp = await fetch(dataUrl);
             const data = await resp.json();
@@ -206,7 +206,7 @@
                 localStorage.removeItem("data");
             }, 0);
 
-            let purchaseInfo = cart.map( (productCart) => {
+            const purchaseInfo = cart.map( (productCart) => {
                 let { id, quantity } = productCart;
                 let searchProductData = data.find( (product) => ("product" + product.id) === id) || [];
                 return  {
@@ -216,7 +216,7 @@
                     subtotal: (quantity * searchProductData.price)
                 }
             } );
-            
+            localStorage.setItem("userInfo", JSON.stringify(userInfo));
             localStorage.setItem("purchaseInfo", JSON.stringify(purchaseInfo));
         
     }
@@ -254,8 +254,8 @@
             html: `<p class="alert__text"> <strong> Total:</strong> $ ${totalValue}</p>
             <p class="alert__text"><strong>Name:</strong> ${fname.value} ${lname.value}</p>
             <p class="alert__text"><strong>Email:</strong> ${emailAddress.value}</p>
-            <p class="alert__text"><strong>Address:</strong> ${address1.value} 
-            ${address2.value} </p>
+            <p class="alert__text"><strong>Address:</strong> ${(address2.value ? address1.value + ", " + address2.value : address1.value)} 
+            </p>
             <p class="alert__text"><strong>City & State:</strong> ${city.value}, ${state.value} </p>
             <p class="alert__text"><strong>Zip Code:</strong> ${zipCode.value}</p>
             <p class="alert__text"><strong>Phone: </strong> ${phoneNum.value} </p>
@@ -266,13 +266,26 @@
                 Swal.fire({
                     title: `Order Confirmed
                     Thank you for your purchase!`,
+                    text: "redirecting the page...",
                     timer: 5000,
                     icon: 'success',
                     showCloseButton: true
                 });
-                if (cart.length !==0) {
+                if ( cart.length !== 0 ) {
                     setTimeout( () => {
-                        purchaseHandler(urljson);
+                        const userInfo = {
+                            fname: fname.value,
+                            lname: lname.value,
+                            email: emailAddress.value,
+                            address1: address1.value,
+                            address2: address2.value,
+                            city: city.value,
+                            state: state.value,
+                            zipCode: zipCode.value,
+                            phoneNum: phoneNum.value,
+                            paymentOption: paymentOptionsRadios.value
+                        };
+                        purchaseHandler(urljson, userInfo);
                     }, 2500);
                 }
             } 
@@ -364,10 +377,7 @@
                     footer: '<a class="alert__link" href="../index.html">Go back to the main page to add items</a>'
                 })
             } else {
-                if (checkForm() && form.reportValidity()) {
-                    
-                    confirmationPopup();
-                }
+                if ( checkForm() && form.reportValidity() ) { confirmationPopup(); }
             }
             
         }
@@ -418,6 +428,7 @@
             document.getElementById("ccCode").setAttribute("disabled", "disabled");
         }
     });
+
     ///////////////////////////////////////////////////////////////////
     //////////////------------FORM VALIDATION------------//////////////
     ///////////////////////////////////////////////////////////////////
@@ -460,7 +471,9 @@
                 if (!validateInput(node).status) {
                     errors++;
                     document.getElementById(`err-${node.id}`).innerHTML = `${formErrors[validateInput(node).errorCode]}`;
-                    if (!firstInvalidFieldset) { firstInvalidFieldset = node.closest("fieldset") };
+                    if (!firstInvalidFieldset) { 
+                        firstInvalidFieldset = node.closest("fieldset") 
+                    };
                 } else {
                     document.getElementById(`err-${node.id}`).innerHTML = "";
                 }
