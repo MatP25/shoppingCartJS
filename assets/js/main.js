@@ -14,6 +14,7 @@
         loginModal = document.getElementById("loginModal"),
         searchBar = document.getElementById("searchBar"),
         selectSubCategory = document.getElementById("selectCategory"),
+        selectSortingMethod = document.getElementById("sortingMethod"),
         maxPriceInput = document.getElementById("maxPrice"),
         minPriceInput = document.getElementById("minPrice"),
         filtersDiv = document.getElementById("filters"),
@@ -157,33 +158,69 @@
 
     const clearFilters = () => {
         //clear filter values when reloading the page & using the search function
+        searchBar.value = "";
         maxPriceInput.value = ""; 
         minPriceInput.value = "";
         selectCategory.value = "";
         document.querySelector("#allPets").checked = true;
     }
 
-    const getJsonData = async (url, hasFilter) => {
-        const resp = await fetch(url);
-        const data = await resp.json();
+    const sortArray = (arr) => {
+        
+        let sorted, reversed, sortBy;
 
-        if (!hasFilter) {
-            createProducts(shop, data, cart);
-        } else {
-            const filteredByName = nameFilter(
-                data, 
-                searchBar.value.toLowerCase());
-
-            const multiFiltered = multipleFilters(
-                filteredByName, 
-                getRadioValue(), 
-                selectSubCategory.value, 
-                maxPriceInput.value, 
-                minPriceInput.value);
-
-            createProducts(shop, multiFiltered, cart);
+        if (selectSortingMethod.value === "priceInc") {
+            sortBy = "price"; reversed = false; 
+        } else if (selectSortingMethod.value === "priceDec") {
+            sortBy = "price"; reversed = true;
+        } else if (selectSortingMethod.value === "nameAsc") {
+            sortBy = "name"; reversed = false;
+        } else if (selectSortingMethod.value === "nameDes") {
+            sortBy = "name"; reversed = true;
         }
-        updateTitle();
+
+        if (sortBy === "price") {
+            sorted = arr.sort( (a,b) => {
+                if (a.price > b.price) return 1;
+                if (a.price < b.price) return -1;
+                return 0;
+            });
+        } else if (sortBy === "name") {
+            sorted = arr.sort( (a,b) => {
+                if (a.name > b.name) return 1;
+                if (a.name < b.name) return -1;
+                return 0;
+            });
+        }
+        return reversed ? sorted.reverse() : sorted
+    }
+
+    const getJsonData = async (url) => {
+
+        shop.innerHTML = "<div class='loader'></div> <p class='centered'>Loading...</p>";
+
+        try {
+            const resp = await fetch(url);
+            const data = await resp.json();
+    
+            const sortedData = sortArray(data);
+    
+            const filteredByName = nameFilter(sortedData, searchBar.value.toLowerCase());
+            const filteredData = multipleFilters(
+                        filteredByName, 
+                        getRadioValue(), 
+                        selectSubCategory.value, 
+                        maxPriceInput.value, 
+                        minPriceInput.value);
+                
+            createProducts(shop, filteredData, cart);
+            updateTitle();
+
+        } catch(error) {
+            shop.innerHTML = "<div class='loadingError'><p> There was an error retrieving the data, please try reloading the page </p></div>";
+            console.error(error);
+        }
+        
     }
     
     const getRadioValue = () => {
@@ -249,7 +286,7 @@
 
     window.addEventListener("load", () => {
         clearFilters();
-        getJsonData(urljson, false);
+        getJsonData(urljson);
         updateCartIcon(cartAmount);
         updateTitle();
         checkLoginState();
@@ -276,17 +313,23 @@
     });
     
     document.getElementById("applyFiltersBtn").addEventListener("click", () => {
-        getJsonData(urljson, true);
+        getJsonData(urljson);
         shop.scrollIntoView();
     });
 
     document.getElementById("searchByName").addEventListener("click", (evt) => {
         evt.preventDefault();
-        getJsonData(urljson, true);
+        getJsonData(urljson);
         shop.scrollIntoView();
     });
 
     document.getElementById("clearFiltersBtn").addEventListener("click", clearFilters);
+
+    selectSortingMethod.addEventListener("change", () => {
+
+        
+        
+    });
 
     document.getElementById("toggleFilters").addEventListener("click", evt => {
         evt.preventDefault();

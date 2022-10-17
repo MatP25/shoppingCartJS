@@ -13,14 +13,13 @@
     const calcTotal = (arr, keyName) => arr.map( (obj) => obj[keyName]).reduce( (a,b) => a + b, 0).toFixed(2);
 
     const orderDetails = () => {
-    
             let purchaseDetailsHTML = (purchaseInformation.map( (product) => {
                 let {name, price, qty, subtotal} = product;
                 return `<li>
                             <p>Product: ${name.slice(0,75)}...</p>
                             <p>Price:  $${price}</p>
                             <p>Quantity: ${qty}</p>
-                            <p>Subtotal: $${subtotal}</p>
+                            <p>Subtotal: $${subtotal.toFixed(2)}</p>
                         </li>`
                         
             }).join("") + `<h4>Total: $${calcTotal(purchaseInformation, "subtotal")}</h4>`); 
