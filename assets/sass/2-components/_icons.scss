@@ -15,7 +15,7 @@ i {
         display: inline-block;
         background-color: $off-white;
         width: fit-content;
-        padding: calc(.25em + 1vmin) calc(.5em + 1vmin);
+        padding: calc(.2em + 1vmin) calc(.35em + 1vmin);
         border-radius: 5px;
         border: 2px solid $dark;
         position: relative;
@@ -24,12 +24,12 @@ i {
             top: -12px;
             right: -8px;
             color: $off-white;
-            padding: 0 6px;
+            padding: 0 4px;
             background-color: $light-red;
             border: 2px solid $dark-blue;
             border-radius: 3px;
             font-weight: bold;
-            font-size: 1.5em;
+            font-size: 1.3em;
         }
         i {
             font-size: calc(1.5rem + 1vmin);

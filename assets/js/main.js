@@ -219,6 +219,8 @@
         } catch(error) {
             shop.innerHTML = "<div class='loadingError'><p> There was an error retrieving the data, please try reloading the page </p></div>";
             console.error(error);
+        } finally {
+            shop.scrollIntoView();
         }
         
     }
@@ -274,6 +276,20 @@
         }
         return loginState
     }
+
+    const closeNavMenu = () => {
+        document.getElementById("page-nav-toggle").checked = false;
+    }
+
+    const checkSessionStorage = () => {
+        let filterFromSession = sessionStorage.getItem("filter");
+        if (filterFromSession === "cats") {
+            selectPetCategoryRadios[0].checked = true;
+        } else if (filterFromSession === "dogs") {
+            selectPetCategoryRadios[1].checked = true;
+        }
+        sessionStorage.clear();
+    }
     ///////////////////////////////////////////////////////////////////
     //////////////------------EVENT LISTENERS------------//////////////
     ///////////////////////////////////////////////////////////////////
@@ -286,16 +302,16 @@
 
     window.addEventListener("load", () => {
         clearFilters();
+        checkSessionStorage();
         getJsonData(urljson);
         updateCartIcon(cartAmount);
         updateTitle();
         checkLoginState();
     });
 
-    document.querySelector("main").addEventListener("click", evt => {
+    document.querySelector("body").addEventListener("click", evt => {
         //SO-1687296 - dom delegation https://javascript.info/event-delegation
         if (evt.target && evt.target.nodeName == "I") {
-            //assigns thisProduct to whichever element doesn't return nullish
             let thisProduct = evt.target.closest(".card");
             let classes = evt.target.className.split(" ");
             if (classes) {
@@ -311,25 +327,31 @@
             }
         }
     });
-    
-    document.getElementById("applyFiltersBtn").addEventListener("click", () => {
+
+    document.getElementById("catProductsLink").addEventListener("click", evt => {
+        evt.preventDefault();
+        selectPetCategoryRadios[0].checked = true;
+        closeNavMenu();
         getJsonData(urljson);
-        shop.scrollIntoView();
     });
 
-    document.getElementById("searchByName").addEventListener("click", (evt) => {
+    document.getElementById("dogProductsLink").addEventListener("click", evt => {
+        evt.preventDefault();
+        selectPetCategoryRadios[1].checked = true;
+        closeNavMenu();
+        getJsonData(urljson);
+    });
+
+    document.getElementById("applyFiltersBtn").addEventListener("click", () => {
+        getJsonData(urljson);
+    });
+
+    document.getElementById("searchByName").addEventListener("click", evt => {
         evt.preventDefault();
         getJsonData(urljson);
-        shop.scrollIntoView();
     });
 
     document.getElementById("clearFiltersBtn").addEventListener("click", clearFilters);
-
-    selectSortingMethod.addEventListener("change", () => {
-
-        
-        
-    });
 
     document.getElementById("toggleFilters").addEventListener("click", evt => {
         evt.preventDefault();
@@ -344,7 +366,7 @@
 
     document.getElementById("closeLoginBtn").addEventListener("click", closeModal);
 
-    document.getElementById("loginBtn").addEventListener("click", (evt) => {
+    document.getElementById("loginBtn").addEventListener("click", evt => {
         evt.preventDefault();
         emailInput.className = "";
         passwordInput.className = "";
@@ -359,7 +381,7 @@
         }
     });
 
-    openLoginModalBtn.addEventListener("click", (evt) => {
+    openLoginModalBtn.addEventListener("click", evt => {
         
         if (checkLoginState() === "true") {
             evt.preventDefault();

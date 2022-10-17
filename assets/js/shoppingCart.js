@@ -317,6 +317,10 @@
         }
         return loginState
     }
+
+    const closeNavMenu = () => {
+        document.getElementById("page-nav-toggle").checked = false;
+    }
     ///////////////////////////////////////////////////////////////////
     //////////////------------EVENT LISTENERS------------//////////////
     ///////////////////////////////////////////////////////////////////
@@ -333,7 +337,6 @@
     document.querySelector("main").addEventListener("click", evt => {
         //SO-1687296 - dom delegation https://javascript.info/event-delegation
         if (evt.target && evt.target.nodeName == "I") {
-            //assigns thisProduct to whichever element doesn't return nullish
             let thisProduct = evt.target.closest('.cartCard');
             let classes = evt.target.className.split(" ");
             if (classes) {
@@ -356,7 +359,7 @@
         localStorage.clear();
     });
 
-    document.getElementById("buyBtn").addEventListener("click", (evt) => {
+    document.getElementById("buyBtn").addEventListener("click", evt => {
         evt.preventDefault();
         checkLoginState();
 
@@ -389,7 +392,7 @@
 
     document.getElementById("closeLoginBtn").addEventListener("click", closeModal);
 
-    document.getElementById("loginBtn").addEventListener("click", (evt) => {
+    document.getElementById("loginBtn").addEventListener("click", evt => {
         evt.preventDefault();
         emailInput.className = "";
         passwordInput.className = "";
@@ -404,7 +407,7 @@
         }
     });
 
-    openLoginModalBtn.addEventListener("click", (evt) => {
+    openLoginModalBtn.addEventListener("click", evt => {
         
         if (checkLoginState() === "true") {
             evt.preventDefault();
@@ -427,6 +430,20 @@
             document.getElementById("ccNumber").setAttribute("disabled", "disabled");
             document.getElementById("ccCode").setAttribute("disabled", "disabled");
         }
+    });
+
+    document.getElementById("catProductsLink").addEventListener("click", evt => {
+        evt.preventDefault();
+        sessionStorage.setItem("filter", "cats");
+        closeNavMenu();
+        window.location.href = "../index.html";
+    });
+
+    document.getElementById("dogProductsLink").addEventListener("click", evt => {
+        evt.preventDefault();
+        sessionStorage.setItem("filter", "dogs");
+        closeNavMenu();
+        window.location.href = "../index.html";
     });
 
     ///////////////////////////////////////////////////////////////////
@@ -511,53 +528,44 @@
             case "lname": 
                 return {
                     status: ( nameRegex.test(thisValue) && checkStringLength(thisValue,1,20) ),
-                    errorCode: 0
-                    }; 
+                    errorCode: 0 }; 
             case "streetAdd1":
                 return {
                     status: ( addressRegex.test(thisValue) && checkStringLength(thisValue,1,30) ),
-                    errorCode: 1
-                    };
+                    errorCode: 1 };
             case "streetAdd2":
                 if (thisValue === "") {
                     return { status: true, errorCode: 8 }
                 } else {
                     return {
                         status: ( checkStringLength(thisValue,1,30) && addressRegex.test(thisValue) ),
-                        errorCode: 1
-                        };
+                        errorCode: 1 };
                 }
             case "city": 
             case "state":  
                 return {
                     status: ( nameRegex.test(thisValue) && checkStringLength(thisValue,1,30) ),
-                    errorCode: 2
-                    };
+                    errorCode: 2 };
             case "zipCode": 
                 return {
                     status: ( zipCodeRegex.test(thisValue) ),
-                    errorCode: 3
-                    };
+                    errorCode: 3 };
             case "phoneNumber": 
                 return {
                     status: ( phoneRegex.test(thisValue) ),
-                    errorCode: 4
-                    };
+                    errorCode: 4 };
             case "emailAddress":
                 return {
                     status: ( validateEmail(thisValue) ),
-                    errorCode: 5
-                    };
+                    errorCode: 5 };
             case "ccNumber": 
                 return {
                     status: ( CCRegex.test(thisValue) ),
-                    errorCode: 6
-                    };
+                    errorCode: 6 };
             case "ccCode": 
                 return {
                     status: ( CCsecurityRegex.test(thisValue) ),
-                    errorCode: 7
-                    };
+                    errorCode: 7 };
             default: console.log("There was an error with the form validation"); break;
         }
     }
