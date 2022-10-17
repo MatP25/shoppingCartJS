@@ -169,18 +169,44 @@
     <section class="modal hidden" id="loginModal">
         <form class="modal__form" id="loginForm">
             <div class="modal__inputdivs">
-                <label for="userEmail">Please enter your user email</label><span class="form-err-msg" id="errmsg-email"></span>
-                <input type="email" name="userEmail" id="loginEmail" placeholder="user@email.com" value="user@email.com" title="Enter 'user@email.com to login'">
+                <span class="err-span" id="err-login"></span>
+                <label for="userEmail">Please enter your user email</label>
+                <input type="email" name="userEmail" id="loginEmail" placeholder="user@email.com" value="user@email.com" title="Enter 'user@email.com to login'" minlength="1" maxlength="50">
             </div>
             <div class="modal__inputdivs">
-                <label for="userPassword">Enter your password</label><span class="form-err-msg" id="errmsg-password"></span>
-                <input type="password" name="userPassword" id="loginPassword" placeholder="password" value="password" title="Enter 'password' to log in">
+                <label for="userPassword">Enter your password</label>
+                <input type="password" name="userPassword" id="loginPassword" placeholder="password" value="password" title="Enter 'password' to log in" minlength="1" maxlength="25">
             </div>
             <div class="modal__btnsdiv">
                 <button class="btn" id="loginBtn">Log in</button>
                 <button class="btn" id="closeLoginBtn">Cancel</button>
             </div>
+
+            <details>
+                <summary>Click here to register a new account</summary>
+                <form class="modal__form">
+                    <div class="modal__inputdivs">
+                        <span class="err-span" id="err-registerEmail"></span>
+                        <label for="registerEmail">Please enter an email</label>
+                        <input type="email" name="registerEmail" id="registerEmail" placeholder="something@domain.com" title="Enter a valid email address" minlength="1" maxlength="50">
+                    </div>
+                    <div class="modal__inputdivs">
+                        <span class="err-span" id="err-registerPassword1"></span>
+                        <label for="registerPassword1">Enter a password</label>
+                        <input type="password" name="registerPassword1" id="registerPassword1" placeholder="password" title="Enter a password with at least 1 number and 1 capital letter (between 6 and 25 characters long)" minlength="6" maxlength="25">
+                    </div>
+                    <div class="modal__inputdivs">
+                        <span class="err-span" id="err-registerPassword2"></span>
+                        <label for="registerPassword2">Confirm password</label>
+                        <input type="password" name="registerPassword2" id="registerPassword2" placeholder="password" title="Confirm the password entered" minlength="6" maxlength="25">
+                    </div>
+                    <div class="modal__btnsdiv">
+                        <button class="btn" id="registerBtn">Register</button>
+                    </div>
+                </form>
+            </details>
         </form>
+        
     </section>
 </body>
 </html>

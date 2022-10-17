@@ -330,9 +330,21 @@ i {
 }
 .modal__inputdivs input {
   width: 90%;
+  position: relative;
+}
+.modal__inputdivs .err-span {
+  font-size: 85%;
+  color: red;
 }
 .modal__btnsdiv {
   margin: 0 auto;
+}
+.modal details {
+  margin: 1rem auto;
+}
+.modal details summary {
+  cursor: pointer;
+  font-size: 1.2em;
 }
 
 .btn {

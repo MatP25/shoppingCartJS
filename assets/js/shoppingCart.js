@@ -24,6 +24,7 @@
     //get the data from the local storage, if the local storage is empty set it as an empty array
     let cart = JSON.parse(localStorage.getItem("data")) || [];
     let loginState = localStorage.getItem("loginState") || false;
+    let firstPassword;
 
     //JSON DATA
     const urljson = "../assets/js/json/data.JSON";
@@ -293,17 +294,15 @@
     }
 
     const fakeLoginValidation = (email, passw) => {
-        const validUserEmail = "user@email.com";
-        const validUserPassword = "password";
+        const fakeUser = {email: "user@email.com", password: "password" };
+        const registeredUser = JSON.parse(localStorage.getItem("registeredUser")) || {};
 
-        if (email !== validUserEmail) {
+        if ( (email !== fakeUser.email || passw !== fakeUser.password) && (email !== registeredUser.email || passw !== registeredUser.password) ) {
             emailInput.className += " invalidInput";
+            passwordInput.className += " invalidInput";
+            document.querySelector("#err-login").innerHTML = "The email or password you entered is invalid";
         } else {
-            if (passw !== validUserPassword) {
-                passwordInput.className += " invalidInput";
-            } else {
-                return true
-            }
+            return true
         }
         return false
     }
@@ -446,6 +445,25 @@
         window.location.href = "../index.html";
     });
 
+    document.querySelector("#registerBtn").addEventListener("click", evt => {
+        evt.preventDefault();
+
+        const 
+            email = document.querySelector("#registerEmail"),
+            passw1 = document.querySelector("#registerPassword1"),
+            passw2 = document.querySelector("#registerPassword2");
+        
+        if ( checkRegisterForm([email,passw1,passw2]) ) {
+            localStorage.setItem(
+                "registeredUser", 
+                JSON.stringify({ 
+                    email: email.value, 
+                    password: passw1.value }));
+            Swal.fire('Registered successfully!', 'Reloading the page...', 'success').then(
+                setTimeout( () => { location.reload(); }, 1000)
+            );
+        }
+    });
     ///////////////////////////////////////////////////////////////////
     //////////////------------FORM VALIDATION------------//////////////
     ///////////////////////////////////////////////////////////////////
@@ -478,6 +496,12 @@
         /*8*/""
         ];
 
+        const registerFormErrors = [
+            "Invalid email address. Please verify that it matches the correct format: user@domain. It may not contain any blank spaces.",
+            "Invalid password. It must contain at least 1 capital letter and 1 digit and must be between 6 and 25 characters long.",
+            "Invalid password. The password does not match."
+        ];
+
     const checkForm = () => {
 
         let errors = 0,
@@ -500,6 +524,20 @@
         return errors === 0 ? true : false
     }
     
+    const checkRegisterForm = (nodeArray) => {
+        let errors = 0;
+
+        for (let node of nodeArray) {
+            if (!validateRegisterInput(node).status) {
+                errors++;
+                document.getElementById(`err-${node.id}`).innerHTML = `${registerFormErrors[validateRegisterInput(node).errorCode]}`;
+            } else {
+                document.getElementById(`err-${node.id}`).innerHTML = "";
+            }
+        }
+        return errors === 0 ? true : false
+    }
+
     const validateEmail = (email) => {
         //this function only checks: 
         //- if the address contains at least 1 "@", 
@@ -570,4 +608,27 @@
         }
     }
 
+    const validateRegisterInput = (formElement) => {
+
+        const thisInputID = formElement.id;
+        const thisValue = formElement.value.trim();
+        const checkStringLength = (str,min,max) => str.length < max && str.length >= min;
+        const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])^[^ ]+$/;
+
+        switch (thisInputID) {
+            case "registerEmail":  
+                return {
+                    status: ( validateEmail(thisValue) ),
+                    errorCode: 0 };
+            case "registerPassword1":
+                if (passwordRegex.test(thisValue) && checkStringLength(thisValue,6,25)) { 
+                    firstPassword = thisValue;
+                    return { status: true, errorCode: 1 } 
+                } else { 
+                    return { status: false, errorCode: 1 } };
+            case "registerPassword2":
+                return { status: thisValue === firstPassword, errorCode: 2 }
+            default: console.log("There was an error with the form validation"); break;
+        }
+    }
 })()
