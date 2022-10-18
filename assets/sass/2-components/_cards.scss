@@ -9,8 +9,13 @@
     background-color: $gray;
     h3 {
         margin: .5rem 0;
+        font-size: 1em;
     }
     &__details {
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
         padding: .75rem;
         p {
             font-size: .9em;

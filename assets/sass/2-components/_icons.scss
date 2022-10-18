@@ -45,7 +45,6 @@ i {
 .goTop {
     top: 90vh;
     right: 25px;
-    
     i {
         font-size: clamp(2.5rem, 5vw, 4rem);
         text-shadow: 0 1px 3px $dark;
@@ -62,4 +61,3 @@ i {
     height: 120px;
     animation: spin 2s linear infinite;
 }
-

@@ -202,8 +202,13 @@ i {
 }
 .card h3 {
   margin: 0.5rem 0;
+  font-size: 1em;
 }
 .card__details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
   padding: 0.75rem;
 }
 .card__details p {
