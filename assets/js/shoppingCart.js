@@ -551,8 +551,10 @@
                 for (let i=0; i<classes.length; i++) {
                     if (classes[i] == "incrementQty") {
                         incrementQty(thisProduct, cart);
+                        break;
                     } else if (classes[i] == "decrementQty") {
                         decrementQty(thisProduct);
+                        break;
                     } else if (classes[i] == "removeItem") {
                         thisProduct.className += " scale-out-hor-right";
                         setTimeout(() => {removeProduct(thisProduct, cart)}, 500);
