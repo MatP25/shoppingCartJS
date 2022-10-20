@@ -278,6 +278,7 @@
     //then, when the page loads it checks the filter value and selects the corresponding category value so the data with that category is loaded
     const checkSessionStorage = () => {
         let filterFromSession = sessionStorage.getItem("filter");
+        searchBar.value = sessionStorage.getItem("searchQuery") || "";
         if (filterFromSession === "cats") {
             selectPetCategoryRadios[0].checked = true;
         } else if (filterFromSession === "dogs") {

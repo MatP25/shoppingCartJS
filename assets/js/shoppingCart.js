@@ -654,6 +654,12 @@
         window.location.href = "../index.html";
     });
 
+    document.getElementById("searchByName").addEventListener("click", evt => {
+        evt.preventDefault();
+        sessionStorage.setItem("searchQuery", document.getElementById("searchBar").value);
+        window.location.href = "../index.html";
+    });
+
     document.querySelector("#registerBtn").addEventListener("click", evt => {
         evt.preventDefault();
 
