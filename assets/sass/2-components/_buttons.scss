@@ -1,18 +1,64 @@
 @use "../0-utilities/" as *;
 
-.btn {
-    width: fit-content;
-    padding: .75em 1.5em;
-    font-size: 1em;
-    font-weight: bold;
-    border-radius: 12px;
-    background-color: $light-blue;
-    background-clip: padding-box;
-    border: 3px solid $dark;
+.btn-icon {
+    min-width: 8rem;
     margin: .5rem;
+    color: #fff;
+    padding: .5em 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    overflow: hidden;
+    border-radius: 5px;
+    border: none;
+    background-color: $dark-purple;
+    text-shadow: 2px 2px 2px $dark-blue;
+    &:hover {
+        padding: .5em 2.5em .5em 1.5em;
+        &::after {
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            opacity: 1;
+            right: 10px;
+        }
+    }
+    &::after {
+        content: "\f1b0";
+        display: inline-block;
+        font-style: normal;
+        font-variant: normal;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        position: absolute;
+        opacity: 0;
+        font-size: 20px;
+        line-height: 40px;
+        top: 0;
+        right: -20px;
+        transition: 0.4s;
+    }
     &--danger {
         background-color: $light-red;
+        text-shadow: 2px 2px 2px $dark;
     }
+}
+
+.btn-ok::after {
+    content: "\f058";
+}
+
+.btn-cancel::after {
+    content: "\f057";
 }
 
 .btn-group {
@@ -24,27 +70,44 @@
 
 .radioGroup {
     @include flex-parent(row, wrap, center, stretch);
-
     &--item {
         flex: 1;
-        padding: .5rem;
-        input[type="radio"] {
-            display: none;
-            &:checked + label {
-                border: 4px solid $light-red;
-                background: $light-blue;
-                box-shadow: 0px 0px 5px $light-red;
-            }
-        }
+        padding: .5rem 0;
+        margin-right: .5em;
         label {
             cursor: pointer;
-            display: block;
-            background: $light-blue;
+            color: #fff;
+            text-shadow: 2px 2px 2px $dark-blue;
+            display: inline-block;
+            border-radius: 20px;
+            background: $dark-purple;
             border: 2px solid $dark;
             padding: 1rem;
             margin-bottom: 1rem;
             text-align: center;
-            box-shadow: 0px 3px 10px -2px $light-red;
+            -webkit-transition: all 300ms linear;
+	        transition: all 300ms linear;
+            &:hover {
+                background: rgb(148,4,142);
+                background-image: -moz-linear-gradient(323deg, rgba(148,4,142,1) 39%, rgba(253,29,29,1) 100%);
+                background-image: -webkit-linear-gradient(323deg, rgba(148,4,142,1) 39%, rgba(253,29,29,1) 100%);
+                background-image: linear-gradient(323deg, rgba(148,4,142,1) 39%, rgba(253,29,29,1) 100%);
+            }
+            h4 {
+                display: inline-block;
+            } 
         }
+        input[type="radio"] {
+            display: none;
+            &:checked + label {
+                border: 2px solid $off-white;
+                background: rgb(90,4,148);
+                background: -moz-linear-gradient(145deg, rgba(90,4,148,1) 39%, rgba(253,29,29,1) 100%);
+                background: -webkit-linear-gradient(145deg, rgba(90,4,148,1) 39%, rgba(253,29,29,1) 100%);
+                background: linear-gradient(145deg, rgba(90,4,148,1) 39%, rgba(253,29,29,1) 100%);
+            }
+        }
+        
     }
 }
+

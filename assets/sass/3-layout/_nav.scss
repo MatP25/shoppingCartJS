@@ -78,16 +78,16 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-                &:after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 80%;
-                height: var(--border-size);
-                background-color: $off-white;
-                transform-origin: 0 50%;
-                transform: translateX(-100%) skew(15deg);
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 80%;
+                    height: var(--border-size);
+                    background-color: $off-white;
+                    transform-origin: 0 50%;
+                    transform: translateX(-100%) skew(15deg);
                 }
             a {
                 display: inline-block;
@@ -117,10 +117,10 @@
     ~ .main-navigation {
         transition-duration: calc($nav-duration * 1.5);
         transform: translateX(0);
-        &:after {
+        &::after {
         animation: nav-bg 250ms ease-out forwards;
         }
-        li:after {
+        li::after {
         animation: nav-line 1s ease-in-out forwards;
         }
         a {
@@ -135,11 +135,11 @@
         }
         
         @for $i from 1 through 5 {
-        li:nth-child(#{$i}) {
-            &:after, a {
-            animation-delay: calc(500ms * #{$i} * 0.125);
+            li:nth-child(#{$i}) {
+                &::after, a {
+                animation-delay: calc(500ms * #{$i} * 0.125);
+                }
             }
-        }
         }
     }
 }

@@ -6,11 +6,17 @@ i {
     cursor: pointer;
 }
 
+.bi-dash, .bi-plus, .removeItem  {
+    color: rgb(196, 44, 74);
+    text-shadow: 0 1px 2px $dark;
+}
+
 .cartIconContainer {
     position: fixed;
     display: inline-block;
     top: 1.5rem;
     right: 7rem;
+    z-index: 100;
     .cart {
         display: inline-block;
         background-color: $off-white;
@@ -36,10 +42,6 @@ i {
             text-shadow: 0 1px 3px $dark;
         }
     }
-}
-
-.removeItem {
-    color: $light-red;
 }
 
 .goTop {

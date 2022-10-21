@@ -5,8 +5,11 @@
     width: 100%;
     padding: 1.5rem;
     background-color: $dark-blue;
-    margin-bottom: 3vw;
+    margin-bottom: 2vw;
     position: relative;
+    &-components {
+        @include flex-parent(row, wrap, space-between, end);
+    }
     .mainTitle {
         padding: 1rem 0;
         display: block;
@@ -14,11 +17,11 @@
         font-size: clamp(2.5rem, 12vw, 7.5rem);
     }
     .searchbar {
-        margin: .5rem 0;
+        margin: .5rem 1.5rem .5rem 0;
         padding: 1em;
         border-radius: 8px;
         border: 2px solid $off-white;
-        max-width: 25rem;
+        max-width: 22rem;
         label {
             display:flex;
         }
@@ -31,8 +34,9 @@
             color: $off-white;
         }
     }
+    #openLoginModal {
+        margin-left: 0;
+    }
 }
 
-#clearCartBtn {
-    display:block;
-}
+

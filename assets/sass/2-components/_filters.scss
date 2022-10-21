@@ -1,27 +1,80 @@
 @use "../0-utilities/" as *;
 
-#filters-wrapper {
+.details-filters {
     width: 100%;
-    padding: .5rem 2rem;
-    @include flex-parent(column, nowrap, space-around, start);
-    .filterTitle {
-        font-size: 1.25em;
-        font-weight: 600;
-        padding: .75rem .5rem;
-        i {
-            font-size: 1.2em;
-        }
+    padding: .5rem 2.5rem;
+    @include flex-parent(column, wrap, space-around, start);
+    &[open] > summary::before {
+        transform: rotate(90deg);
+        transition: all 200ms linear;
     }
-    ul {
+    summary {
         list-style: none;
-        padding-left: 0;
-        label {
-            display:block;
-            padding: .75rem .5rem;
+        &::-webkit-details-marker { 
+            display:none; 
         }
-        .btn {
-            border: none;
+        &::before {
+            content: "\f0da";
+            color: $off-white;
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            transform: rotate(0);
+            transition: all 200ms linear;
+        }
+        h3 {
+            cursor: pointer;
+            display:inline-block;
+            width: 90%;
+            font-size: 1.25em;
+            font-weight: 600;
+            padding: .75rem .5rem;
         }
     }
     
+    ul {
+        list-style: none;
+        padding-left: 0;
+        li:not(.radioGroup) > div {
+            margin-top: 1em;
+            .btn-icon {
+                margin: .5em 1em 1em 0;
+            }
+        }
+        label {
+            display: block;
+            padding: .75rem 0;
+        }
+        input, select {
+            width: min(15rem, 90%);
+            &:focus {
+                outline: 2px solid $light-purple;
+            }
+        }
+    }
+    
+}
+
+@keyframes open {
+    0% { transform: translate(-100%, 0) }
+    100% { transform: translate(0, 0) }
+}
+
+/* closing animation */
+@keyframes close {
+    0% { transform: translate(0, 0) }
+    100% { transform: translate(-100%, 0) }
+}
+
+details[open] summary~* {
+    animation: open 500ms ease;
+}
+
+/* closing class */
+details.closing summary~* {
+    animation: close 500ms ease;
 }

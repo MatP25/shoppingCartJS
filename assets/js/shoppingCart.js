@@ -64,6 +64,7 @@
             cardsQty[i].innerHTML = 0;
         }
         toggleVisibility(btnsContainer, "none");
+        calculateTotalPrice(totalPrice, cart, urljson);
     }
 
     const incrementQty = (thisProd, cartArray) => {
@@ -73,13 +74,12 @@
         const searchCart = cartArray.find( el => el.id === selectedProduct );
         //if the find method returns undefined the object does not exist in the cart, therefore add it to the cart
         if (searchCart === undefined) {
-            cartArray.push( {
-                id: selectedProduct,
-                quantity: 1,
-            });
+            cartArray.push( { id: selectedProduct, quantity: 1 });
         //if the find method did not return undefined the object already exists in the cart, so increase the quantity of that object by 1
-        } else {
+        } else if (searchCart.quantity < 20) {
             searchCart.quantity += 1;
+        } else if (searchCart.quantity >= 20) {
+            Swal.fire('You cannot add more than 20 of the same product', 'To buy more units consult stock first', 'info');
         }
         //if a new product is added then there is at least 1 product in the cart therefore set the display of the buttons to flex
         if (btnsContainer) { toggleVisibility( btnsContainer, "flex" ) }
@@ -159,16 +159,29 @@
                     let search = dataArray.find( (product) => ("product" + product.id) === id) || [];
                 //returns the card's html for every product inside the cart
                 return `<div class="cartCard" id="product${search.id}">
-                <img src=${'.' + search.imgSrc} class="cartCard__img" alt="${search.name}">
+                <div>
+                    <img src=${'.' + search.imgSrc} class="cartCard__img" alt="${search.name}">
+                    <span class="cartCard__price">$${search.price}</span>
+                </div>
                 <div class="cartCard__details">
-                    <h3> ${search.name}<span class="cartCard__price" id="">$${search.price}</span></h3>
+                    <h3> ${search.name}</h3>
                     <i class="bi bi-trash removeItem"></i>
-                    <div class="card__buttons">
+                    <div class="cardCart__buttons">
                         <i class="bi bi-dash decrementQty"></i>
                         <span id="qtyID${id}" class="quantity">${quantity}</span>
                         <i class="bi bi-plus incrementQty"></i>
                     </div>
                     <p class="cartCard__subtotal">Subtotal: $${(quantity * search.price).toFixed(2)}</p>
+                    <div class="tooltip">
+                        View details
+                        <div class="top-smaller">
+                            <h3>Product description:</h3>
+                            <p>Brand: ${search.brand}</p>
+                            <p>${search.details}</p>
+                            <p>${search.description}</p>
+                            <i></i>
+                        </div>
+                    </div>
                 </div>
             </div>`
             }).join(""));

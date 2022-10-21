@@ -17,11 +17,10 @@
         selectSortingMethod = document.getElementById("sortingMethod"),
         maxPriceInput = document.getElementById("maxPrice"),
         minPriceInput = document.getElementById("minPrice"),
-        filtersDiv = document.getElementById("filters"),
         emailInput = document.getElementById("loginEmail"),
         passwordInput = document.getElementById("loginPassword"),
+        details = document.getElementById("filtersDetails"),
         selectPetCategoryRadios = document.querySelectorAll("input[name='petCategory'");
-        
     
     //get the data from the local storage, if the local storage is empty set it as an empty array
     let cart = JSON.parse(localStorage.getItem("data")) || [];
@@ -53,7 +52,7 @@
         return (targetElement.innerHTML = dataArray.map( 
             (element) => {
             // object deconstructing
-            let {id, name, price, details, category, subcategory, imgSrc} = element;
+            let {id, name, brand, price, details, description, category, subcategory, imgSrc} = element;
             //search the cart, if there are zero products return an empty array
             //then assign the product's quantity retrieved from the array to the quantity value inside the card, if the array is empty searchCart.quantity will be undefined then let the value be 0
             let searchCart = cartArray.find ( product => product.id === ("product" + id)) || [];
@@ -62,6 +61,16 @@
             <img src=${imgSrc} alt="${name}">
                 <div class="card__details">
                     <h3>${name}</h3>
+                    <div class="tooltip">
+                        View product details
+                        <div class="top">
+                            <h3>Product description:</h3>
+                            <p>Brand: ${brand}</p>
+                            <p>${details}</p>
+                            <p>${description}</p>
+                            <i></i>
+                        </div>
+                    </div>
                     <div>
                         <p>${category === "Cats" ? icons[0] : icons[1]} ${subcategory}</p>
                         <div class="card__price">
@@ -72,6 +81,7 @@
                                 <i class="bi bi-plus incrementQty"></i>
                             </div>
                         </div> 
+                        
                     </div>
                 </div>
             </div>`
@@ -87,8 +97,10 @@
         if (!searchCart) {
             cartArray.push( { id: selectedProduct, quantity: 1 } );
         //if the find method did not return undefined the object already exists in the cart, so increase the quantity of that object by 1
-        } else {
+        } else if (searchCart.quantity < 20) {
             searchCart.quantity += 1;
+        } else if (searchCart.quantity >= 20) {
+            Swal.fire('You cannot add more than 20 of the same product', 'To buy more units consult stock first', 'info');
         }
         //update the product quantity inside the card and the cart icon everytime the quantity increments or decrements
         updateQty(cardsQty,cart);
@@ -456,13 +468,6 @@
 
     document.getElementById("clearFiltersBtn").addEventListener("click", clearFilters);
 
-    document.getElementById("toggleFilters").addEventListener("click", evt => {
-        evt.preventDefault();
-        filtersDiv.style.display === "none" ?
-        filtersDiv.style.display = "block" : 
-        filtersDiv.style.display = "none";
-    });
-
     window.addEventListener("click", evt => {
         //closes the loginModal when clicking outside the login box
         if ( evt.target == loginModal ) {
@@ -529,4 +534,20 @@
         }
     });
 
+    document.querySelector("#summary-filters").addEventListener("click", evt => {
+        // since it's not closed yet then it's open
+        if (details.hasAttribute("open")) {
+            // stop the default behavior (hiding)
+            evt.preventDefault();
+            // add a class which apply the animation in CSS 
+            details.classList.add("closing");
+            // continue only after the animation finishes  
+            setTimeout(() => { 
+                details.removeAttribute("open");
+                // close the element 
+                details.classList.remove("closing");
+            }, 400);
+        }
+    });
+    
 })();

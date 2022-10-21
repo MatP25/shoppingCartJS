@@ -32,22 +32,22 @@
         
             <h1><a href="index.html" class="mainTitle textWhite">Store</a></h1>
             
-            <div class="searchbar">
-                <label for="searchBar" title="Seach Products by Name">
-                    <input placeholder="Search by name" type="search" name="searchBar" id="searchBar">
-                    <a href="#" id="searchByName"><i class="bi bi-search"></i></a>
-                </label>
-            </div>
-
-            <div class="cartIconContainer">
-                <div class="cart">
-                    <a href="./pages/shoppingCart.html" title="Go to my Shopping Cart" target="_blank"><i class="bi bi-cart2"></i></a>
-                    <div id="cart-amount">0</div>
+            <div class="mainHeader-components">
+                <div class="searchbar">
+                    <label for="searchBar" title="Seach Products by Name">
+                        <input placeholder="Search by name" type="search" name="searchBar" id="searchBar">
+                        <a href="#" id="searchByName"><i class="bi bi-search"></i></a>
+                    </label>
                 </div>
-            </div>
-
-            <div>
-                <button id="openLoginModal">Login</button>
+                <div class="loginBtnContainer">
+                    <button class="btn-icon" id="openLoginModal">Login</button>
+                </div>
+                <div class="cartIconContainer">
+                    <div class="cart">
+                        <a href="./pages/shoppingCart.html" title="Go to my Shopping Cart" target="_blank"><i class="bi bi-cart2"></i></a>
+                        <div id="cart-amount">0</div>
+                    </div>
+                </div>
             </div>
             
     </header>
@@ -90,15 +90,16 @@
             <header class="sectionHeader">
                 <h2 class="title textWhite" id="productsTitle">DOGS & CATS</h2>
 
-                <div id="filters-wrapper">
-                    <a href="#" id="toggleFilters">
-                        <h3 class="filterTitle textWhite">Customize Search 
-                            <i class="bi bi-caret-down"></i>
-                        </h3>
-                    </a>
-        
+                <details class="details-filters" id="filtersDetails">
+                    <summary id="summary-filters">
+                        <h3 class="textWhite"> Customize Search </h3>
+                    </summary>
                     <ul id="filters">
                         <li class="radioGroup">
+                            <div class="radioGroup--item">
+                                <input type="radio" name="petCategory" id="allPets" value="">
+                                <label for="allPets"><h4>All</h4></label>
+                            </div>
                             <div class="radioGroup--item">
                                 <input type="radio" name="petCategory" id="catCategory" value="Cats">
                                 <label for="catCategory"><h4>Cats</h4></label>
@@ -107,58 +108,51 @@
                                 <input type="radio" name="petCategory" id="dogCategory" value="Dogs">
                                 <label for="dogCategory"><h4>Dogs</h4></label>
                             </div>
-                            <div class="radioGroup--item">
-                                <input type="radio" name="petCategory" id="allPets" value="">
-                                <label for="allPets"><h4>All</h4></label>
-                            </div>
-                            
                         </li>
                         <li>
                             <label for="minPrice" class="textWhite">
-                                Min Price
-                                <input type="text" name="minPrice" id="minPrice">
+                                Min Price 
                             </label>
+                            <input type="text" name="minPrice" id="minPrice">
                         </li>
                         <li>
                             <label for="maxPrice" class="textWhite">
                                 Max Price
-                                <input type="text" name="maxPrice" id="maxPrice">
                             </label>
+                            <input type="text" name="maxPrice" id="maxPrice">
                         </li>
                         <li>
                             <label for="selectCategory" class="textWhite">
                                 Category
-                                <select name="selectCategory" id="selectCategory">
-                                    <option value="" selected>All</option>
-                                    <option value="food">Food</option>
-                                    <option value="treats">Treats</option>
-                                    <option value="accessories">Accessories</option>
-                                    <option value="hygiene & care">Hygiene & Care</option>
-                                </select>
                             </label>
+                            <select name="selectCategory" id="selectCategory">
+                                <option value="" selected>All</option>
+                                <option value="food">Food</option>
+                                <option value="treats">Treats</option>
+                                <option value="accessories">Accessories</option>
+                                <option value="hygiene & care">Hygiene & Care</option>
+                            </select>
                         </li>
                         <li>
                             <label for="selectSorting" class="textWhite">
                                 Sort By
-                                <select name="sortBy" id="sortingMethod">
-                                    <option value="priceInc">Price (Ascending)</option>
-                                    <option value="priceDec">Price (Descending)</option>
-                                    <option value="nameAsc">Name (A-Z)</option>
-                                    <option value="nameDes">Name (Z-A)</option>
-                                </select>
                             </label>
+                            <select name="sortBy" id="sortingMethod">
+                                <option value="priceInc">Price (Ascending)</option>
+                                <option value="priceDec">Price (Descending)</option>
+                                <option value="nameAsc">Name (A-Z)</option>
+                                <option value="nameDes">Name (Z-A)</option>
+                            </select>
                         </li>
                         <li>
                             <div>
-                                <button class="btn" id="applyFiltersBtn">Apply</button>
-                                <button class="btn" id="clearFiltersBtn">Clear</button>
+                                <button class="btn-icon btn-ok" id="applyFiltersBtn">Apply</button>
+                                <button class="btn-icon btn-cancel" id="clearFiltersBtn">Clear</button>
                             </div>
                         </li>
                     </ul>
-                    
-                </div>
+                </details>
 
-                
             </header>
             <article class="shop" id="shop">
                 
@@ -180,8 +174,8 @@
                 <input type="password" name="userPassword" id="loginPassword" placeholder="password" value="password" title="Enter 'password' to log in" minlength="1" maxlength="25">
             </div>
             <div class="modal__btnsdiv">
-                <button class="btn" id="loginBtn">Log in</button>
-                <button class="btn" id="closeLoginBtn">Cancel</button>
+                <button class="btn-icon" id="loginBtn">Log in</button>
+                <button class="btn-icon btn-cancel" id="closeLoginBtn">Cancel</button>
             </div>
 
             <details>
@@ -203,7 +197,7 @@
                         <input type="password" name="registerPassword2" id="registerPassword2" placeholder="password" title="Confirm the password entered" minlength="6" maxlength="25">
                     </div>
                     <div class="modal__btnsdiv">
-                        <button class="btn" id="registerBtn">Register</button>
+                        <button class="btn-icon" id="registerBtn">Register</button>
                     </div>
                 </form>
             </details>

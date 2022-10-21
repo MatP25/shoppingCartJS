@@ -42,7 +42,7 @@
         </div>
 
         <div>
-            <button id="openLoginModal">Login</button>
+            <button id="openLoginModal" class="btn-icon">Login</button>
         </div>
     </header>
 
@@ -86,9 +86,9 @@
 
             </div>
             
-            <div class="btns-container" id="btnsContainer">
-                <a href="#paymentSection" class="btn">Go to Payment</a>
-                <button class="btn btn--danger" id="clearCartBtn">Clear Cart</button>
+            <div class="shopping-cart-btns" id="btnsContainer">
+                <button onclick="location.href='#paymentSection'" class="btn-icon btn-ok">Go to Payment</button>
+                <button class="btn-icon btn-icon--danger" id="clearCartBtn">Clear Cart</button>
             </div>
 
         </section>
@@ -183,7 +183,7 @@
                 <fieldset class="formGroup">
                     <legend class="formGroup__title">Confirmation</legend>
                     <div class="btn-group">
-                        <a href="#" id="buyBtn" class="btn">Confirm</a>
+                        <button id="buyBtn" class="btn-icon btn-ok">Confirm</button>
                     </div>
                 </fieldset>
 
@@ -202,8 +202,8 @@
                     <input type="password" name="userPassword" id="loginPassword" placeholder="password" value="password" title="Enter 'password' to log in" minlength="1" maxlength="25">
                 </div>
                 <div class="modal__btnsdiv">
-                    <button class="btn" id="loginBtn">Log in</button>
-                    <button class="btn" id="closeLoginBtn">Cancel</button>
+                    <button class="btn-icon" id="loginBtn">Log in</button>
+                    <button class="btn-icon btn-cancel" id="closeLoginBtn">Cancel</button>
                 </div>
 
                 <details>
@@ -225,7 +225,7 @@
                             <input type="password" name="registerPassword2" id="registerPassword2" placeholder="password" title="Confirm the password entered" minlength="6" maxlength="25">
                         </div>
                         <div class="modal__btnsdiv">
-                            <button class="btn" id="registerBtn">Register</button>
+                            <button class="btn-icon" id="registerBtn">Register</button>
                         </div>
                     </form>
                 </details>
