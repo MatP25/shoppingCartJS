@@ -25,7 +25,8 @@
                             <p>Subtotal: $${subtotal.toFixed(2)}</p>
                         </li>`
                         
-            }).join("") + `<h4>Total: $${calcTotal(purchaseInformation, "subtotal")}</h4>`); 
+            }).join("") + `<h4>Total: $${calcTotal(purchaseInformation, "subtotal")}</h4>
+            <h5>Date: ${new Date()}</h5>`); 
             
             return purchaseDetailsHTML;
     }

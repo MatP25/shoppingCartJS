@@ -29,7 +29,7 @@
         <span id="userEmail"></span>
         <div class="searchbar">
             <label for="searchBar" title="Seach Products by Name">
-                <input placeholder="Search by name" type="search" name="searchBar" id="searchBar">
+                <input placeholder="Search by name" type="search" name="searchBar" id="searchBar" maxlength="30" pattern="[a-zA-Z0-9]+">
                 <a href="#" id="searchByName"><i class="bi bi-search"></i></a>
             </label>
         </div>
@@ -67,7 +67,7 @@
     <nav class="main-navigation">
         <ul>
             <li><a href="../index.html">home</a></li>
-            <li><a href="#">about us</a></li>
+            <li><a href="#">about</a></li>
             <li><a href="#" id="catProductsLink">cat products</a></li>
             <li><a href="#" id="dogProductsLink">dog products</a></li>
             <li><a href="./shoppingCart.html" title="Go to my Shopping Cart" target="_blank">my shopping cart</a></li>
@@ -102,7 +102,7 @@
                     <fieldset class="formGroup">
                         <legend class="formGroup__title">Name</legend>
 
-                        <label for="fname" class="required" >First Name</label>
+                        <label for="fname" class="required">First Name</label>
                         <span id="err-fname"></span>
                         <input type="text" name="First Name" id="fname" minlength="1" maxlength="20" required>
                         
@@ -147,7 +147,6 @@
                 </div>
                 
                 <div>
-
                     <fieldset class="formGroup" id="paymentOptionFieldset">
                         <legend class="formGroup__title">Payment Method</legend>
 

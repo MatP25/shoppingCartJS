@@ -577,7 +577,7 @@ i {
 .titleFullWidth {
   text-align: start;
   font-size: 1.3em;
-  background-color: #2b2b2b;
+  background-color: #13131d;
   color: rgb(252, 250, 235);
   padding: 0.75rem 3rem;
 }
@@ -679,12 +679,12 @@ i {
     transform: translate(-100%, 0);
   }
 }
-details[open] summary ~ * {
+.details-filters[open] summary ~ * {
   animation: open 500ms ease;
 }
 
 /* closing class */
-details.closing summary ~ * {
+.details-filters.closing summary ~ * {
   animation: close 500ms ease;
 }
 

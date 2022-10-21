@@ -346,203 +346,6 @@
     const closeNavMenu = () => { document.getElementById("page-nav-toggle").checked = false; }
 
     ///////////////////////////////////////////////////////////////////
-    //////////////------------FORM VALIDATION------------//////////////
-    ///////////////////////////////////////////////////////////////////
-
-    
-    const
-        //only letters, allows diacritics 
-        nameRegex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(([\'\,\.\- ][a-zA-ZÀ-ÿ\u00f1\u00d1 ])?[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*$/,
-        //only alphanumeric, allows diacritics
-        addressRegex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(([\'\,\.\- ][0-9a-zA-ZÀ-ÿ\u00f1\u00d1 ])?[a-zA-ZÀ-ÿ\u00f1\u00d10-9]*)*$/,
-        //only digits, length: 4 to 8
-        zipCodeRegex = /^\d{4,8}$/,
-        //only digits, length: 6 to 14
-        phoneRegex = /^\d{6,14}$/,
-        //only 3 digits
-        CCsecurityRegex = /^\d{3}$/,
-        //only digits, length: 13 to 16
-        CCRegex = /^\d{13,16}$/,
-
-        formErrors = [
-        /*0*/"INVALID NAME. It may not contain any numbers or special characters and must be between 1 and 20 characters long.",
-        /*1*/"INVALID ADDRESS. It may not contain any special characters and must be between 1 and 30 characters long.",
-        /*2*/"INVALID CITY or STATE NAME. It may not contain any numbers or special characters and must be between 1 and 30 characters long.",
-        /*3*/"INVALID ZIP CODE. It may not contain any letters or special characters and must be between 4 and 8 characters long",
-        /*4*/"INVALID PHONE NUMBER. It may not contain any letters or special characters and must be between 6 and 18 characters long",
-        /*5*/"INVALID EMAIL ADDRESS. Please verify that it matches the correct format: user@domain. It may not contain any blank spaces.",
-        /*6*/"INVALID CREDIT CARD NUMBER. It may not contain any letters or special characters and must be between 13 and 16 characters long",
-        /*7*/"INVALID CREDIT CARD SECURITY NUMBER. It may not contain any letters or special characters and must be 3 characters long",
-        /*8*/""
-        ],
-
-        registerFormErrors = [
-            "Invalid email address. Please verify that it matches the correct format: user@domain. It may not contain any blank spaces.",
-            "Invalid password. It must contain at least 1 uppercase and lowercase letter and 1 digit and must be between 6 and 25 characters long.",
-            "Invalid password. The password does not match."
-        ];
-
-    //simple validation for a fake login without a database
-    //checks if the inputs match the pre-defined user or the registered user
-    const fakeLoginValidation = (email, passw) => {
-        const fakeUser = {email: "user@email.com", password: "password" };
-        const registeredUser = JSON.parse(localStorage.getItem("registeredUser")) || {};
-
-        if ( (email !== fakeUser.email || passw !== fakeUser.password) && (email !== registeredUser.email || passw !== registeredUser.password) ) {
-            emailInput.className += " invalidInput";
-            passwordInput.className += " invalidInput";
-            document.querySelector("#err-login").innerHTML = "The email or password you entered is invalid";
-        } else {
-            return true
-        }
-        return false
-    }
-
-    //iterates over a group of form elements and runs a validator function for each input valuem then shows the corresponding error for each invalid input value
-    const checkForm = () => {
-        //keeps tracks of the amount of errors and the closest fieldset node to the first invalid input in the list 
-        let errors = 0, firstInvalidFieldset;
-
-        for (let node of form.elements) {
-            //ignores fieldset nodes, radio inputs and disabled inputs
-            if (node.nodeName !== "FIELDSET" && node.type !== "radio" && !node.disabled) {
-                //the status of the object contains a boolean that indicates if the input is valid or not
-                //the errorCode contains the index position inside the registerFormErrors array of the error found in the invalid input
-                if (!validateInput(node).status) {
-                    errors++;
-                    document.getElementById(`err-${node.id}`).innerHTML = `${formErrors[validateInput(node).errorCode]}`;
-                    if (!firstInvalidFieldset) { 
-                        firstInvalidFieldset = node.closest("fieldset") 
-                    };
-                } else {
-                    document.getElementById(`err-${node.id}`).innerHTML = "";
-                }
-            }
-        }
-        //if there is an invalid input the firstInvalidFieldset won't be null, so scroll towards that fieldset
-        if (firstInvalidFieldset) { firstInvalidFieldset.scrollIntoView() }
-        //the function returns true only if all inputs are valid (0 errors)
-        return errors === 0 ? true : false
-    }
-    
-    //works the same way as the checkForm function
-    const checkRegisterForm = (nodeArray) => {
-        let errors = 0;
-        for (let node of nodeArray) {
-            if (!validateRegisterInput(node).status) {
-                errors++;
-                document.getElementById(`err-${node.id}`).innerHTML = `${registerFormErrors[validateRegisterInput(node).errorCode]}`;
-            } else {
-                document.getElementById(`err-${node.id}`).innerHTML = "";
-            }
-        }
-        return errors === 0 ? true : false
-    }
-
-    const validateEmail = (email) => {
-        //this function only checks: 
-        //- if the address contains at least 1 "@", 
-        //- if it has any blank spaces,
-        //- if it has at least 1 character before and after the "@"
-        let atPos = email.indexOf("@"),
-            noBlankSpaces = !(/(\s)/.test(email)),
-            atLeast1CharBefore = false,
-            atLeast1CharAfter = false;
-
-        if (atPos !== -1 && noBlankSpaces) {
-            atLeast1CharBefore = email.slice(0,atPos).length > 0;
-            atLeast1CharAfter = email.slice(atPos+1).length > 0;
-        }
-        return ( atLeast1CharAfter && atLeast1CharBefore )
-    }
-
-    //function that receives a string a max and minimum value, then returns a boolean indicating if the string length is between the max and min value
-    const checkStringLength = (str,min,max) => str.length < max && str.length >= min;
-
-    //receives a input element and validates the input value, 
-    //returns an object with the status of the validation and the errorCode that contains an integer for the index position of the error string
-    const validateInput = (formElement) => {
-        //grabs the id of the element passed as argument
-        const thisInputID = formElement.id;
-        //grabs the value of the input element and removes the empty spaces around the string
-        const thisValue = formElement.value.trim();
-        //runs a different validation and returns a different object depending on the id of the input received
-        switch (thisInputID) {
-            case "fname": 
-            case "lname": 
-                return {
-                    status: ( nameRegex.test(thisValue) && checkStringLength(thisValue,1,20) ),
-                    errorCode: 0 }; 
-            case "streetAdd1":
-                return {
-                    status: ( addressRegex.test(thisValue) && checkStringLength(thisValue,1,30) ),
-                    errorCode: 1 };
-            case "streetAdd2":
-                if (thisValue === "") {
-                    return { status: true, errorCode: 8 }
-                } else {
-                    return {
-                        status: ( checkStringLength(thisValue,1,30) && addressRegex.test(thisValue) ),
-                        errorCode: 1 };
-                }
-            case "city": 
-            case "state":  
-                return {
-                    status: ( nameRegex.test(thisValue) && checkStringLength(thisValue,1,30) ),
-                    errorCode: 2 };
-            case "zipCode": 
-                return {
-                    status: ( zipCodeRegex.test(thisValue) ),
-                    errorCode: 3 };
-            case "phoneNumber": 
-                return {
-                    status: ( phoneRegex.test(thisValue) ),
-                    errorCode: 4 };
-            case "emailAddress":
-                return {
-                    status: ( validateEmail(thisValue) ),
-                    errorCode: 5 };
-            case "ccNumber": 
-                return {
-                    status: ( CCRegex.test(thisValue) ),
-                    errorCode: 6 };
-            case "ccCode": 
-                return {
-                    status: ( CCsecurityRegex.test(thisValue) ),
-                    errorCode: 7 };
-            default: console.log("There was an error with the form validation"); break;
-        }
-    }
-
-    //works the same as the validateInput function
-    const validateRegisterInput = (formElement) => {
-        const thisInputID = formElement.id;
-        const thisValue = formElement.value.trim();
-        //checks for at least 1 digit, at least 1 uppercase letter and at least 1 lowercase letter and no empty spaces
-        const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])^[^ ]+$/;
-        //(?=.*\d) - Contains a digit 
-        //(?=.*[a-z]) - Contains a lowercase letter 
-        //(?=.*[A-Z]) - Contains a uppercase letter
-
-        //runs a different validation and returns a different object depending on the id of the input received
-        switch (thisInputID) {
-            case "registerEmail":  
-                return {
-                    status: ( validateEmail(thisValue) ),
-                    errorCode: 0 };
-            case "registerPassword1":
-                if (passwordRegex.test(thisValue) && checkStringLength(thisValue,6,25)) { 
-                    firstRegisterPassword = thisValue;
-                    return { status: true, errorCode: 1 } 
-                } else { 
-                    return { status: false, errorCode: 1 } };
-            case "registerPassword2":
-                return { status: thisValue === firstRegisterPassword, errorCode: 2 }
-            default: console.log("There was an error with the form validation"); break;
-        }
-    }
-
-    ///////////////////////////////////////////////////////////////////
     //////////////------------EVENT LISTENERS------------//////////////
     ///////////////////////////////////////////////////////////////////
 
@@ -695,4 +498,200 @@
         }
     });
     
+    ///////////////////////////////////////////////////////////////////
+    //////////////------------FORM VALIDATION------------//////////////
+    ///////////////////////////////////////////////////////////////////
+
+    const
+        //only letters, allows diacritics 
+        nameRegex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(([\'\,\.\- ][a-zA-ZÀ-ÿ\u00f1\u00d1 ])?[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*$/,
+        //only alphanumeric, allows diacritics
+        addressRegex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(([\'\,\.\- ][0-9a-zA-ZÀ-ÿ\u00f1\u00d1 ])?[a-zA-ZÀ-ÿ\u00f1\u00d10-9]*)*$/,
+        //only digits, length: 4 to 8
+        zipCodeRegex = /^\d{4,8}$/,
+        //only digits, length: 6 to 14
+        phoneRegex = /^\d{6,14}$/,
+        //only 3 digits
+        CCsecurityRegex = /^\d{3}$/,
+        //only digits, length: 13 to 16
+        CCRegex = /^\d{13,16}$/,
+
+        formErrors = [
+        /*0*/"INVALID NAME. It may not contain any numbers or special characters and must be between 1 and 20 characters long.",
+        /*1*/"INVALID ADDRESS. It may not contain any special characters and must be between 1 and 30 characters long.",
+        /*2*/"INVALID CITY or STATE NAME. It may not contain any numbers or special characters and must be between 1 and 30 characters long.",
+        /*3*/"INVALID ZIP CODE. It may not contain any letters or special characters and must be between 4 and 8 characters long",
+        /*4*/"INVALID PHONE NUMBER. It may not contain any letters or special characters and must be between 6 and 18 characters long",
+        /*5*/"INVALID EMAIL ADDRESS. Please verify that it matches the correct format: user@domain. It may not contain any blank spaces.",
+        /*6*/"INVALID CREDIT CARD NUMBER. It may not contain any letters or special characters and must be between 13 and 16 characters long",
+        /*7*/"INVALID CREDIT CARD SECURITY NUMBER. It may not contain any letters or special characters and must be 3 characters long",
+        /*8*/""
+        ],
+
+        registerFormErrors = [
+            "Invalid email address. Please verify that it matches the correct format: user@domain. It may not contain any blank spaces.",
+            "Invalid password. It must contain at least 1 uppercase and lowercase letter and 1 digit and must be between 6 and 25 characters long.",
+            "Invalid password. The password does not match."
+        ];
+
+    //simple validation for a fake login without a database
+    //checks if the inputs match the pre-defined user or the registered user
+    const fakeLoginValidation = (email, passw) => {
+        const fakeUser = {email: "user@email.com", password: "password" };
+        const registeredUser = JSON.parse(localStorage.getItem("registeredUser")) || {};
+
+        if ( (email !== fakeUser.email || passw !== fakeUser.password) && (email !== registeredUser.email || passw !== registeredUser.password) ) {
+            emailInput.className += " invalidInput";
+            passwordInput.className += " invalidInput";
+            document.querySelector("#err-login").innerHTML = "The email or password you entered is invalid";
+        } else {
+            return true
+        }
+        return false
+    }
+
+    //function that receives a string a max and minimum value, then returns a boolean indicating if the string length is between the max and min value
+    const checkStringLength = (str,min,max) => str.length < max && str.length >= min;
+
+    //iterates over a group of form elements and runs a validator function for each input valuem then shows the corresponding error for each invalid input value
+    const checkForm = () => {
+        //keeps tracks of the amount of errors and the closest fieldset node to the first invalid input in the list 
+        let errors = 0, firstInvalidFieldset;
+        
+        for (let node of form.elements) {
+            //ignores fieldset nodes, radio inputs and disabled inputs
+            if (node.nodeName !== "FIELDSET" && node.type !== "radio" && !node.disabled && node.nodeName !== "BUTTON") {
+                //the status of the object contains a boolean that indicates if the input is valid or not
+                //the errorCode contains the index position inside the registerFormErrors array of the error found in the invalid input
+                if (!validateInput(node).status) {
+                    errors++;
+                    document.getElementById(`err-${node.id}`).innerHTML = `${formErrors[validateInput(node).errorCode]}`;
+                    if (!firstInvalidFieldset) { 
+                        firstInvalidFieldset = node.closest("fieldset") 
+                    };
+                } else {
+                    document.getElementById(`err-${node.id}`).innerHTML = "";
+                }
+            }
+        }
+        //if there is an invalid input the firstInvalidFieldset won't be null, so scroll towards that fieldset
+        if (firstInvalidFieldset) { firstInvalidFieldset.scrollIntoView() }
+        //the function returns true only if all inputs are valid (0 errors)
+        return errors === 0 ? true : false
+    }
+    
+    const validateEmail = (email) => {
+        //this function only checks: 
+        //- if the address contains at least 1 "@", 
+        //- if it has any blank spaces,
+        //- if it has at least 1 character before and after the "@"
+        let atPos = email.indexOf("@"),
+            noBlankSpaces = !(/(\s)/.test(email)),
+            atLeast1CharBefore = false,
+            atLeast1CharAfter = false;
+
+        if (atPos !== -1 && noBlankSpaces) {
+            atLeast1CharBefore = email.slice(0,atPos).length > 0;
+            atLeast1CharAfter = email.slice(atPos+1).length > 0;
+        }
+        return ( atLeast1CharAfter && atLeast1CharBefore )
+    }
+
+    //receives a input element and validates the input value, 
+    //returns an object with the status of the validation and the errorCode that contains an integer for the index position of the error string
+    const validateInput = (formElement) => {
+        //grabs the id of the element passed as argument
+        const thisInputID = formElement.id;
+        //grabs the value of the input element and removes the empty spaces around the string
+        const thisValue = formElement.value.trim();
+        //runs a different validation and returns a different object depending on the id of the input received
+        switch (thisInputID) {
+            case "fname": 
+            case "lname": 
+                return {
+                    status: ( nameRegex.test(thisValue) && checkStringLength(thisValue,1,20) ),
+                    errorCode: 0 }; 
+            case "streetAdd1":
+                return {
+                    status: ( addressRegex.test(thisValue) && checkStringLength(thisValue,1,30) ),
+                    errorCode: 1 };
+            case "streetAdd2":
+                if (thisValue === "") {
+                    return { status: true, errorCode: 8 }
+                } else {
+                    return {
+                        status: ( checkStringLength(thisValue,1,30) && addressRegex.test(thisValue) ),
+                        errorCode: 1 };
+                }
+            case "city": 
+            case "state":  
+                return {
+                    status: ( nameRegex.test(thisValue) && checkStringLength(thisValue,1,30) ),
+                    errorCode: 2 };
+            case "zipCode": 
+                return {
+                    status: ( zipCodeRegex.test(thisValue) ),
+                    errorCode: 3 };
+            case "phoneNumber": 
+                return {
+                    status: ( phoneRegex.test(thisValue) ),
+                    errorCode: 4 };
+            case "emailAddress":
+                return {
+                    status: ( validateEmail(thisValue) ),
+                    errorCode: 5 };
+            case "ccNumber": 
+                return {
+                    status: ( CCRegex.test(thisValue) ),
+                    errorCode: 6 };
+            case "ccCode": 
+                return {
+                    status: ( CCsecurityRegex.test(thisValue) ),
+                    errorCode: 7 };
+            default: console.log("There was an error with the form validation"); break;
+        }
+    }
+
+    //works the same way as the checkForm function
+    const checkRegisterForm = (nodeArray) => {
+        let errors = 0;
+        for (let node of nodeArray) {
+            if (!validateRegisterInput(node).status) {
+                errors++;
+                document.getElementById(`err-${node.id}`).innerHTML = `${registerFormErrors[validateRegisterInput(node).errorCode]}`;
+            } else {
+                document.getElementById(`err-${node.id}`).innerHTML = "";
+            }
+        }
+        return errors === 0 ? true : false
+    }
+
+    //works the same as the validateInput function
+    const validateRegisterInput = (formElement) => {
+        const thisInputID = formElement.id;
+        const thisValue = formElement.value.trim();
+        //checks for at least 1 digit, at least 1 uppercase letter and at least 1 lowercase letter and no empty spaces
+        const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])^[^ ]+$/;
+        //(?=.*\d) - Contains a digit 
+        //(?=.*[a-z]) - Contains a lowercase letter 
+        //(?=.*[A-Z]) - Contains a uppercase letter
+
+        //runs a different validation and returns a different object depending on the id of the input received
+        switch (thisInputID) {
+            case "registerEmail":  
+                return {
+                    status: ( validateEmail(thisValue) ),
+                    errorCode: 0 };
+            case "registerPassword1":
+                if (passwordRegex.test(thisValue) && checkStringLength(thisValue,6,25)) { 
+                    firstRegisterPassword = thisValue;
+                    return { status: true, errorCode: 1 } 
+                } else { 
+                    return { status: false, errorCode: 1 } };
+            case "registerPassword2":
+                return { status: thisValue === firstRegisterPassword, errorCode: 2 }
+            default: console.log("There was an error with the form validation"); break;
+        }
+    }
+
 })()

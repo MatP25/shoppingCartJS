@@ -70,11 +70,11 @@
     100% { transform: translate(-100%, 0) }
 }
 
-details[open] summary~* {
+.details-filters[open] summary~* {
     animation: open 500ms ease;
 }
 
 /* closing class */
-details.closing summary~* {
+.details-filters.closing summary~* {
     animation: close 500ms ease;
 }
