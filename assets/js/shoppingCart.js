@@ -388,7 +388,7 @@
     document.getElementById("buyBtn").addEventListener("click", evt => {
         evt.preventDefault();
         checkLoginState();
-
+        //checks local storage for the login state, if it's false alerts the user to login before continuing
         if (checkLoginState() === "false") {
             Swal.fire({
                 title: 'Please Login before continuing',
@@ -398,6 +398,7 @@
                 confirmButtonText: 'Confirm'
             });
         } else {
+            //if the user is logged in checks if there are items in the cart, alerts the user if there are no items
             if (cart.length === 0) {
                 Swal.fire({
                     icon: 'error',
@@ -405,6 +406,8 @@
                     text: 'There are no items in your cart!',
                     footer: '<a class="alert__link" href="../index.html">Go back to the main page to add items</a>'
                 })
+                //if there are items in the cart and the user is logged in proceeds to validate the form
+                //if the form is valid shows an alert message with the entered information and confirmation button
             } else {
                 if ( checkForm() && form.reportValidity() ) { confirmationPopup(); }
             }
@@ -412,6 +415,7 @@
         }
     });
     
+    //closes the modal if clicked outside the login box
     window.addEventListener("click", (evt) => {
         if ( evt.target == loginModal ) { closeModal(); }
     });
@@ -434,7 +438,7 @@
     });
 
     openLoginModalBtn.addEventListener("click", evt => {
-        
+        //gets the login state value from the localstorage, logs out if the user is logged in, otherwise it opens the login modal 
         if (checkLoginState() === "true") {
             evt.preventDefault();
             localStorage.setItem("loginState", false);
@@ -448,6 +452,7 @@
         checkLoginState();
     });
 
+    //updates the value of the disabled attribute from the credit card fieldset depending on the payment method selected
     document.getElementById("paymentOptionFieldset").addEventListener("change", () => {
         if (paymentOptionsRadios.value === "Credit Card") {
             document.getElementById("ccNumber").removeAttribute("disabled");
@@ -472,6 +477,7 @@
         window.location.href = "../index.html";
     });
 
+    //saves the input entered into the searchbar to the sessionStorage so it can be loaded in the main page to search for the matching products
     document.getElementById("searchByName").addEventListener("click", evt => {
         evt.preventDefault();
         sessionStorage.setItem("searchQuery", document.getElementById("searchBar").value);

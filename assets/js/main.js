@@ -534,6 +534,7 @@
         }
     });
 
+    //makes it possible to add an animation to the details' content when it opens or closes
     document.querySelector("#summary-filters").addEventListener("click", evt => {
         // since it's not closed yet then it's open
         if (details.hasAttribute("open")) {
