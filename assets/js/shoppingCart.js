@@ -509,9 +509,9 @@
     ///////////////////////////////////////////////////////////////////
 
     const
-        //only letters, allows diacritics 
+        //only letters, allows diacritics, spaces between 2 names, apostrophes and period
         nameRegex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(([\'\,\.\- ][a-zA-ZÀ-ÿ\u00f1\u00d1 ])?[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*$/,
-        //only alphanumeric, allows diacritics
+        //only alphanumeric, allows diacritics, spaces between 2 names, apostrophes and period
         addressRegex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(([\'\,\.\- ][0-9a-zA-ZÀ-ÿ\u00f1\u00d1 ])?[a-zA-ZÀ-ÿ\u00f1\u00d10-9]*)*$/,
         //only digits, length: 4 to 8
         zipCodeRegex = /^\d{4,8}$/,
