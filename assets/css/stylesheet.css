@@ -136,7 +136,7 @@ button {
 }
 
 .tooltip .top, .tooltip .top-smaller {
-  min-width: 200px;
+  min-width: 250px;
   max-width: 300px;
   top: -20px;
   left: 50%;
@@ -203,6 +203,10 @@ i {
   cursor: pointer;
 }
 
+.fa-dog, .fa-cat {
+  text-shadow: 0 1px 2px #2b2b2b;
+}
+
 .bi-dash, .bi-plus, .removeItem {
   color: rgb(196, 44, 74);
   text-shadow: 0 1px 2px #2b2b2b;
@@ -266,8 +270,8 @@ i {
   margin-bottom: 0.5em;
   display: flex;
   flex-direction: column;
-  background: rgba(143, 133, 172, 0.35);
-  box-shadow: 0 8px 32px 0 rgba(19, 7, 43, 0.42);
+  background: rgba(171, 203, 211, 0.35);
+  box-shadow: 0 5px 32px 0 #13131d;
   border-radius: 10px;
   border: 2px solid #13131d;
 }
@@ -319,8 +323,8 @@ i {
   display: flex;
   flex-direction: row;
   border-radius: 10px;
-  background: rgba(143, 133, 172, 0.35);
-  box-shadow: 0 8px 32px 0 rgba(19, 7, 43, 0.42);
+  background: rgba(171, 203, 211, 0.35);
+  box-shadow: 0 5px 32px 0 #13131d;
   border: 2px solid #2b2b2b;
   padding: 0.25em;
   width: min(90%, 50ch);
@@ -329,7 +333,7 @@ i {
   max-width: 7rem;
   margin: auto 0;
   border: 2px solid #13131d;
-  box-shadow: 0 8px 32px 0 rgba(19, 7, 43, 0.42);
+  box-shadow: 0 5px 20px 0 #13131d;
 }
 .cartCard__details {
   display: flex;
@@ -731,10 +735,6 @@ i {
   margin-left: 0;
 }
 
-body {
-  background: rgb(237, 248, 252);
-}
-
 section .sectionHeader {
   background-color: #13131d;
 }
@@ -1110,6 +1110,11 @@ section .sectionHeader .title {
 }
 .main-navigation-toggle:checked ~ .main-navigation li:nth-child(5)::after, .main-navigation-toggle:checked ~ .main-navigation li:nth-child(5) a {
   animation-delay: calc(500ms * 5 * 0.125);
+}
+
+.footer {
+  height: 200px;
+  background: #13131d;
 }
 
 @media screen and (max-width: 320px) {

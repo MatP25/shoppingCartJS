@@ -6,6 +6,10 @@ i {
     cursor: pointer;
 }
 
+.fa-dog, .fa-cat {
+    text-shadow: 0 1px 2px $dark;
+}
+
 .bi-dash, .bi-plus, .removeItem  {
     color: rgb(196, 44, 74);
     text-shadow: 0 1px 2px $dark;

@@ -5,8 +5,8 @@
     margin-bottom: .5em;
     display: flex;
     flex-direction: column;
-    background: rgba(143, 133, 172, 0.35);
-    box-shadow: 0 8px 32px 0 rgba(19, 7, 43, 0.42);
+    background: rgba(171, 203, 211, 0.35);
+    box-shadow: 0 5px 32px 0 $dark-blue;
     border-radius: 10px;
     border: 2px solid $dark-blue;
     h3 {
@@ -53,8 +53,8 @@
     display: flex;
     flex-direction: row;
     border-radius: 10px;
-    background: rgba(143, 133, 172, 0.35);
-    box-shadow: 0 8px 32px 0 rgba(19, 7, 43, 0.42);
+    background: rgba(171, 203, 211, 0.35);
+    box-shadow: 0 5px 32px 0 $dark-blue;
     border: 2px solid $dark;
     padding: .25em;
     width: min(90%, 50ch);
@@ -62,7 +62,7 @@
         max-width: 7rem;
         margin: auto 0;
         border:2px solid $dark-blue;
-        box-shadow: 0 8px 32px 0 rgba(19, 7, 43, 0.42);
+        box-shadow: 0 5px 20px 0 $dark-blue;
     }
     &__details {
         display:flex;

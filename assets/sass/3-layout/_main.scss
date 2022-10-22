@@ -1,9 +1,5 @@
 @use "../0-utilities/" as *;
 
-body {
-    background: rgb(237, 248, 252);
-}
-
 section {
     .sectionHeader {
         background-color: $dark-blue;
