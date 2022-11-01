@@ -5,6 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@200;300;400;600;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,800&display=swap" rel="stylesheet">
+
     <!-- CSS -->
     <link rel="stylesheet" href="../assets/css/stylesheet.css">
 
@@ -16,7 +21,7 @@
     <!-- JS LIBRARIES -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- JS -->
+    <!-- JAVASCRIPT -->
     <script src="../assets/js/shoppingCart.js" defer></script>
 
     <title>My Shopping Cart</title>
@@ -25,12 +30,12 @@
 
     <header class="mainHeader" id="pagetop">
         
-        <h1><a href="../index.html" class="mainTitle textWhite">Store</a></h1>
+        <h1><a href="../index.html" class="mainTitle textWhite" title="Home page">Store</a></h1>
         <span id="userEmail"></span>
         <div class="searchbar">
             <label for="searchBar" title="Seach Products by Name">
                 <input placeholder="Search by name" type="search" name="searchBar" id="searchBar" maxlength="20" pattern="[a-zA-Z0-9]+">
-                <a href="#" id="searchByName"><i class="bi bi-search"></i></a>
+                <a href="#" id="searchByName" title="Search products"><i class="bi bi-search"></i></a>
             </label>
         </div>
 
@@ -66,10 +71,10 @@
 
     <nav class="main-navigation">
         <ul>
-            <li><a href="../index.html">home</a></li>
-            <li><a href="#">about</a></li>
-            <li><a href="#" id="catProductsLink">cat products</a></li>
-            <li><a href="#" id="dogProductsLink">dog products</a></li>
+            <li><a href="../index.html" title="Home page">home</a></li>
+            <li><a href="./about.html" title="About this website">about</a></li>
+            <li><a href="#" id="catProductsLink" title="View cat products">cat products</a></li>
+            <li><a href="#" id="dogProductsLink"  title="View dog products">dog products</a></li>
             <li><a href="./shoppingCart.html" title="Go to my Shopping Cart" target="_blank">my shopping cart</a></li>
         </ul>
     </nav>
