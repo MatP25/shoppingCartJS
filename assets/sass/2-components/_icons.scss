@@ -29,6 +29,7 @@ i {
         border-radius: 5px;
         border: 2px solid $dark;
         position: relative;
+        box-shadow: 0 1px 3px $dark;
         #cart-amount {
             position: absolute;
             top: -12px;

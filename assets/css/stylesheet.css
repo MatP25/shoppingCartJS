@@ -135,6 +135,18 @@ button {
   text-align: left;
 }
 
+.tooltip-form {
+  border: none;
+}
+.tooltip-form a {
+  color: red;
+  font-weight: 500;
+}
+.tooltip-form a i {
+  color: #13131d;
+  font-size: 1em;
+}
+
 .tooltip .top, .tooltip .top-smaller {
   min-width: 250px;
   max-width: 300px;
@@ -189,7 +201,7 @@ button {
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 }
 
-h1, h2, h3, h4, h5, h6, p, a {
+h1, h2, h3, h4, h5, h6, p, a, li {
   font-family: "Open Sans", sans-serif;
   letter-spacing: 0.075em;
 }
@@ -227,6 +239,7 @@ i {
   border-radius: 5px;
   border: 2px solid #2b2b2b;
   position: relative;
+  box-shadow: 0 1px 3px #2b2b2b;
 }
 .cartIconContainer .cart #cart-amount {
   position: absolute;
@@ -743,6 +756,27 @@ section .sectionHeader .title {
   padding: 2rem 1rem 0;
   text-align: center;
 }
+section .text-block {
+  margin: 1.5rem calc(0.5rem + 5vw);
+  padding: calc(0.25rem + 2vw);
+  border-bottom: 1px solid #13131d;
+  border-left: 4px solid #13131d;
+}
+section .text-block h2 {
+  padding-left: calc(0.5rem + 2vw);
+  font-size: 1.5em;
+  letter-spacing: 0.25rem;
+}
+section .text-block p, section .text-block li {
+  font-size: 0.9em;
+  margin: 0.5rem auto;
+  max-width: 75ch;
+  padding: 0.25rem 2vw;
+}
+section .text-block a {
+  text-decoration: underline;
+  color: darkblue;
+}
 
 .shop {
   width: 100%;
@@ -999,6 +1033,7 @@ section .sectionHeader .title {
   border: 2px solid rgb(252, 250, 235);
   background-color: #13131d;
   padding: calc(var(--size) / 5);
+  box-shadow: 0 1px 3px #2b2b2b;
 }
 .icon--menu-toggle .icon-group {
   transform: translateX(0);
@@ -1112,9 +1147,19 @@ section .sectionHeader .title {
   animation-delay: calc(500ms * 5 * 0.125);
 }
 
-.footer {
-  height: 200px;
+footer {
   background: #13131d;
+  padding: 2rem;
+}
+footer ul {
+  list-style: none;
+}
+footer ul .footer-link {
+  color: rgb(252, 250, 235);
+  padding: 0.5rem;
+}
+footer ul .footer-link i {
+  margin: 0 0.5rem;
 }
 
 @media screen and (max-width: 320px) {

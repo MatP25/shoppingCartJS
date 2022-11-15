@@ -9,6 +9,27 @@ section {
             text-align: center;
         }
     }
+    .text-block {
+        margin: 1.5rem calc(.5rem + 5vw);
+        padding: calc(.25rem + 2vw);
+        border-bottom: 1px solid $dark-blue;
+        border-left: 4px solid $dark-blue;
+        h2 {
+            padding-left: calc(.5rem + 2vw);
+            font-size: 1.5em;
+            letter-spacing: .25rem;
+        }
+        p, li {
+            font-size: .9em;
+            margin: .5rem auto;
+            max-width: 75ch;
+            padding: .25rem 2vw;
+        }
+        a {
+            text-decoration: underline;
+            color: darkblue;
+        }
+    }
 }
 
 .shop {

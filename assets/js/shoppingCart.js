@@ -23,7 +23,7 @@
 
     //get the data from the local storage, if the local storage is empty set it as an empty array
     let cart = JSON.parse(localStorage.getItem("data")) || [];
-    let loginState = localStorage.getItem("loginState") || false;
+    let loginState;
     //when the register form validation runs it will store the 1st password in this variable and compare it to the second
     let firstRegisterPassword;
     //JSON DATA
@@ -335,9 +335,12 @@
     //checks if the user has logged in and updates the text of the login/logout button
     const checkLoginState = () => {
         loginState = localStorage.getItem("loginState") || false;
-        if (loginState === "true") {
+        if (localStorage.getItem("loginState") === "true") {
+            loginState = true;
             openLoginModalBtn.innerHTML = "Logout";
         } else {
+            loginState = false;
+            localStorage.setItem("loginState", false);
             openLoginModalBtn.innerHTML = "Login";
         }
         return loginState
@@ -387,9 +390,9 @@
 
     document.getElementById("buyBtn").addEventListener("click", evt => {
         evt.preventDefault();
-        checkLoginState();
+        // checkLoginState();
         //checks local storage for the login state, if it's false alerts the user to login before continuing
-        if (checkLoginState() === "false") {
+        if (!checkLoginState()) {
             Swal.fire({
                 title: 'Please Login before continuing',
                 icon: 'info',
@@ -433,14 +436,16 @@
             Swal.fire('Login successful!', 'Reloading the page...', 'success').then(
                 setTimeout( () => { location.reload(); }, 1500 ));
         } else {
+            loginState = false;
             localStorage.setItem("loginState", false);
         }
     });
 
     openLoginModalBtn.addEventListener("click", evt => {
         //gets the login state value from the localstorage, logs out if the user is logged in, otherwise it opens the login modal 
-        if (checkLoginState() === "true") {
+        if (checkLoginState()) {
             evt.preventDefault();
+            loginState = false;
             localStorage.setItem("loginState", false);
             Swal.fire('Logged out!', 'Reloading the page...', 'info').then(
                 setTimeout( () => { location.reload(); }, 1500)

@@ -1,6 +1,17 @@
 @use "../0-utilities/" as *;
 
-.footer {
-    height: 200px;
+footer {
     background: $dark-blue;
+    padding: 2rem;
+    ul {
+        list-style: none;
+        .footer-link {
+            color: $off-white;
+            padding: .5rem;
+            i {
+                margin: 0 .5rem;
+            }
+        }
+    }
+    
 }

@@ -24,6 +24,7 @@
     
     //get the data from the local storage, if the local storage is empty set it as an empty array
     let cart = JSON.parse(localStorage.getItem("data")) || [];
+    let loginState;
     //when the register form validation runs it will store the 1st password in this variable and compare it to the second
     let firstRegisterPassword;
     //JSON DATA
@@ -275,10 +276,13 @@
 
     //checks if the user has logged in and updates the text of the login/logout button
     const checkLoginState = () => {
-        let loginState = localStorage.getItem("loginState") || false;
-        if (loginState === "true") {
+        loginState = localStorage.getItem("loginState") || false;
+        if (localStorage.getItem("loginState") === "true") {
+            loginState = true;
             openLoginModalBtn.innerHTML = "Logout";
         } else {
+            loginState = false;
+            localStorage.setItem("loginState", false);
             openLoginModalBtn.innerHTML = "Login";
         }
         return loginState
@@ -494,14 +498,16 @@
             Swal.fire('Login successful!', 'Reloading the page...', 'success').then(
                 setTimeout( () => { location.reload(); }, 1000 ));
         } else {
+            loginState = false;
             localStorage.setItem("loginState", false);
         }
     });
 
     openLoginModalBtn.addEventListener("click", evt => {
         //checks the loginstate, if it's true then set it to false and show an alert message
-        if (checkLoginState() === "true") {
+        if (checkLoginState()) {
             evt.preventDefault();
+            loginState = false;
             localStorage.setItem("loginState", false);
             Swal.fire('Logged out!', 'Reloading the page...', 'info').then(
                 setTimeout( () => { location.reload(); }, 1000)

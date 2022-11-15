@@ -50,6 +50,19 @@
     text-align:left;
 }
 
+.tooltip-form {
+    border: none;
+    a {
+        color: red;
+        font-weight: 500;
+        i {
+            color: $dark-blue;
+            font-size: 1em;
+        }
+    }
+    
+}
+
 .tooltip .top {
     min-width:250px; 
     max-width:300px;

@@ -30,21 +30,44 @@
 
     <header class="mainHeader" id="pagetop">
         
-            <h1><a href="index.html" class="mainTitle textWhite" title="Home page">Store</a></h1>
+            <h1>
+                <a  href="index.html" 
+                    class="mainTitle textWhite" 
+                    title="Home page">Store
+                </a>
+            </h1>
             
             <div class="mainHeader-components">
                 <div class="searchbar">
-                    <label for="searchBar" title="Seach Products by Name">
-                        <input placeholder="Search by name" type="search" name="searchBar" id="searchBar" maxlength="20" pattern="[a-zA-Z0-9]+">
-                        <a href="#" id="searchByName" title="Search products"><i class="bi bi-search"></i></a>
+                    <label 
+                        for="searchBar" 
+                        title="Seach Products by Name">
+                            <input 
+                                placeholder="Search by name" 
+                                type="search" 
+                                name="searchBar" 
+                                id="searchBar" 
+                                maxlength="20" 
+                                pattern="[a-zA-Z0-9]+">
+                                <a  href="#" 
+                                    id="searchByName" 
+                                    title="Search products">
+                                    <i class="bi bi-search"></i>
+                                </a>
                     </label>
                 </div>
+
                 <div class="loginBtnContainer">
                     <button class="btn-icon" id="openLoginModal">Login</button>
                 </div>
+
                 <div class="cartIconContainer">
                     <div class="cart">
-                        <a href="./pages/shoppingCart.html" title="Go to my Shopping Cart" target="_blank"><i class="bi bi-cart2"></i></a>
+                        <a  href="./pages/shoppingCart.html" 
+                            title="Go to my Shopping Cart" 
+                            target="_blank">
+                            <i class="bi bi-cart2"></i>
+                        </a>
                         <div id="cart-amount">0</div>
                     </div>
                 </div>
@@ -72,11 +95,31 @@
 
     <nav class="main-navigation">
         <ul>
-            <li><a href="index.html" title="Home page">home</a></li>
-            <li><a href="./pages/about.html" title="About this website">about</a></li>
-            <li><a href="#" id="catProductsLink"  title="View cat products">cat products</a></li>
-            <li><a href="#" id="dogProductsLink"  title="View dog products">dog products</a></li>
-            <li><a href="./pages/shoppingCart.html" title="Go to my Shopping Cart" target="_blank">my shopping cart</a></li>
+            <li>
+                <a href="index.html" title="Home page">
+                    home
+                </a>
+            </li>
+            <li>
+                <a href="./pages/about.html" title="About this website">
+                    about
+                </a>
+            </li>
+            <li>
+                <a href="#" id="catProductsLink"  title="View cat products">
+                    cat products
+                </a>
+            </li>
+            <li>
+                <a href="#" id="dogProductsLink"  title="View dog products">
+                    dog products
+                </a>
+            </li>
+            <li>
+                <a href="./pages/shoppingCart.html" title="Go to my Shopping Cart" target="_blank">
+                    my shopping cart
+                </a>
+            </li>
         </ul>
     </nav>
 
@@ -97,57 +140,123 @@
                     <ul id="filters">
                         <li class="radioGroup">
                             <div class="radioGroup--item">
-                                <input type="radio" name="petCategory" id="allPets" value="">
-                                <label for="allPets"><h4>All</h4></label>
+                                <input 
+                                    type="radio" 
+                                    name="petCategory" 
+                                    id="allPets" 
+                                    value=""
+                                >
+                                <label 
+                                    for="allPets">
+                                    <h4>All</h4>
+                                </label>
                             </div>
                             <div class="radioGroup--item">
-                                <input type="radio" name="petCategory" id="catCategory" value="Cats">
-                                <label for="catCategory"><h4>Cats</h4></label>
+                                <input 
+                                    type="radio" 
+                                    name="petCategory" 
+                                    id="catCategory" 
+                                    value="Cats"
+                                >
+                                <label 
+                                    for="catCategory">
+                                    <h4>Cats</h4>
+                                </label>
                             </div>
                             <div class="radioGroup--item">
-                                <input type="radio" name="petCategory" id="dogCategory" value="Dogs">
-                                <label for="dogCategory"><h4>Dogs</h4></label>
+                                <input 
+                                    type="radio" 
+                                    name="petCategory" 
+                                    id="dogCategory" 
+                                    value="Dogs"
+                                >
+                                <label 
+                                    for="dogCategory">
+                                    <h4>Dogs</h4>
+                                </label>
                             </div>
                         </li>
                         <li>
-                            <label for="minPrice" class="textWhite">
+                            <label 
+                                for="minPrice" 
+                                class="textWhite">
                                 Min Price 
                             </label>
-                            <input type="text" name="minPrice" id="minPrice">
+                            <input 
+                                type="text"    
+                                name="minPrice" 
+                                id="minPrice"
+                            >
                         </li>
                         <li>
-                            <label for="maxPrice" class="textWhite">
+                            <label 
+                                for="maxPrice" 
+                                class="textWhite">
                                 Max Price
                             </label>
-                            <input type="text" name="maxPrice" id="maxPrice">
+                            <input 
+                                type="text" 
+                                name="maxPrice" 
+                                id="maxPrice"
+                            >
                         </li>
                         <li>
-                            <label for="selectCategory" class="textWhite">
+                            <label 
+                                for="selectCategory" 
+                                class="textWhite">
                                 Category
                             </label>
-                            <select name="selectCategory" id="selectCategory">
-                                <option value="" selected>All</option>
-                                <option value="food">Food</option>
-                                <option value="treats">Treats</option>
-                                <option value="accessories">Accessories</option>
-                                <option value="hygiene & care">Hygiene & Care</option>
+                            <select 
+                                name="selectCategory" 
+                                id="selectCategory">
+                                    <option value="" selected>
+                                        All
+                                    </option>
+                                    <option value="food">
+                                        Food
+                                    </option>
+                                    <option value="treats">
+                                        Treats
+                                    </option>
+                                    <option value="accessories">
+                                        Accessories
+                                    </option>
+                                    <option value="hygiene & care">
+                                        Hygiene & Care
+                                    </option>
                             </select>
                         </li>
                         <li>
-                            <label for="selectSorting" class="textWhite">
+                            <label 
+                                for="selectSorting" 
+                                class="textWhite">
                                 Sort By
                             </label>
-                            <select name="sortBy" id="sortingMethod">
-                                <option value="priceInc">Price (Ascending)</option>
-                                <option value="priceDec">Price (Descending)</option>
-                                <option value="nameAsc">Name (A-Z)</option>
-                                <option value="nameDes">Name (Z-A)</option>
+                            <select 
+                                name="sortBy" 
+                                id="sortingMethod">
+                                <option value="priceInc">
+                                    Price (Ascending)
+                                </option>
+                                <option value="priceDec">
+                                    Price (Descending)
+                                </option>
+                                <option value="nameAsc">
+                                    Name (A-Z)
+                                </option>
+                                <option value="nameDes">
+                                    Name (Z-A)
+                                </option>
                             </select>
                         </li>
                         <li>
                             <div>
-                                <button class="btn-icon btn-ok" id="applyFiltersBtn">Apply</button>
-                                <button class="btn-icon btn-cancel" id="clearFiltersBtn">Clear</button>
+                                <button class="btn-icon btn-ok" id="applyFiltersBtn">
+                                    Apply
+                                </button>
+                                <button class="btn-icon btn-cancel" id="clearFiltersBtn">
+                                    Clear
+                                </button>
                             </div>
                         </li>
                     </ul>
@@ -166,16 +275,44 @@
         <form class="modal__form" id="loginForm">
             <div class="modal__inputdivs">
                 <span class="err-span" id="err-login"></span>
-                <label for="userEmail">Please enter your user email</label>
-                <input type="email" name="userEmail" id="loginEmail" placeholder="user@email.com" value="user@email.com" title="Enter 'user@email.com to login'" minlength="1" maxlength="50">
+                <label 
+                    for="userEmail">
+                    Please enter your user email
+                </label>
+                <input 
+                    type="email" 
+                    name="userEmail" 
+                    id="loginEmail" 
+                    placeholder="user@email.com" 
+                    value="user@email.com" 
+                    title="Enter 'user@email.com to login'" 
+                    minlength="1" 
+                    maxlength="50"
+                >
             </div>
             <div class="modal__inputdivs">
-                <label for="userPassword">Enter your password</label>
-                <input type="password" name="userPassword" id="loginPassword" placeholder="password" value="password" title="Enter 'password' to log in" minlength="1" maxlength="25">
+                <label 
+                    for="userPassword">
+                    Enter your password
+                </label>
+                <input 
+                    type="password" 
+                    name="userPassword" 
+                    id="loginPassword" 
+                    placeholder="password" 
+                    value="password" 
+                    title="Enter 'password' to log in" 
+                    minlength="1" 
+                    maxlength="25"
+                >
             </div>
             <div class="modal__btnsdiv">
-                <button class="btn-icon" id="loginBtn">Log in</button>
-                <button class="btn-icon btn-cancel" id="closeLoginBtn">Cancel</button>
+                <button class="btn-icon" id="loginBtn">
+                    Log in
+                </button>
+                <button class="btn-icon btn-cancel" id="closeLoginBtn">
+                    Cancel
+                </button>
             </div>
 
             <details>
@@ -183,21 +320,56 @@
                 <form class="modal__form">
                     <div class="modal__inputdivs">
                         <span class="err-span" id="err-registerEmail"></span>
-                        <label for="registerEmail">Please enter an email</label>
-                        <input type="email" name="registerEmail" id="registerEmail" placeholder="something@domain.com" title="Enter a valid email address" minlength="1" maxlength="50">
+                        <label 
+                            for="registerEmail">
+                            Please enter an email
+                        </label>
+                        <input 
+                            type="email" 
+                            name="registerEmail" 
+                            id="registerEmail" 
+                            placeholder="something@domain.com" 
+                            title="Enter a valid email address" 
+                            minlength="1" 
+                            maxlength="50"
+                        >
                     </div>
                     <div class="modal__inputdivs">
                         <span class="err-span" id="err-registerPassword1"></span>
-                        <label for="registerPassword1">Enter a password</label>
-                        <input type="password" name="registerPassword1" id="registerPassword1" placeholder="password" title="Enter a password with at least 1 number and 1 capital letter (between 6 and 25 characters long)" minlength="6" maxlength="25">
+                        <label 
+                            for="registerPassword1">
+                            Enter a password
+                        </label>
+                        <input 
+                            type="password" 
+                            name="registerPassword1" 
+                            id="registerPassword1" 
+                            placeholder="password" 
+                            title="Enter a password with at least 1 number and 1 capital letter (between 6 and 25 characters long)" 
+                            minlength="6" 
+                            maxlength="25"
+                        >
                     </div>
                     <div class="modal__inputdivs">
                         <span class="err-span" id="err-registerPassword2"></span>
-                        <label for="registerPassword2">Confirm password</label>
-                        <input type="password" name="registerPassword2" id="registerPassword2" placeholder="password" title="Confirm the password entered" minlength="6" maxlength="25">
+                        <label 
+                            for="registerPassword2">
+                            Confirm password
+                        </label>
+                        <input 
+                            type="password" 
+                            name="registerPassword2" 
+                            id="registerPassword2" 
+                            placeholder="password" 
+                            title="Confirm the password entered" 
+                            minlength="6" 
+                            maxlength="25"
+                        >
                     </div>
                     <div class="modal__btnsdiv">
-                        <button class="btn-icon" id="registerBtn">Register</button>
+                        <button class="btn-icon" id="registerBtn">
+                            Register
+                        </button>
                     </div>
                 </form>
             </details>
@@ -205,8 +377,17 @@
         
     </section>
 
-    <footer >
-        <div class="footer"></div>
+    <footer>
+        <ul>
+            <li>
+                <a  class="footer-link" 
+                    target="_blank"  
+                    href="https://github.com/MatP25/shoppingCartJS">
+                        Link to project repository
+                        <i class="fa-brands fa-square-github"></i>
+                </a>
+            </li>
+        </ul>
     </footer>
 </body>
 </html>
