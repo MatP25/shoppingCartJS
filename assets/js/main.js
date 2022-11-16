@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div>
-                        <p>${category === "Cats" ? icons[0] : icons[1]} ${subcategory}</p>
+                        <h4>${category === "Cats" ? icons[0] : icons[1]} ${subcategory}</h4>
                         <div class="card__price">
                             <p>$${price}</p>
                             <div class="card__buttons">
